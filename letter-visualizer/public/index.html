@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>List of Sessions</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <h1>List of Sessions</h1>
+      <div class="grid-container">
+        <!-- Sessions Table -->
+        <div id="sessions-container" class="grid-item">
+          <table id="sessions-table" class="session-table">
+            <thead>
+              <tr>
+                <th>Username</th>
+                <th>Remaining Letters</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- Session rows will be dynamically added here -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <button id="refresh-button" class="button">Refresh</button>
+    </div>
+    <!-- Create Session Section -->
+    <div id="create-session-section" class="grid-item">
+      <h2>Create New Session</h2>
+      <input
+        type="text"
+        id="new-username"
+        placeholder="Enter a username"
+        maxlength="20"
+        size="15"
+      />
+      <button id="create-session-button" class="button">Create Session</button>
+      <div id="response-message" class="response-message"></div>
+    </div>
+    <script src="list-sessions.js"></script>
+  </body>
+</html>
