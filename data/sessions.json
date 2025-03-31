@@ -1,0 +1,158 @@
+{
+  "Heide Witzka": {
+    "letters_play_set": [
+      {
+        "letter": "a",
+        "count": 5,
+        "value": 1
+      },
+      {
+        "letter": "b",
+        "count": 1,
+        "value": 2
+      },
+      {
+        "letter": "c",
+        "count": 2,
+        "value": 4
+      },
+      {
+        "letter": "d",
+        "count": 4,
+        "value": 1
+      },
+      {
+        "letter": "e",
+        "count": 14,
+        "value": 1
+      },
+      {
+        "letter": "f",
+        "count": 2,
+        "value": 4
+      },
+      {
+        "letter": "g",
+        "count": 2,
+        "value": 2
+      },
+      {
+        "letter": "h",
+        "count": 4,
+        "value": 2
+      },
+      {
+        "letter": "i",
+        "count": 6,
+        "value": 1
+      },
+      {
+        "letter": "j",
+        "count": 1,
+        "value": 6
+      },
+      {
+        "letter": "k",
+        "count": 2,
+        "value": 4
+      },
+      {
+        "letter": "l",
+        "count": 3,
+        "value": 2
+      },
+      {
+        "letter": "m",
+        "count": 4,
+        "value": 3
+      },
+      {
+        "letter": "n",
+        "count": 9,
+        "value": 1
+      },
+      {
+        "letter": "o",
+        "count": 3,
+        "value": 2
+      },
+      {
+        "letter": "p",
+        "count": 1,
+        "value": 5
+      },
+      {
+        "letter": "q",
+        "count": 1,
+        "value": 10
+      },
+      {
+        "letter": "r",
+        "count": 6,
+        "value": 1
+      },
+      {
+        "letter": "s",
+        "count": 6,
+        "value": 1
+      },
+      {
+        "letter": "t",
+        "count": 6,
+        "value": 1
+      },
+      {
+        "letter": "u",
+        "count": 6,
+        "value": 1
+      },
+      {
+        "letter": "v",
+        "count": 0,
+        "value": 6
+      },
+      {
+        "letter": "w",
+        "count": 1,
+        "value": 3
+      },
+      {
+        "letter": "x",
+        "count": 1,
+        "value": 8
+      },
+      {
+        "letter": "y",
+        "count": 1,
+        "value": 10
+      },
+      {
+        "letter": "z",
+        "count": 1,
+        "value": 3
+      },
+      {
+        "letter": "ä",
+        "count": 1,
+        "value": 6
+      },
+      {
+        "letter": "ö",
+        "count": 1,
+        "value": 8
+      },
+      {
+        "letter": "ü",
+        "count": 1,
+        "value": 6
+      },
+      {
+        "letter": "*",
+        "count": 2,
+        "value": 0
+      }
+    ],
+    "last_move_timestamp": "2025-03-31 20:25:32",
+    "session_start_timestamp": "2025-03-31 20:00:00"
+  }
+}

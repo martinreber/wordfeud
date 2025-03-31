@@ -11,13 +11,18 @@ function fetchSessions() {
             data.sessions.forEach((session) => {
                 const row = document.createElement("tr");
 
-                // Create a clickable link for the username
                 const usernameCell = document.createElement("td");
                 const usernameLink = document.createElement("a");
                 usernameLink.textContent = session.user;
                 usernameLink.href = `session.html?username=${encodeURIComponent(session.user)}`;
                 usernameLink.target = "_blank"; // Open in a new tab
                 usernameCell.appendChild(usernameLink);
+
+                const sessionStartCell = document.createElement("td");
+                sessionStartCell.textContent = session.session_start_timestamp;
+
+                const timestampCell = document.createElement("td");
+                timestampCell.textContent = session.last_move_timestamp
 
                 // Add the remaining letters count
                 const remainingLettersCell = document.createElement("td");
@@ -33,6 +38,8 @@ function fetchSessions() {
 
                 // Append cells to the row
                 row.appendChild(usernameCell);
+                row.appendChild(sessionStartCell);
+                row.appendChild(timestampCell);
                 row.appendChild(remainingLettersCell);
                 row.appendChild(deleteCell);
                 tableBody.appendChild(row);
