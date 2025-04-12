@@ -1,14 +1,14 @@
 {
-  "Heide Witzka": {
+  "test": {
     "letters_play_set": [
       {
         "letter": "a",
-        "count": 5,
+        "count": 2,
         "value": 1
       },
       {
         "letter": "b",
-        "count": 1,
+        "count": 0,
         "value": 2
       },
       {
@@ -18,12 +18,12 @@
       },
       {
         "letter": "d",
-        "count": 4,
+        "count": 3,
         "value": 1
       },
       {
         "letter": "e",
-        "count": 14,
+        "count": 6,
         "value": 1
       },
       {
@@ -43,7 +43,226 @@
       },
       {
         "letter": "i",
+        "count": 0,
+        "value": 1
+      },
+      {
+        "letter": "j",
+        "count": 1,
+        "value": 6
+      },
+      {
+        "letter": "k",
+        "count": 2,
+        "value": 4
+      },
+      {
+        "letter": "l",
+        "count": 3,
+        "value": 2
+      },
+      {
+        "letter": "m",
+        "count": 4,
+        "value": 3
+      },
+      {
+        "letter": "n",
+        "count": 8,
+        "value": 1
+      },
+      {
+        "letter": "o",
+        "count": 3,
+        "value": 2
+      },
+      {
+        "letter": "p",
+        "count": 1,
+        "value": 5
+      },
+      {
+        "letter": "q",
+        "count": 1,
+        "value": 10
+      },
+      {
+        "letter": "r",
         "count": 6,
+        "value": 1
+      },
+      {
+        "letter": "s",
+        "count": 7,
+        "value": 1
+      },
+      {
+        "letter": "t",
+        "count": 6,
+        "value": 1
+      },
+      {
+        "letter": "u",
+        "count": 5,
+        "value": 1
+      },
+      {
+        "letter": "v",
+        "count": 1,
+        "value": 6
+      },
+      {
+        "letter": "w",
+        "count": 1,
+        "value": 3
+      },
+      {
+        "letter": "x",
+        "count": 1,
+        "value": 8
+      },
+      {
+        "letter": "y",
+        "count": 1,
+        "value": 10
+      },
+      {
+        "letter": "z",
+        "count": 0,
+        "value": 3
+      },
+      {
+        "letter": "ä",
+        "count": 1,
+        "value": 6
+      },
+      {
+        "letter": "ö",
+        "count": 1,
+        "value": 8
+      },
+      {
+        "letter": "ü",
+        "count": 1,
+        "value": 6
+      },
+      {
+        "letter": "*",
+        "count": 2,
+        "value": 0
+      }
+    ],
+    "last_move_timestamp": "2025-04-12 12:39:38",
+    "session_start_timestamp": "2025-04-12 12:14:56",
+    "letter_overall_value": 171,
+    "played_moves": [
+      {
+        "letters": "ab",
+        "word": "",
+        "played_by_myself": false,
+        "timestamp": "2025-04-12 12:15:05"
+      },
+      {
+        "letters": "ab",
+        "word": "",
+        "played_by_myself": false,
+        "timestamp": "2025-04-12 12:15:08"
+      },
+      {
+        "letters": "ei",
+        "word": "",
+        "played_by_myself": true,
+        "timestamp": "2025-04-12 12:25:09"
+      },
+      {
+        "letters": "ei",
+        "word": "",
+        "played_by_myself": true,
+        "timestamp": "2025-04-12 12:25:41"
+      },
+      {
+        "letters": "ei",
+        "word": "",
+        "played_by_myself": false,
+        "timestamp": "2025-04-12 12:25:42"
+      },
+      {
+        "letters": "ei",
+        "word": "",
+        "played_by_myself": false,
+        "timestamp": "2025-04-12 12:27:37"
+      },
+      {
+        "letters": "ei",
+        "word": "",
+        "played_by_myself": false,
+        "timestamp": "2025-04-12 12:29:10"
+      },
+      {
+        "letters": "eind",
+        "word": "",
+        "played_by_myself": false,
+        "timestamp": "2025-04-12 12:29:49"
+      },
+      {
+        "letters": "ade",
+        "word": "",
+        "played_by_myself": false,
+        "timestamp": "2025-04-12 12:34:26"
+      },
+      {
+        "letters": "zug",
+        "word": "zuger",
+        "played_by_myself": false,
+        "timestamp": "2025-04-12 12:39:38"
+      }
+    ]
+  },
+  "tinu": {
+    "letters_play_set": [
+      {
+        "letter": "a",
+        "count": 5,
+        "value": 1
+      },
+      {
+        "letter": "b",
+        "count": 2,
+        "value": 2
+      },
+      {
+        "letter": "c",
+        "count": 2,
+        "value": 4
+      },
+      {
+        "letter": "d",
+        "count": 5,
+        "value": 1
+      },
+      {
+        "letter": "e",
+        "count": 10,
+        "value": 1
+      },
+      {
+        "letter": "f",
+        "count": 2,
+        "value": 4
+      },
+      {
+        "letter": "g",
+        "count": 3,
+        "value": 2
+      },
+      {
+        "letter": "h",
+        "count": 4,
+        "value": 2
+      },
+      {
+        "letter": "i",
+        "count": 3,
         "value": 1
       },
       {
@@ -83,22 +302,22 @@
       },
       {
         "letter": "q",
-        "count": 1,
+        "count": 0,
         "value": 10
       },
       {
         "letter": "r",
-        "count": 6,
+        "count": 5,
         "value": 1
       },
       {
         "letter": "s",
-        "count": 6,
+        "count": 7,
         "value": 1
       },
       {
         "letter": "t",
-        "count": 6,
+        "count": 5,
         "value": 1
       },
       {
@@ -108,7 +327,7 @@
       },
       {
         "letter": "v",
-        "count": 0,
+        "count": 1,
         "value": 6
       },
       {
@@ -118,7 +337,7 @@
       },
       {
         "letter": "x",
-        "count": 1,
+        "count": 0,
         "value": 8
       },
       {
@@ -152,7 +371,34 @@
         "value": 0
       }
     ],
-    "last_move_timestamp": "2025-03-31 20:25:32",
-    "session_start_timestamp": "2025-03-31 20:00:00"
+    "last_move_timestamp": "2025-04-12 12:39:05",
+    "session_start_timestamp": "2025-04-12 12:34:59",
+    "letter_overall_value": 174,
+    "played_moves": [
+      {
+        "letters": "eier",
+        "word": "",
+        "played_by_myself": false,
+        "timestamp": "2025-04-12 12:35:18"
+      },
+      {
+        "letters": "tee",
+        "word": "",
+        "played_by_myself": false,
+        "timestamp": "2025-04-12 12:35:37"
+      },
+      {
+        "letters": "qi",
+        "word": "qi",
+        "played_by_myself": false,
+        "timestamp": "2025-04-12 12:38:07"
+      },
+      {
+        "letters": "xi",
+        "word": "xi",
+        "played_by_myself": false,
+        "timestamp": "2025-04-12 12:39:05"
+      }
+    ]
   }
 }
