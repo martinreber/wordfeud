@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Played Words</title>
+    <link rel="stylesheet" href="style-common.css">
+    <link rel="stylesheet" href="played-words.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Played Words</h1>
+        <div class="header-section">
+            <button id="refresh-button" class="button">Refresh</button>
+        </div>
+        <div class="word-stats">
+            <p>Total unique words: <span id="word-count">0</span></p>
+        </div>
+        <table id="words-table" class="session-table">
+            <thead>
+                <tr>
+                    <th>Word</th>
+                    <th>Times Played</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Words will be dynamically added here -->
+            </tbody>
+        </table>
+        <div id="response-message" class="response-message"></div>
+    </div>
+    <script src="played-words.js"></script>
+</body>
+</html>

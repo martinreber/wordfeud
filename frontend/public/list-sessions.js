@@ -116,6 +116,11 @@ document.getElementById("refresh-button").addEventListener("click", () => {
     fetchSessions();
 });
 
+// Add this after your existing event listeners
+document.getElementById("played-words-button").addEventListener("click", () => {
+    window.open("played-words.html", "_blank");
+});
+
 // Fetch sessions on page load
 fetchSessions();
 

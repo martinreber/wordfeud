@@ -126,15 +126,15 @@ document.addEventListener("DOMContentLoaded", () => {
         const remainingLetters = document.getElementById("remaining-letters");
         const sessionTableBody = document.querySelector("#session-table tbody");
 
-        // Update the session table with the new timestamp
         sessionTableBody.innerHTML = "";
-        const row = document.createElement("tr");
         const usernameCell = document.createElement("td");
-        usernameCell.textContent = username;
+        usernameCell.textContent = `Username: ${username}`;
+
         const sessionStartCell = document.createElement("td");
-        sessionStartCell.textContent = data.session_start_timestamp;
+        sessionStartCell.textContent = `Session Start: ${data.session_start_timestamp}`;
+
         const timestampCell = document.createElement("td");
-        timestampCell.textContent = data.last_move_timestamp;
+        timestampCell.textContent = `Last Move: ${data.last_move_timestamp}`;
 
         row.appendChild(usernameCell);
         row.appendChild(sessionStartCell);

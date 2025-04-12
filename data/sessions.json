@@ -222,7 +222,7 @@
     "letters_play_set": [
       {
         "letter": "a",
-        "count": 5,
+        "count": 3,
         "value": 1
       },
       {
@@ -282,12 +282,12 @@
       },
       {
         "letter": "m",
-        "count": 4,
+        "count": 2,
         "value": 3
       },
       {
         "letter": "n",
-        "count": 9,
+        "count": 7,
         "value": 1
       },
       {
@@ -317,7 +317,7 @@
       },
       {
         "letter": "t",
-        "count": 5,
+        "count": 4,
         "value": 1
       },
       {
@@ -357,7 +357,7 @@
       },
       {
         "letter": "ö",
-        "count": 1,
+        "count": 0,
         "value": 8
       },
       {
@@ -371,9 +371,9 @@
         "value": 0
       }
     ],
-    "last_move_timestamp": "2025-04-12 12:39:05",
+    "last_move_timestamp": "2025-04-12 13:17:42",
     "session_start_timestamp": "2025-04-12 12:34:59",
-    "letter_overall_value": 174,
+    "letter_overall_value": 155,
     "played_moves": [
       {
         "letters": "eier",
@@ -398,6 +398,24 @@
         "word": "xi",
         "played_by_myself": false,
         "timestamp": "2025-04-12 12:39:05"
+      },
+      {
+        "letters": "man",
+        "word": "mandat",
+        "played_by_myself": false,
+        "timestamp": "2025-04-12 12:53:16"
+      },
+      {
+        "letters": "man",
+        "word": "mandat",
+        "played_by_myself": false,
+        "timestamp": "2025-04-12 12:53:44"
+      },
+      {
+        "letters": "tö",
+        "word": "tö",
+        "played_by_myself": false,
+        "timestamp": "2025-04-12 13:17:42"
       }
     ]
   }

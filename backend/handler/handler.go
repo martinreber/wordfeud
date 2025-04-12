@@ -4,6 +4,8 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/http"
+	"sort"
+	"strings"
 	"time"
 
 	"buchstaben.go/logic"
@@ -139,12 +141,6 @@ func PlayMoveInputHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// playedMove := model.PlayedMove{
-	// 	Letters:        playedMoveInput.Letters,
-	// 	PlayedByMyself: playedMoveInput.PlayedByMyself,
-	// 	Timestamp:      time.Now().Format("2006-01-02 15:04:05"),
-	// }
-	// fmt.Println("SessionStartTimestamp:", model.Sessions[username].SessionStartTimestamp)
 	updatedSession := model.UserSession{
 		LettersPlaySet:        newLettersPlaySet,
 		LastMoveTimestamp:     time.Now().Format("2006-01-02 15:04:05"),
@@ -189,6 +185,33 @@ func ResetLettersHandler(w http.ResponseWriter, r *http.Request) {
 
 	w.Header().Set("Content-Type", "application/json")
 	if err := json.NewEncoder(w).Encode(newSession); err != nil {
+		http.Error(w, "Failed to encode response", http.StatusInternalServerError)
+		return
+	}
+}
+
+func PlayedWordsHandler(w http.ResponseWriter, r *http.Request) {
+	model.SessionsLock.Lock()
+	defer model.SessionsLock.Unlock()
+
+	wordCounts := make(map[string]int)
+	for _, session := range model.Sessions {
+		for _, move := range session.PlayedMoves {
+			word := strings.ToLower(move.Word)
+			wordCounts[word]++
+		}
+	}
+	fmt.Printf("Word counts: %v\n", wordCounts)
+	wordsCount := make([]model.WordCount, 0, len(wordCounts))
+	for word, count := range wordCounts {
+		wordsCount = append(wordsCount, model.WordCount{Word: word, Count: count})
+	}
+	sort.Slice(wordsCount, func(i, j int) bool {
+		return wordsCount[i].Word < wordsCount[j].Word
+	})
+	fmt.Printf("Sorted word counts: %+v\n", wordsCount)
+	w.Header().Set("Content-Type", "application/json")
+	if err := json.NewEncoder(w).Encode(wordsCount); err != nil {
 		http.Error(w, "Failed to encode response", http.StatusInternalServerError)
 		return
 	}

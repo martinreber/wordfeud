@@ -4,30 +4,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Wordfeud Helper</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style-common.css">
+    <link rel="stylesheet" href="session.css">
 </head>
 <body>
     <div class="container">
         <h1>Wordfeud Helper</h1>
-                <div id="session-info">
+        <div id="session-info">
             <h2>Session Information</h2>
             <table id="session-table" class="session-table">
-                <thead>
-                    <tr>
-                        <th>Username</th>
-                        <th>Session Start</th>
-                        <th>Last Move</th>
-                    </tr>
-                </thead>
                 <tbody>
                     <!-- Data will be dynamically added here -->
                 </tbody>
             </table>
         </div>
-        <!-- <div id="username-section">
-            <label for="username">Username:</label>
-            <input type="text" id="username" placeholder="Username" disabled>
-        </div> -->
         <div id="letter-data">
             <h2>Letters still in the Game</h2>
             <div id="letters-play-set"></div>
@@ -42,13 +32,15 @@
         <div id="input-section">
             <h2>Enter your played move</h2>
             <div class="input-group">
-                <div class="input-field">
-                    <label for="input-string">Letters played:</label>
-                    <input type="text" id="input-string" placeholder="Enter letters you have played">
-                </div>
-                <div class="input-field">
-                    <label for="input-word">Word played:</label>
-                    <input type="text" id="input-word" placeholder="Enter the word you formed">
+                <div class="input-row">
+                    <div class="input-field">
+                        <label for="input-string">Letters played:</label>
+                        <input type="text" id="input-string" placeholder="Enter letters you have played">
+                    </div>
+                    <div class="input-field">
+                        <label for="input-word">Word played:</label>
+                        <input type="text" id="input-word" placeholder="Enter the word you formed">
+                    </div>
                 </div>
                 <div class="toggle-field">
                     <label for="player-toggle">Played by:</label>

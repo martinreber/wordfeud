@@ -38,6 +38,11 @@ type UserSession struct {
 	PlayedMoves           []PlayedMove    `json:"played_moves"`
 }
 
+type WordCount struct {
+	Word  string `json:"word"`
+	Count int    `json:"count"`
+}
+
 var (
 	Sessions     map[User]UserSession
 	SessionsLock sync.Mutex
