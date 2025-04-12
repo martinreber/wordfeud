@@ -1,14 +1,14 @@
 {
-  "test": {
+  "sammy171717": {
     "letters_play_set": [
       {
         "letter": "a",
-        "count": 2,
+        "count": 5,
         "value": 1
       },
       {
         "letter": "b",
-        "count": 0,
+        "count": 2,
         "value": 2
       },
       {
@@ -18,7 +18,178 @@
       },
       {
         "letter": "d",
+        "count": 5,
+        "value": 1
+      },
+      {
+        "letter": "e",
+        "count": 14,
+        "value": 1
+      },
+      {
+        "letter": "f",
+        "count": 2,
+        "value": 4
+      },
+      {
+        "letter": "g",
         "count": 3,
+        "value": 2
+      },
+      {
+        "letter": "h",
+        "count": 4,
+        "value": 2
+      },
+      {
+        "letter": "i",
+        "count": 6,
+        "value": 1
+      },
+      {
+        "letter": "j",
+        "count": 1,
+        "value": 6
+      },
+      {
+        "letter": "k",
+        "count": 2,
+        "value": 4
+      },
+      {
+        "letter": "l",
+        "count": 3,
+        "value": 2
+      },
+      {
+        "letter": "m",
+        "count": 4,
+        "value": 3
+      },
+      {
+        "letter": "n",
+        "count": 9,
+        "value": 1
+      },
+      {
+        "letter": "o",
+        "count": 3,
+        "value": 2
+      },
+      {
+        "letter": "p",
+        "count": 1,
+        "value": 5
+      },
+      {
+        "letter": "q",
+        "count": 1,
+        "value": 10
+      },
+      {
+        "letter": "r",
+        "count": 6,
+        "value": 1
+      },
+      {
+        "letter": "s",
+        "count": 6,
+        "value": 1
+      },
+      {
+        "letter": "t",
+        "count": 6,
+        "value": 1
+      },
+      {
+        "letter": "u",
+        "count": 6,
+        "value": 1
+      },
+      {
+        "letter": "v",
+        "count": 1,
+        "value": 6
+      },
+      {
+        "letter": "w",
+        "count": 1,
+        "value": 3
+      },
+      {
+        "letter": "x",
+        "count": 1,
+        "value": 8
+      },
+      {
+        "letter": "y",
+        "count": 1,
+        "value": 10
+      },
+      {
+        "letter": "z",
+        "count": 1,
+        "value": 3
+      },
+      {
+        "letter": "ä",
+        "count": 1,
+        "value": 6
+      },
+      {
+        "letter": "ö",
+        "count": 0,
+        "value": 8
+      },
+      {
+        "letter": "ü",
+        "count": 1,
+        "value": 6
+      },
+      {
+        "letter": "*",
+        "count": 2,
+        "value": 0
+      }
+    ],
+    "last_move_timestamp": "2025-04-12 13:50:55",
+    "session_start_timestamp": "2025-04-12 13:47:47",
+    "letter_overall_value": 192,
+    "played_moves": [
+      {
+        "letters": "s",
+        "word": "sah",
+        "played_by_myself": false,
+        "timestamp": "2025-04-12 13:47:58"
+      },
+      {
+        "letters": "ö",
+        "word": "tö",
+        "played_by_myself": false,
+        "timestamp": "2025-04-12 13:50:55"
+      }
+    ]
+  },
+  "test": {
+    "letters_play_set": [
+      {
+        "letter": "a",
+        "count": 0,
+        "value": 1
+      },
+      {
+        "letter": "b",
+        "count": 0,
+        "value": 2
+      },
+      {
+        "letter": "c",
+        "count": 0,
+        "value": 4
+      },
+      {
+        "letter": "d",
+        "count": 2,
         "value": 1
       },
       {
@@ -152,9 +323,9 @@
         "value": 0
       }
     ],
-    "last_move_timestamp": "2025-04-12 12:39:38",
+    "last_move_timestamp": "2025-04-12 13:54:23",
     "session_start_timestamp": "2025-04-12 12:14:56",
-    "letter_overall_value": 171,
+    "letter_overall_value": 160,
     "played_moves": [
       {
         "letters": "ab",
@@ -215,6 +386,30 @@
         "word": "zuger",
         "played_by_myself": false,
         "timestamp": "2025-04-12 12:39:38"
+      },
+      {
+        "letters": "a",
+        "word": "a",
+        "played_by_myself": false,
+        "timestamp": "2025-04-12 13:48:34"
+      },
+      {
+        "letters": "a",
+        "word": "a",
+        "played_by_myself": false,
+        "timestamp": "2025-04-12 13:49:34"
+      },
+      {
+        "letters": "c",
+        "word": "c",
+        "played_by_myself": false,
+        "timestamp": "2025-04-12 13:49:43"
+      },
+      {
+        "letters": "cd",
+        "word": "cd",
+        "played_by_myself": false,
+        "timestamp": "2025-04-12 13:54:23"
       }
     ]
   },

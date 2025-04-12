@@ -25,21 +25,14 @@ function fetchLetters() {
       const overallValue = document.getElementById("overall-value");
       const remainingLetters = document.getElementById("remaining-letters");
 
-      sessionTableBody.innerHTML = "";
-      const row = document.createElement("tr");
-      const usernameCell = document.createElement("td");
-      usernameCell.textContent = username;
+      const usernameUi = document.getElementById("user-name");
+      usernameUi.textContent = `Username: ${username}`;
 
-      const sessionStartCell = document.createElement("td");
-      sessionStartCell.textContent = data.session_start_timestamp;
+      const sessionStart = document.getElementById("session-start-timestamp");
+      sessionStart.textContent = `Session Start: ${data.session_start_timestamp}`;
 
-      const timestampCell = document.createElement("td");
-      timestampCell.textContent = data.last_move_timestamp;
-
-      row.appendChild(usernameCell);
-      row.appendChild(sessionStartCell);
-      row.appendChild(timestampCell);
-      sessionTableBody.appendChild(row);
+      const lastMoveTimestamp = document.getElementById("last-move-timestamp");
+      lastMoveTimestamp.textContent = `Last Move: ${data.last_move_timestamp}`;
 
       overallValue.textContent = `Overall Letter Value: ${data.letter_overall_value}`;
 
@@ -126,9 +119,8 @@ document.addEventListener("DOMContentLoaded", () => {
         const remainingLetters = document.getElementById("remaining-letters");
         const sessionTableBody = document.querySelector("#session-table tbody");
 
-        sessionTableBody.innerHTML = "";
-        const usernameCell = document.createElement("td");
-        usernameCell.textContent = `Username: ${username}`;
+        const username = document.getElementById("user-name");
+        username.textContent = `Username: ${username}`;
 
         const sessionStartCell = document.createElement("td");
         sessionStartCell.textContent = `Session Start: ${data.session_start_timestamp}`;
@@ -136,10 +128,6 @@ document.addEventListener("DOMContentLoaded", () => {
         const timestampCell = document.createElement("td");
         timestampCell.textContent = `Last Move: ${data.last_move_timestamp}`;
 
-        row.appendChild(usernameCell);
-        row.appendChild(sessionStartCell);
-        row.appendChild(timestampCell);
-        sessionTableBody.appendChild(row);
 
         overallValue.textContent = `Overall Letter Value: ${data.letter_overall_value}`;
 
@@ -151,6 +139,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         letterContainer.innerHTML = "";
         letterContainer.appendChild(createLettersTable(data));
+        playerToggle.checked = !playerToggle.checked;
       })
     .catch((error) => {
       showMessage(error.message);
