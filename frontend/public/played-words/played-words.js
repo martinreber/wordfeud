@@ -1,3 +1,5 @@
+import { showMessage } from '../common/utils.js';
+
 function fetchPlayedWords() {
     fetch("http://localhost:8080/played-words")
         .then((response) => {
@@ -44,10 +46,5 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 });
 
-function showMessage(message) {
-    const messageContainer = document.getElementById("response-message");
-    messageContainer.textContent = message;
-    messageContainer.style.display = "block";
-}
 
 document.addEventListener("DOMContentLoaded", fetchPlayedWords);

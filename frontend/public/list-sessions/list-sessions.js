@@ -1,3 +1,5 @@
+import { showMessage } from '../common/utils.js';
+
 function fetchSessions() {
     fetch("http://localhost:8080/list")
         .then((response) => response.json())
@@ -14,7 +16,7 @@ function fetchSessions() {
                 const usernameCell = document.createElement("td");
                 const usernameLink = document.createElement("a");
                 usernameLink.textContent = session.user;
-                usernameLink.href = `session.html?username=${encodeURIComponent(session.user)}`;
+                usernameLink.href = `session/session.html?username=${encodeURIComponent(session.user)}`;
                 usernameLink.target = "_blank"; // Open in a new tab
                 usernameCell.appendChild(usernameLink);
 
@@ -118,14 +120,8 @@ document.getElementById("refresh-button").addEventListener("click", () => {
 
 // Add this after your existing event listeners
 document.getElementById("played-words-button").addEventListener("click", () => {
-    window.open("played-words.html", "_blank");
+    window.open("played-words/played-words.html", "_blank");
 });
 
 // Fetch sessions on page load
 fetchSessions();
-
-
-function showMessage(message) {
-    const messageContainer = document.getElementById("response-message");
-    messageContainer.textContent = message; // Set the message text
-}

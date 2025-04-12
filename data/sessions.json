@@ -417,7 +417,7 @@
     "letters_play_set": [
       {
         "letter": "a",
-        "count": 3,
+        "count": 2,
         "value": 1
       },
       {
@@ -437,7 +437,7 @@
       },
       {
         "letter": "e",
-        "count": 10,
+        "count": 14,
         "value": 1
       },
       {
@@ -457,7 +457,7 @@
       },
       {
         "letter": "i",
-        "count": 3,
+        "count": 6,
         "value": 1
       },
       {
@@ -477,12 +477,12 @@
       },
       {
         "letter": "m",
-        "count": 2,
+        "count": 4,
         "value": 3
       },
       {
         "letter": "n",
-        "count": 7,
+        "count": 9,
         "value": 1
       },
       {
@@ -497,12 +497,12 @@
       },
       {
         "letter": "q",
-        "count": 0,
+        "count": 1,
         "value": 10
       },
       {
         "letter": "r",
-        "count": 5,
+        "count": 6,
         "value": 1
       },
       {
@@ -512,7 +512,7 @@
       },
       {
         "letter": "t",
-        "count": 4,
+        "count": 5,
         "value": 1
       },
       {
@@ -532,7 +532,7 @@
       },
       {
         "letter": "x",
-        "count": 0,
+        "count": 1,
         "value": 8
       },
       {
@@ -552,7 +552,7 @@
       },
       {
         "letter": "ö",
-        "count": 0,
+        "count": 1,
         "value": 8
       },
       {
@@ -566,51 +566,27 @@
         "value": 0
       }
     ],
-    "last_move_timestamp": "2025-04-12 13:17:42",
-    "session_start_timestamp": "2025-04-12 12:34:59",
-    "letter_overall_value": 155,
+    "last_move_timestamp": "2025-04-12 14:58:06",
+    "session_start_timestamp": "2025-04-12 14:54:53",
+    "letter_overall_value": 197,
     "played_moves": [
       {
-        "letters": "eier",
-        "word": "",
+        "letters": "a",
+        "word": "a",
         "played_by_myself": false,
-        "timestamp": "2025-04-12 12:35:18"
+        "timestamp": "2025-04-12 14:55:01"
       },
       {
-        "letters": "tee",
-        "word": "",
+        "letters": "a",
+        "word": "ab",
         "played_by_myself": false,
-        "timestamp": "2025-04-12 12:35:37"
+        "timestamp": "2025-04-12 14:57:58"
       },
       {
-        "letters": "qi",
-        "word": "qi",
+        "letters": "ta",
+        "word": "tat",
         "played_by_myself": false,
-        "timestamp": "2025-04-12 12:38:07"
-      },
-      {
-        "letters": "xi",
-        "word": "xi",
-        "played_by_myself": false,
-        "timestamp": "2025-04-12 12:39:05"
-      },
-      {
-        "letters": "man",
-        "word": "mandat",
-        "played_by_myself": false,
-        "timestamp": "2025-04-12 12:53:16"
-      },
-      {
-        "letters": "man",
-        "word": "mandat",
-        "played_by_myself": false,
-        "timestamp": "2025-04-12 12:53:44"
-      },
-      {
-        "letters": "tö",
-        "word": "tö",
-        "played_by_myself": false,
-        "timestamp": "2025-04-12 13:17:42"
+        "timestamp": "2025-04-12 14:58:06"
       }
     ]
   }

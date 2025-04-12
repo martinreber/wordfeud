@@ -1,3 +1,5 @@
+import { showMessage } from '../common/utils.js';
+
 function fetchLetters() {
   const username = getUsername();
   fetch(`http://localhost:8080/letters?username=${username}`)
@@ -57,14 +59,14 @@ document.addEventListener("DOMContentLoaded", () => {
     fetchLetters(); // Fetch and display the data for the username
   } catch (error) {
     console.error(error.message);
-    window.location.href = "index.html"; // Redirect to the sessions list page if no username is provided
+    window.location.href = "../index.html"; // Redirect to the sessions list page if no username is provided
   }
 
   // Add event listeners for buttons
   document
     .getElementById("list-sessions-button")
     .addEventListener("click", () => {
-      window.open("index.html", "_blank");
+      window.open("../index.html", "_blank");
     });
 
   document.getElementById("play-move-button").addEventListener("click", () => {
@@ -117,16 +119,15 @@ document.addEventListener("DOMContentLoaded", () => {
         const letterContainer = document.getElementById("letters-play-set");
         const overallValue = document.getElementById("overall-value");
         const remainingLetters = document.getElementById("remaining-letters");
-        const sessionTableBody = document.querySelector("#session-table tbody");
 
-        const username = document.getElementById("user-name");
-        username.textContent = `Username: ${username}`;
+        const usernameUi = document.getElementById("user-name");
+        usernameUi.textContent = `Username: ${username}`;
 
-        const sessionStartCell = document.createElement("td");
-        sessionStartCell.textContent = `Session Start: ${data.session_start_timestamp}`;
+        const sessionStart = document.getElementById("session-start-timestamp");
+        sessionStart.textContent = `Session Start: ${data.session_start_timestamp}`;
 
-        const timestampCell = document.createElement("td");
-        timestampCell.textContent = `Last Move: ${data.last_move_timestamp}`;
+        const lastMoveTimestamp = document.getElementById("last-move-timestamp");
+        lastMoveTimestamp.textContent = `Last Move: ${data.last_move_timestamp}`;
 
 
         overallValue.textContent = `Overall Letter Value: ${data.letter_overall_value}`;
@@ -139,6 +140,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
         letterContainer.innerHTML = "";
         letterContainer.appendChild(createLettersTable(data));
+
+        const playerToggle = document.getElementById("player-toggle");
         playerToggle.checked = !playerToggle.checked;
       })
     .catch((error) => {
@@ -224,9 +227,4 @@ function createLettersTable(data) {
     row.appendChild(countCell);
   });
   return table;
-}
-
-function showMessage(message) {
-  const messageContainer = document.getElementById("response-message");
-  messageContainer.textContent = message; // Set the message text
 }
