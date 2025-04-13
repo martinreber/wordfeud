@@ -1,9 +1,167 @@
 {
-  "sammy171717": {
+  "dummy": {
     "letters_play_set": [
       {
         "letter": "a",
         "count": 5,
+        "value": 1
+      },
+      {
+        "letter": "b",
+        "count": 2,
+        "value": 2
+      },
+      {
+        "letter": "c",
+        "count": 2,
+        "value": 4
+      },
+      {
+        "letter": "d",
+        "count": 5,
+        "value": 1
+      },
+      {
+        "letter": "e",
+        "count": 14,
+        "value": 1
+      },
+      {
+        "letter": "f",
+        "count": 2,
+        "value": 4
+      },
+      {
+        "letter": "g",
+        "count": 3,
+        "value": 2
+      },
+      {
+        "letter": "h",
+        "count": 4,
+        "value": 2
+      },
+      {
+        "letter": "i",
+        "count": 6,
+        "value": 1
+      },
+      {
+        "letter": "j",
+        "count": 1,
+        "value": 6
+      },
+      {
+        "letter": "k",
+        "count": 2,
+        "value": 4
+      },
+      {
+        "letter": "l",
+        "count": 3,
+        "value": 2
+      },
+      {
+        "letter": "m",
+        "count": 4,
+        "value": 3
+      },
+      {
+        "letter": "n",
+        "count": 9,
+        "value": 1
+      },
+      {
+        "letter": "o",
+        "count": 3,
+        "value": 2
+      },
+      {
+        "letter": "p",
+        "count": 1,
+        "value": 5
+      },
+      {
+        "letter": "q",
+        "count": 1,
+        "value": 10
+      },
+      {
+        "letter": "r",
+        "count": 6,
+        "value": 1
+      },
+      {
+        "letter": "s",
+        "count": 7,
+        "value": 1
+      },
+      {
+        "letter": "t",
+        "count": 6,
+        "value": 1
+      },
+      {
+        "letter": "u",
+        "count": 6,
+        "value": 1
+      },
+      {
+        "letter": "v",
+        "count": 1,
+        "value": 6
+      },
+      {
+        "letter": "w",
+        "count": 1,
+        "value": 3
+      },
+      {
+        "letter": "x",
+        "count": 1,
+        "value": 8
+      },
+      {
+        "letter": "y",
+        "count": 1,
+        "value": 10
+      },
+      {
+        "letter": "z",
+        "count": 1,
+        "value": 3
+      },
+      {
+        "letter": "ä",
+        "count": 1,
+        "value": 6
+      },
+      {
+        "letter": "ö",
+        "count": 1,
+        "value": 8
+      },
+      {
+        "letter": "ü",
+        "count": 1,
+        "value": 6
+      },
+      {
+        "letter": "*",
+        "count": 2,
+        "value": 0
+      }
+    ],
+    "last_move_timestamp": "2025-04-13 13:22:37",
+    "session_start_timestamp": "2025-04-13 13:22:37",
+    "letter_overall_value": 201,
+    "played_moves": []
+  },
+  "sammy171717": {
+    "letters_play_set": [
+      {
+        "letter": "a",
+        "count": 3,
         "value": 1
       },
       {
@@ -152,9 +310,9 @@
         "value": 0
       }
     ],
-    "last_move_timestamp": "2025-04-12 13:50:55",
+    "last_move_timestamp": "2025-04-13 13:16:33",
     "session_start_timestamp": "2025-04-12 13:47:47",
-    "letter_overall_value": 192,
+    "letter_overall_value": 190,
     "played_moves": [
       {
         "letters": "s",
@@ -167,6 +325,12 @@
         "word": "tö",
         "played_by_myself": false,
         "timestamp": "2025-04-12 13:50:55"
+      },
+      {
+        "letters": "aa",
+        "word": "aba",
+        "played_by_myself": false,
+        "timestamp": "2025-04-13 13:16:33"
       }
     ]
   },

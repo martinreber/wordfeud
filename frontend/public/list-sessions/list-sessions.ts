@@ -1,9 +1,18 @@
 import { showMessage } from '../common/utils.js';
 
-function fetchSessions() {
+function fetchSessions()
+{
+    type Session = {
+        user: string;
+        session_start_timestamp: string;
+        last_move_timestamp: string;
+        reminding_letters: number;
+    };
+
     fetch("http://localhost:8080/list")
         .then((response) => response.json())
-        .then((data) => {
+        .then((data: { sessions: Session[]; }) =>
+        {
             const tableBody = document.querySelector("#sessions-table tbody");
             if (tableBody) {
                 tableBody.innerHTML = ""; // Clear existing rows
@@ -12,13 +21,14 @@ function fetchSessions() {
             // Sort sessions by username (alphabetically)
             data.sessions.sort((a, b) => a.user.localeCompare(b.user));
 
-            data.sessions.forEach((session) => {
+            data.sessions.forEach((session) =>
+            {
                 const row = document.createElement("tr");
 
                 const usernameCell = document.createElement("td");
                 const usernameLink = document.createElement("a");
                 usernameLink.textContent = session.user;
-                usernameLink.href = `session/session.html?username=${encodeURIComponent(session.user)}`;
+                usernameLink.href = `../session/session.html?username=${encodeURIComponent(session.user)}`;
                 usernameLink.target = "_blank"; // Open in a new tab
                 usernameCell.appendChild(usernameLink);
 
@@ -26,11 +36,11 @@ function fetchSessions() {
                 sessionStartCell.textContent = session.session_start_timestamp;
 
                 const timestampCell = document.createElement("td");
-                timestampCell.textContent = session.last_move_timestamp
+                timestampCell.textContent = session.last_move_timestamp;
 
                 // Add the remaining letters count
                 const remainingLettersCell = document.createElement("td");
-                remainingLettersCell.textContent = session.reminding_letters;
+                remainingLettersCell.textContent = session.reminding_letters.toString();
 
                 // Add a delete button
                 const deleteCell = document.createElement("td");
@@ -51,12 +61,14 @@ function fetchSessions() {
                 }
             });
         })
-        .catch((error) => {
+        .catch((error) =>
+        {
             console.error("Error fetching sessions:", error);
         });
 }
 
-function deleteSession(username) {
+function deleteSession(username: string)
+{
     if (!confirm(`Are you sure you want to delete the session for "${username}"?`)) {
         return; // Exit if the user cancels the confirmation
     }
@@ -64,26 +76,30 @@ function deleteSession(username) {
     fetch(`http://localhost:8080/delete?username=${encodeURIComponent(username)}`, {
         method: "DELETE",
     })
-        .then((response) => {
+        .then((response) =>
+        {
             if (response.ok) {
                 showMessage(`Session for "${username}" deleted successfully.`);
                 fetchSessions(); // Refresh the session list
             } else {
-                return response.json().then((data) => {
+                return response.json().then((data) =>
+                {
                     const errorMessage = data.message || "Failed to delete the session.";
                     showMessage(errorMessage);
                 });
             }
         })
-        .catch((error) => {
+        .catch((error) =>
+        {
             console.error("Error deleting session:", error);
             showMessage("An unexpected error occurred. Please try again.");
         });
 }
 // Create a new session
 const createSessionButton = document.getElementById("create-session-button");
-if (createSessionButton)   {
-    createSessionButton.addEventListener("click", () => {
+if (createSessionButton) {
+    createSessionButton.addEventListener("click", () =>
+    {
         const newUsernameInput = document.getElementById("new-username") as HTMLInputElement;
         let newUsername;
         if (newUsernameInput) {
@@ -103,35 +119,42 @@ if (createSessionButton)   {
         fetch(`http://localhost:8080/create?username=${encodeURIComponent(newUsername)}`, {
             method: "POST",
         })
-        .then((response) => {
-            if (response.ok) {
-                fetchSessions();
-                window.open(`session.html?username=${encodeURIComponent(newUsername)}`, "_blank");
-                showMessage(""); // Clear any previous message
-            } else {
-                // Extract the error message from the response body
-                const errorMessage = "username already exists";
-                showMessage(errorMessage); // Show the error message in the UI
-            }
-        })
-        .catch((error) => {
-            console.error("Error creating session:", error);
-            showMessage("An unexpected error occurred. Please try again.");
-        });
+            .then((response) =>
+            {
+                if (response.ok) {
+                    fetchSessions();
+                    window.open(`../session/session.html?username=${encodeURIComponent(newUsername)}`, "_blank");
+                    showMessage(""); // Clear any previous message
+                } else {
+                    // Extract the error message from the response body
+                    const errorMessage = "username already exists";
+                    showMessage(errorMessage); // Show the error message in the UI
+                }
+            })
+            .catch((error) =>
+            {
+                console.error("Error creating session:", error);
+                showMessage("An unexpected error occurred. Please try again.");
+            });
     });
 };
 
 
 const refreshButton = document.getElementById("refresh-button");
 if (refreshButton) {
-    refreshButton.addEventListener("click", () => {
+    refreshButton.addEventListener("click", () =>
+    {
         fetchSessions();
     });
 }
 
 const playedWordsButton = document.getElementById("played-words-button");
+console.log("Played words button:", playedWordsButton); // Debugging line
 if (playedWordsButton) {
-    window.open("played-words/played-words.html", "_blank");
+    playedWordsButton.addEventListener("click", () =>
+    {
+        window.open("played-words/played-words.html", "_blank");
+    });
 }
 
 // Fetch sessions on page load

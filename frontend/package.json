@@ -2,19 +2,20 @@
   "name": "letter-visualizer",
   "version": "1.0.0",
   "description": "A web application to visualize letter data from a Go application.",
-  "main": "public/index.html",
+  "main": "public/list-sessions/list-sessions.html",
   "scripts": {
-    "start": "live-server public",
+    "serve": "npx http-server public --port 8081",
     "build": "tsc",
-    "watch": "tsc -w"
+    "watch": "tsc -w",
+    "start": "concurrently \"npm run watch\" \"npm run serve\""
   },
   "devDependencies": {
     "@types/node": "^22.14.1",
     "concurrently": "^9.1.2",
-    "live-server": "^1.2.0",
+    "http-server": "^14.1.1",
     "typescript": "^5.8.3"
   },
-  "author": "Your Name",
+  "author": "Martin Reber",
   "license": "MIT",
   "keywords": []
 }

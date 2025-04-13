@@ -1,8 +1,12 @@
 import { showMessage } from '../common/utils.js';
 
-// let allWords = []; // Store all words for filtering
+interface WordEntry {
+    word: string;
+    count: number;
+}
+let allWords: WordEntry[] = [];
 
-function containsAllLetters(word, letters) {
+function containsAllLetters(word: string, letters: string) {
     const wordChars = word.toLowerCase().split('');
     const searchChars = letters.toLowerCase().split('');
     return searchChars.every(char =>
@@ -10,21 +14,22 @@ function containsAllLetters(word, letters) {
     );
 }
 
-function filterAndDisplayWords(allWords, filterText = '') {
+
+function filterAndDisplayWords(filterText = '') {
     const tableBody = document.querySelector("#words-table tbody") as HTMLElement;
     tableBody.innerHTML = "";
 
     console.log("All words:", allWords); // Debugging line
     console.log("Filter text:", filterText); // Debugging line
+    const wordCount = document.getElementById("word-count") as HTMLElement;
     const filteredWords = filterText
         ? allWords.filter(entry => containsAllLetters(entry.word, filterText))
         : allWords;
-
-    const wordCount = document.getElementById("word-count") as HTMLElement;
+        wordCount.textContent = filteredWords.length.toString();
 
     if (filteredWords) {
         console.log("Filtered words:", filteredWords); // Debugging line
-        wordCount.textContent = filteredWords.length;
+        wordCount.textContent = filteredWords.length.toString();
         filteredWords.forEach(entry => {
             const row = document.createElement("tr");
 
@@ -32,7 +37,7 @@ function filterAndDisplayWords(allWords, filterText = '') {
             wordCell.textContent = entry.word;
 
             const countCell = document.createElement("td");
-            countCell.textContent = entry.count;
+            countCell.textContent = entry.count.toString();
 
             row.appendChild(wordCell);
             row.appendChild(countCell);
@@ -53,7 +58,7 @@ function fetchPlayedWords() {
         })
         .then((data) => {
             console.log("Fetched played words:", data); // Debugging line
-            filterAndDisplayWords(data.words); // Initial display
+            filterAndDisplayWords(data.words);
         })
         .catch((error) => {
             console.error("Error fetching played words:", error);
@@ -64,7 +69,6 @@ function fetchPlayedWords() {
 document.addEventListener("DOMContentLoaded", () => {
     fetchPlayedWords();
 
-    // Add filter input handler
     const filterInput = document.getElementById("word-filter") as HTMLInputElement;
     filterInput.addEventListener("input", (e) => {
         if (e.target instanceof HTMLInputElement) {
@@ -79,6 +83,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
     refreshButton.addEventListener("click", () => {
         fetchPlayedWords();
-        filterInput.value = ''; // Clear filter on refresh
+        filterInput.value = '';
     });
 });

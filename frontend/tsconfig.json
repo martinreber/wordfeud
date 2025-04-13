@@ -5,11 +5,10 @@
         "moduleResolution": "node",
         "strict": true,
         "sourceMap": true,
-        "outDir": "./public/dist",
         "esModuleInterop": true,
         "skipLibCheck": true,
         "forceConsistentCasingInFileNames": true
     },
-    "include": ["src/**/*", "public/common/types.ts"],
+    "include": ["public/**/*"],
     "exclude": ["node_modules"]
 }

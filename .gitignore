@@ -1,2 +1,4 @@
 **/tmp/*
 frontend/node_modules
+frontend/**/*.js
+frontend/**/*.js.map

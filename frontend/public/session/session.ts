@@ -1,87 +1,24 @@
+import { UserSession } from '../common/types.js';
 import { showMessage } from '../common/utils.js';
-
-function fetchLetters()
-{
-  const username = getUsername();
-  fetch(`http://localhost:8080/letters?username=${username}`)
-    .then((response) =>
-    {
-      if (!response.ok) {
-        const contentType = response.headers.get("content-type");
-        if (contentType && contentType.includes("application/json")) {
-          return response.json().then((errorData) =>
-          {
-            throw new Error(errorData.message || "Failed to play the move.");
-          });
-        } else {
-          return response.text().then((errorText) =>
-          {
-            throw new Error(errorText || "Failed to play the move.");
-          });
-        }
-      }
-      return response.json();
-    })
-    .then((data) =>
-    {
-      const sessionTableBody = document.querySelector("#session-table tbody");
-      const remainingLetters = document.getElementById("remaining-letters");
-
-      const usernameUi = document.getElementById("user-name");
-      if (usernameUi) {
-        usernameUi.textContent = `Username: ${username}`;
-      }
-
-      const sessionStart = document.getElementById("session-start-timestamp");
-      if (sessionStart) {
-        sessionStart.textContent = `Session Start: ${data.session_start_timestamp}`;
-      }
-
-
-      const lastMoveTimestamp = document.getElementById("last-move-timestamp");
-      if (lastMoveTimestamp) {
-        lastMoveTimestamp.textContent = `Last Move: ${data.last_move_timestamp}`;
-      }
-
-      const overallValue = document.getElementById("overall-value");
-      if (overallValue) {
-        overallValue.textContent = `Overall Letter Value: ${data.letter_overall_value}`;
-      }
-
-      const totalRemaining = data.letters_play_set.reduce(
-        (sum, letter) => sum + letter.count,
-        0
-      );
-
-      const letterContainer = document.getElementById("letters-play-set");
-      if (remainingLetters) {
-        remainingLetters.textContent = `Remaining Letters: ${totalRemaining}`;
-      }
-      if (letterContainer) {
-        letterContainer.innerHTML = "";
-        letterContainer.appendChild(createLettersTable(data));
-      }
-    })
-    .catch((error) =>
-    {
-      console.error("Error fetching letter data:", error);
-    });
-}
 
 document.addEventListener("DOMContentLoaded", () =>
 {
   // Initialize the page
   try {
-    const username = getUsername(); // Get the username from the URL
-    fetchLetters(); // Fetch and display the data for the username
+    const username = getUsername();
+    fetchLetters();
   } catch (error) {
-    console.error(error.message);
-    window.location.href = "../index.html"; // Redirect to the sessions list page if no username is provided
+    if (error instanceof Error) {
+      console.error(error.message);
+    } else {
+      console.error("An unknown error occurred:", error);
+    }
+    window.location.href = "../list-sessions/list-sessions.html";
   }
 
   const listSessionButton = document.getElementById("list-sessions-button");
   if (listSessionButton) {
-    listSessionButton.addEventListener("click", () => { window.open("../index.html", "_blank"); });
+    listSessionButton.addEventListener("click", () => { window.open("../list-sessions/list-sessions.html", "_blank"); });
   }
 
   const playMoveButton = document.getElementById("play-move-button");
@@ -141,7 +78,7 @@ document.addEventListener("DOMContentLoaded", () =>
         }
         return response.json();
       })
-      .then((data) =>
+      .then((data: UserSession) =>
       {
         // Update the UI with the new data
         const letterContainer = document.getElementById("letters-play-set");
@@ -194,37 +131,104 @@ document.addEventListener("DOMContentLoaded", () =>
       method: "POST",
     })
       .then((response) => response.json())
-      .then((data) =>
+      .then((data: UserSession) =>
       {
-        const letterContainer = document.getElementById("letters-play-set");
+      const letterContainer = document.getElementById("letters-play-set");
 
-        const overallValue = document.getElementById("overall-value") as HTMLInputElement;
-        overallValue.textContent = `Overall Letter Value: ${data.letter_overall_value}`;
+      const overallValue = document.getElementById("overall-value") as HTMLInputElement;
+      overallValue.textContent = `Overall Letter Value: ${data.letter_overall_value}`;
 
-        const totalRemaining = data.letters_play_set.reduce(
-          (sum, letter) => sum + letter.count,
-          0
-        );
-        const remainingLetters = document.getElementById("remaining-letters") as HTMLInputElement;
-        remainingLetters.textContent = `Remaining Letters: ${totalRemaining}`;
+      const totalRemaining = data.letters_play_set.reduce(
+        (sum: number, letter: { letter: string; count: number }) => sum + letter.count,
+        0
+      );
+      const remainingLetters = document.getElementById("remaining-letters") as HTMLInputElement;
+      remainingLetters.textContent = `Remaining Letters: ${totalRemaining}`;
 
-        if (letterContainer) {
-          letterContainer.innerHTML = "";
-          letterContainer.appendChild(createLettersTable(data));
-        }
-        const usernameUi = document.getElementById("user-name") as HTMLInputElement;
-        usernameUi.textContent = `Username: ${username}`;
-        if (letterContainer) {
-          letterContainer.innerHTML = "";
-          letterContainer.appendChild(createLettersTable(data));
-        }
+      if (letterContainer) {
+        letterContainer.innerHTML = "";
+        letterContainer.appendChild(createLettersTable(data));
+      }
+      const usernameUi = document.getElementById("user-name") as HTMLInputElement;
+      usernameUi.textContent = `Username: ${username}`;
+      if (letterContainer) {
+        letterContainer.innerHTML = "";
+        letterContainer.appendChild(createLettersTable(data));
+      }
       })
       .catch((error) =>
       {
-        console.error("Error resetting letters:", error);
+      console.error("Error resetting letters:", error);
       });
   });
 });
+
+function fetchLetters()
+{
+  const username = getUsername();
+  fetch(`http://localhost:8080/letters?username=${username}`)
+    .then((response) =>
+    {
+      if (!response.ok) {
+        const contentType = response.headers.get("content-type");
+        if (contentType && contentType.includes("application/json")) {
+          return response.json().then((errorData) =>
+          {
+            throw new Error(errorData.message || "Failed to play the move.");
+          });
+        } else {
+          return response.text().then((errorText) =>
+          {
+            throw new Error(errorText || "Failed to play the move.");
+          });
+        }
+      }
+      return response.json();
+    })
+    .then((data: UserSession) =>
+    {
+      const remainingLetters = document.getElementById("remaining-letters");
+
+      const usernameUi = document.getElementById("user-name");
+      if (usernameUi) {
+        usernameUi.textContent = `Username: ${username}`;
+      }
+
+      const sessionStart = document.getElementById("session-start-timestamp");
+      if (sessionStart) {
+        sessionStart.textContent = `Session Start: ${data.session_start_timestamp}`;
+      }
+
+
+      const lastMoveTimestamp = document.getElementById("last-move-timestamp");
+      if (lastMoveTimestamp) {
+        lastMoveTimestamp.textContent = `Last Move: ${data.last_move_timestamp}`;
+      }
+
+      const overallValue = document.getElementById("overall-value");
+      if (overallValue) {
+        overallValue.textContent = `Overall Letter Value: ${data.letter_overall_value}`;
+      }
+
+      const totalRemaining = data.letters_play_set.reduce(
+        (sum: number, letter: { letter: string; count: number }) => sum + letter.count,
+        0
+      );
+
+      const letterContainer = document.getElementById("letters-play-set");
+      if (remainingLetters) {
+        remainingLetters.textContent = `Remaining Letters: ${totalRemaining}`;
+      }
+      if (letterContainer) {
+        letterContainer.innerHTML = "";
+        letterContainer.appendChild(createLettersTable(data));
+      }
+    })
+    .catch((error) =>
+    {
+      console.error("Error fetching letter data:", error);
+    });
+}
 
 function getUsername()
 {
@@ -243,12 +247,12 @@ function getUsername()
   throw new Error("Username is required");
 }
 
-function createLettersTable(data)
+function createLettersTable(data: UserSession)
 {
   const table = document.createElement("table");
   table.classList.add("letter-table"); // Add a class for styling the table
 
-  let row;
+  let row: HTMLTableRowElement;
   let index = 0;
   data.letters_play_set.forEach((letter) =>
   {
@@ -270,8 +274,8 @@ function createLettersTable(data)
     letterCell.classList.add("letter-cell"); // Add a class for styling
 
     // Create a cell for the count
-    const countCell = document.createElement("td");
-    countCell.textContent = letter.count;
+    const countCell = document.createElement("td") as HTMLTableCellElement;
+    countCell.textContent = letter.count.toString();
     countCell.classList.add("count-cell"); // Add a class for styling
 
     // Append both cells to the row
