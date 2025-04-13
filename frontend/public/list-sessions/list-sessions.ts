@@ -91,7 +91,6 @@ async function createSession(username: string): Promise<void> {
         const response = await fetch(`${API_BASE_URL}/create?username=${encodeURIComponent(username)}`, {
             method: "POST",
         });
-        console.log("Response:", response);
         await handleResponse(response);
         await fetchSessions();
         window.open(`../session/index.html?username=${encodeURIComponent(username)}`, "_blank");

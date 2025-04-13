@@ -12,7 +12,6 @@ document.addEventListener("DOMContentLoaded", () =>
 {
   try {
     const username = getUsername();
-    console.log("Username:", username);
     fetchLetters();
   } catch (error) {
     if (error instanceof Error) {
@@ -140,7 +139,6 @@ function getUsername()
 {
   const urlParams = new URLSearchParams(window.location.search);
   const usernameFromQuery = urlParams.get("username");
-  console.log("Username from query:", usernameFromQuery);
 
   if (usernameFromQuery) {
     const usernameInput = getElementByIdOrThrow<HTMLInputElement>("username");

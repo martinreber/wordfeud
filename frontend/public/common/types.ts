@@ -35,6 +35,4 @@ export interface WordCount {
     count: number;
 }
 
-export interface PlayedWordsResponse {
-    words: WordCount[];
-}
+export type WordCounts = WordCount[];

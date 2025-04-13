@@ -209,6 +209,7 @@ func PlayedWordsHandler(w http.ResponseWriter, r *http.Request) {
 	sort.Slice(wordsCount, func(i, j int) bool {
 		return wordsCount[i].Word < wordsCount[j].Word
 	})
+	fmt.Printf("wordCounts: %+v\n", wordCounts)
 	fmt.Printf("Sorted word counts: %+v\n", wordsCount)
 	w.Header().Set("Content-Type", "application/json")
 	if err := json.NewEncoder(w).Encode(wordsCount); err != nil {
