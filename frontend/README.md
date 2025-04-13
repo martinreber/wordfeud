@@ -2,7 +2,7 @@
 
 ## TODO's
 
-- handle response not 200 in a proper way
+- fix filter words in played words
 
 This project is a simple web application that visualizes letter data from a Go application. It fetches data about letters, their counts, and values, and displays it in a user-friendly format.
 

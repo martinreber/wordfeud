@@ -11,7 +11,7 @@ function containsAllLetters(word, letters) {
 }
 
 function filterAndDisplayWords(allWords, filterText = '') {
-    const tableBody = document.querySelector("#words-table tbody");
+    const tableBody = document.querySelector("#words-table tbody") as HTMLElement;
     tableBody.innerHTML = "";
 
     console.log("All words:", allWords); // Debugging line
@@ -20,7 +20,7 @@ function filterAndDisplayWords(allWords, filterText = '') {
         ? allWords.filter(entry => containsAllLetters(entry.word, filterText))
         : allWords;
 
-    const wordCount = document.getElementById("word-count");
+    const wordCount = document.getElementById("word-count") as HTMLElement;
 
     if (filteredWords) {
         console.log("Filtered words:", filteredWords); // Debugging line
@@ -65,12 +65,19 @@ document.addEventListener("DOMContentLoaded", () => {
     fetchPlayedWords();
 
     // Add filter input handler
-    const filterInput = document.getElementById("word-filter");
+    const filterInput = document.getElementById("word-filter") as HTMLInputElement;
     filterInput.addEventListener("input", (e) => {
-        filterAndDisplayWords(e.target.value);
+        if (e.target instanceof HTMLInputElement) {
+            filterAndDisplayWords(e.target.value);
+        }
     });
 
-    document.getElementById("refresh-button").addEventListener("click", () => {
+    const refreshButton = document.getElementById("refresh-button");
+    if (!refreshButton) {
+        console.error("Refresh button not found");
+        return;
+    }
+    refreshButton.addEventListener("click", () => {
         fetchPlayedWords();
         filterInput.value = ''; // Clear filter on refresh
     });

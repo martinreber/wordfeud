@@ -33,3 +33,22 @@
 .delete-button:hover {
     background-color: #c9302c;
 }
+
+.filter-section {
+    flex: 1;
+    margin: 0 20px;
+}
+
+.filter-input {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1rem;
+}
+
+.filter-input:focus {
+    outline: none;
+    border-color: #4CAF50;
+    box-shadow: 0 0 5px rgba(76, 175, 80, 0.2);
+}

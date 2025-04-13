@@ -5,12 +5,16 @@
   "main": "public/index.html",
   "scripts": {
     "start": "live-server public",
-    "build": "echo 'Build step can be added here'"
+    "build": "tsc",
+    "watch": "tsc -w"
   },
-  "dependencies": {},
   "devDependencies": {
-    "live-server": "^1.2.1"
+    "@types/node": "^22.14.1",
+    "concurrently": "^9.1.2",
+    "live-server": "^1.2.0",
+    "typescript": "^5.8.3"
   },
   "author": "Your Name",
-  "license": "MIT"
+  "license": "MIT",
+  "keywords": []
 }
