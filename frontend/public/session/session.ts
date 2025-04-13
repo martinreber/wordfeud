@@ -1,11 +1,18 @@
+import
+{
+  showMessage,
+  handleResponse,
+  getElementByIdOrThrow,
+  updateTextContent,
+  API_BASE_URL
+} from '../common/utils.js';
 import { UserSession } from '../common/types.js';
-import { showMessage } from '../common/utils.js';
 
 document.addEventListener("DOMContentLoaded", () =>
 {
-  // Initialize the page
   try {
     const username = getUsername();
+    console.log("Username:", username);
     fetchLetters();
   } catch (error) {
     if (error instanceof Error) {
@@ -13,12 +20,12 @@ document.addEventListener("DOMContentLoaded", () =>
     } else {
       console.error("An unknown error occurred:", error);
     }
-    window.location.href = "../list-sessions/list-sessions.html";
+    // window.location.href = "../list-sessions/index.html";
   }
 
   const listSessionButton = document.getElementById("list-sessions-button");
   if (listSessionButton) {
-    listSessionButton.addEventListener("click", () => { window.open("../list-sessions/list-sessions.html", "_blank"); });
+    listSessionButton.addEventListener("click", () => { window.open("../list-sessions/index.html", "_blank"); });
   }
 
   const playMoveButton = document.getElementById("play-move-button");
@@ -46,7 +53,7 @@ document.addEventListener("DOMContentLoaded", () =>
       return;
     }
 
-    fetch(`http://localhost:8080/play-move?username=${username}`, {
+    fetch(`${API_BASE_URL}/play-move?username=${username}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -57,61 +64,10 @@ document.addEventListener("DOMContentLoaded", () =>
         playedByMyself: isPlayedByMyself,
       }),
     })
-      .then((response) =>
-      {
-        if (!response.ok) {
-          // Check the content type of the response
-          const contentType = response.headers.get("content-type");
-          if (contentType && contentType.includes("application/json")) {
-            // Handle JSON error response
-            return response.json().then((errorData) =>
-            {
-              throw new Error(errorData.message || "Failed to play the move.");
-            });
-          } else {
-            // Handle plain text error response
-            return response.text().then((errorText) =>
-            {
-              throw new Error(errorText || "Failed to play the move.");
-            });
-          }
-        }
-        return response.json();
-      })
+      .then(response => handleResponse<UserSession>(response))
       .then((data: UserSession) =>
       {
-        // Update the UI with the new data
-        const letterContainer = document.getElementById("letters-play-set");
-
-        const usernameUi = document.getElementById("user-name") as HTMLInputElement;
-        usernameUi.textContent = `Username: ${username}`;
-
-        const sessionStart = document.getElementById("session-start-timestamp") as HTMLInputElement;
-        sessionStart.textContent = `Session Start: ${data.session_start_timestamp}`;
-
-        const lastMoveTimestamp = document.getElementById("last-move-timestamp") as HTMLInputElement;
-        lastMoveTimestamp.textContent = `Last Move: ${data.last_move_timestamp}`;
-
-
-        const overallValue = document.getElementById("overall-value") as HTMLInputElement;
-        overallValue.textContent = `Overall Letter Value: ${data.letter_overall_value}`;
-
-        const totalRemaining = data.letters_play_set.reduce(
-          (sum, letter) => sum + letter.count,
-          0
-        );
-        const remainingLetters = document.getElementById("remaining-letters") as HTMLInputElement;
-        remainingLetters.textContent = `Remaining Letters: ${totalRemaining}`;
-
-        if (letterContainer) {
-          letterContainer.innerHTML = "";
-          letterContainer.appendChild(createLettersTable(data));
-        }
-
-        const playerToggle = document.getElementById("player-toggle") as HTMLInputElement;
-        if (playerToggle) {
-          playerToggle.checked = !playerToggle.checked;
-        }
+        createUserSessionLayout(username, data);
       })
       .catch((error) =>
       {
@@ -126,39 +82,22 @@ document.addEventListener("DOMContentLoaded", () =>
   }
   resetButton.addEventListener("click", () =>
   {
+    if (!confirm('Are you sure you want to reset the game?')) {
+      return;
+    }
     const username = getUsername();
-    fetch(`http://localhost:8080/reset?username=${username}`, {
+    fetch(`${API_BASE_URL}/reset?username=${username}`, {
       method: "POST",
     })
       .then((response) => response.json())
       .then((data: UserSession) =>
       {
-      const letterContainer = document.getElementById("letters-play-set");
-
-      const overallValue = document.getElementById("overall-value") as HTMLInputElement;
-      overallValue.textContent = `Overall Letter Value: ${data.letter_overall_value}`;
-
-      const totalRemaining = data.letters_play_set.reduce(
-        (sum: number, letter: { letter: string; count: number }) => sum + letter.count,
-        0
-      );
-      const remainingLetters = document.getElementById("remaining-letters") as HTMLInputElement;
-      remainingLetters.textContent = `Remaining Letters: ${totalRemaining}`;
-
-      if (letterContainer) {
-        letterContainer.innerHTML = "";
-        letterContainer.appendChild(createLettersTable(data));
-      }
-      const usernameUi = document.getElementById("user-name") as HTMLInputElement;
-      usernameUi.textContent = `Username: ${username}`;
-      if (letterContainer) {
-        letterContainer.innerHTML = "";
-        letterContainer.appendChild(createLettersTable(data));
-      }
+        createUserSessionLayout(username, data);
+        showMessage("Game reset successfully.");
       })
       .catch((error) =>
       {
-      console.error("Error resetting letters:", error);
+        console.error("Error resetting letters:", error);
       });
   });
 });
@@ -166,80 +105,46 @@ document.addEventListener("DOMContentLoaded", () =>
 function fetchLetters()
 {
   const username = getUsername();
-  fetch(`http://localhost:8080/letters?username=${username}`)
-    .then((response) =>
-    {
-      if (!response.ok) {
-        const contentType = response.headers.get("content-type");
-        if (contentType && contentType.includes("application/json")) {
-          return response.json().then((errorData) =>
-          {
-            throw new Error(errorData.message || "Failed to play the move.");
-          });
-        } else {
-          return response.text().then((errorText) =>
-          {
-            throw new Error(errorText || "Failed to play the move.");
-          });
-        }
-      }
-      return response.json();
-    })
+  fetch(`${API_BASE_URL}/letters?username=${username}`)
+    .then(response => handleResponse<UserSession>(response))
     .then((data: UserSession) =>
     {
-      const remainingLetters = document.getElementById("remaining-letters");
-
-      const usernameUi = document.getElementById("user-name");
-      if (usernameUi) {
-        usernameUi.textContent = `Username: ${username}`;
-      }
-
-      const sessionStart = document.getElementById("session-start-timestamp");
-      if (sessionStart) {
-        sessionStart.textContent = `Session Start: ${data.session_start_timestamp}`;
-      }
-
-
-      const lastMoveTimestamp = document.getElementById("last-move-timestamp");
-      if (lastMoveTimestamp) {
-        lastMoveTimestamp.textContent = `Last Move: ${data.last_move_timestamp}`;
-      }
-
-      const overallValue = document.getElementById("overall-value");
-      if (overallValue) {
-        overallValue.textContent = `Overall Letter Value: ${data.letter_overall_value}`;
-      }
-
-      const totalRemaining = data.letters_play_set.reduce(
-        (sum: number, letter: { letter: string; count: number }) => sum + letter.count,
-        0
-      );
-
-      const letterContainer = document.getElementById("letters-play-set");
-      if (remainingLetters) {
-        remainingLetters.textContent = `Remaining Letters: ${totalRemaining}`;
-      }
-      if (letterContainer) {
-        letterContainer.innerHTML = "";
-        letterContainer.appendChild(createLettersTable(data));
-      }
+      createUserSessionLayout(username, data);
     })
     .catch((error) =>
     {
       console.error("Error fetching letter data:", error);
+      showMessage(error.message);
     });
+}
+
+function createUserSessionLayout(username: string, data: UserSession)
+{
+
+  updateTextContent("username", `Username: ${username}`);
+  updateTextContent("session-start-timestamp", `Session Start: ${data.session_start_timestamp}`);
+  updateTextContent("last-move-timestamp", `Last Move: ${data.last_move_timestamp}`);
+  updateTextContent("overall-value", `Overall Letter Value: ${data.letter_overall_value}`);
+
+  const totalRemaining = data.letters_play_set.reduce(
+    (sum, letter) => sum + letter.count, 0
+  );
+  updateTextContent("remaining-letters", `Remaining Letters: ${totalRemaining}`);
+
+  const letterContainer = getElementByIdOrThrow<HTMLElement>("letters-play-set");
+  letterContainer.innerHTML = "";
+  letterContainer.appendChild(createLettersTable(data));
 }
 
 function getUsername()
 {
   const urlParams = new URLSearchParams(window.location.search);
   const usernameFromQuery = urlParams.get("username");
+  console.log("Username from query:", usernameFromQuery);
 
   if (usernameFromQuery) {
-    const usernameInput = document.getElementById("username") as HTMLInputElement;
-    if (usernameInput) {
-      usernameInput.value = usernameFromQuery; // Set the username
-    }
+    const usernameInput = getElementByIdOrThrow<HTMLInputElement>("username");
+    usernameInput.value = usernameFromQuery;
     return usernameFromQuery;
   }
 
@@ -250,7 +155,7 @@ function getUsername()
 function createLettersTable(data: UserSession)
 {
   const table = document.createElement("table");
-  table.classList.add("letter-table"); // Add a class for styling the table
+  table.classList.add("letter-table");
 
   let row: HTMLTableRowElement;
   let index = 0;
@@ -268,17 +173,14 @@ function createLettersTable(data: UserSession)
     }
     index++;
 
-    // Create a cell for the letter
     const letterCell = document.createElement("td");
     letterCell.textContent = letter.letter;
-    letterCell.classList.add("letter-cell"); // Add a class for styling
+    letterCell.classList.add("letter-cell");
 
-    // Create a cell for the count
-    const countCell = document.createElement("td") as HTMLTableCellElement;
+    const countCell = document.createElement("td");
     countCell.textContent = letter.count.toString();
-    countCell.classList.add("count-cell"); // Add a class for styling
+    countCell.classList.add("count-cell");
 
-    // Append both cells to the row
     row.appendChild(letterCell);
     row.appendChild(countCell);
   });
