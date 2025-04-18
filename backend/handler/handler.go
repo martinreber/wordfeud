@@ -204,12 +204,12 @@ func PlayedWordsHandler(w http.ResponseWriter, r *http.Request) {
 	fmt.Printf("Word counts: %v\n", wordCounts)
 	wordsCount := make([]model.WordCount, 0, len(wordCounts))
 	for word, count := range wordCounts {
-		wordsCount = append(wordsCount, model.WordCount{Word: word, Count: count})
+		wordsCount = append(wordsCount, model.WordCount{Word: word, CurrentCount: count})
 	}
 	sort.Slice(wordsCount, func(i, j int) bool {
 		return wordsCount[i].Word < wordsCount[j].Word
 	})
-	fmt.Printf("wordCounts: %+v\n", wordCounts)
+	fmt.Printf("wordCounts: %v\n", wordCounts)
 	fmt.Printf("Sorted word counts: %+v\n", wordsCount)
 	w.Header().Set("Content-Type", "application/json")
 	if err := json.NewEncoder(w).Encode(wordsCount); err != nil {

@@ -6,7 +6,7 @@ import
   updateTextContent,
   API_BASE_URL
 } from '../common/utils.js';
-import { UserSession } from '../common/types.js';
+import { LetterPlaySet, UserSession } from '../common/types.js';
 
 document.addEventListener("DOMContentLoaded", () =>
 {
@@ -126,7 +126,7 @@ function createUserSessionLayout(username: string, data: UserSession)
   updateTextContent("overall-value", `Overall Letter Value: ${data.letter_overall_value}`);
 
   const totalRemaining = data.letters_play_set.reduce(
-    (sum, letter) => sum + letter.count, 0
+    (sum, letter) => sum + letter.current_count, 0
   );
   updateTextContent("remaining-letters", `Remaining Letters: ${totalRemaining}`);
 
@@ -159,10 +159,10 @@ function createLettersTable(data: UserSession)
   let index = 0;
   data.letters_play_set.forEach((letter) =>
   {
-    if (letter.count === 0) {
-      // Skip letters with a count of 0
-      return;
-    }
+    // if (letter.count === 0) {
+    //   // Skip letters with a count of 0
+    //   return;
+    // }
 
     if (index % 5 === 0) {
       // Create a new row every 5 letters
@@ -176,11 +176,33 @@ function createLettersTable(data: UserSession)
     letterCell.classList.add("letter-cell");
 
     const countCell = document.createElement("td");
-    countCell.textContent = letter.count.toString();
+    countCell.textContent = `${letter.current_count.toString()} / ${letter.original_count.toString()}`;
     countCell.classList.add("count-cell");
+    countCell.style.backgroundColor = getBackgroundColor(letter);
 
     row.appendChild(letterCell);
     row.appendChild(countCell);
   });
   return table;
+}
+
+function getBackgroundColor(letter: LetterPlaySet): string
+{
+  const reminding_percentage = (letter.current_count / letter.original_count) * 100;
+  console.log(`Letter: ${letter.letter}, Current Count: ${letter.current_count}, Original Count: ${letter.original_count}, Percentage: ${reminding_percentage}`);
+  if (reminding_percentage >= 100) {
+    return "lightgreen";
+  } else if (reminding_percentage > 75) {
+    return "lightblue";
+  } else if (reminding_percentage > 50) {
+    return "lightpink";
+  } else if (reminding_percentage > 25) {
+    return "lightyellow";
+  } else if (reminding_percentage > 0) {
+    return "lightaquamarine";
+  } else if (reminding_percentage <= 0) {
+    return "lightcoral";
+  } else {
+    return "black";
+  }
 }

@@ -1,6 +1,7 @@
 export interface LetterPlaySet {
     letter: string;
-    count: number;
+    original_count: number;
+    current_count: number;
     value: number;
 }
 
@@ -32,7 +33,7 @@ export interface UserSession {
 
 export interface WordCount {
     word: string;
-    count: number;
+    current_count: number;
 }
 
 export type WordCounts = WordCount[];

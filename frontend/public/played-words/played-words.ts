@@ -49,7 +49,7 @@ function displayWords(words: WordCounts, container: HTMLElement): void {
     words.forEach(entry => {
         const row = document.createElement("tr");
         row.appendChild(createCell(entry.word));
-        row.appendChild(createCell(entry.count.toString()));
+        row.appendChild(createCell(entry.current_count.toString()));
         container.appendChild(row);
     });
 }

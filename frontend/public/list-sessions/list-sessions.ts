@@ -1,7 +1,8 @@
 import { showMessage, handleResponse, getElementByIdOrThrow, API_BASE_URL } from '../common/utils.js';
 import { Session, SessionResponse } from '../common/types.js';
 
-async function fetchSessions(): Promise<void> {
+async function fetchSessions(): Promise<void>
+{
     try {
         const response = await fetch(`${API_BASE_URL}/list`);
 
@@ -13,19 +14,22 @@ async function fetchSessions(): Promise<void> {
         tableBody.innerHTML = ""; // Clear existing rows
 
         // Sort sessions by username (alphabetically)
-        data.sessions.sort((a, b) => a.user.localeCompare(b.user));
-
-        data.sessions.forEach((session) => {
-            const row = createSessionRow(session);
-            tableBody.appendChild(row);
-        });
+        if (data.sessions) {
+            data.sessions.sort((a, b) => a.user.localeCompare(b.user));
+            data.sessions.forEach((session) =>
+            {
+                const row = createSessionRow(session);
+                tableBody.appendChild(row);
+            });
+        }
     } catch (error) {
         console.error("Error fetching sessions:", error);
         showMessage(error instanceof Error ? error.message : "An unexpected error occurred");
     }
 }
 
-function createSessionRow(session: Session): HTMLTableRowElement {
+function createSessionRow(session: Session): HTMLTableRowElement
+{
     const row = document.createElement("tr");
 
     row.appendChild(createUsernameCell(session.user));
@@ -37,7 +41,8 @@ function createSessionRow(session: Session): HTMLTableRowElement {
     return row;
 }
 
-function createUsernameCell(username: string): HTMLTableCellElement {
+function createUsernameCell(username: string): HTMLTableCellElement
+{
     const cell = document.createElement("td");
     const link = document.createElement("a");
     link.textContent = username;
@@ -47,13 +52,15 @@ function createUsernameCell(username: string): HTMLTableCellElement {
     return cell;
 }
 
-function createCell(content: string): HTMLTableCellElement {
+function createCell(content: string): HTMLTableCellElement
+{
     const cell = document.createElement("td");
     cell.textContent = content;
     return cell;
 }
 
-function createDeleteCell(username: string): HTMLTableCellElement {
+function createDeleteCell(username: string): HTMLTableCellElement
+{
     const cell = document.createElement("td");
     const button = document.createElement("button");
     button.textContent = "Delete";
@@ -63,7 +70,8 @@ function createDeleteCell(username: string): HTMLTableCellElement {
     return cell;
 }
 
-async function deleteSession(username: string): Promise<void> {
+async function deleteSession(username: string): Promise<void>
+{
     if (!confirm(`Are you sure you want to delete the session for "${username}"?`)) {
         return;
     }
@@ -86,7 +94,8 @@ async function deleteSession(username: string): Promise<void> {
     }
 }
 
-async function createSession(username: string): Promise<void> {
+async function createSession(username: string): Promise<void>
+{
     try {
         const response = await fetch(`${API_BASE_URL}/create?username=${encodeURIComponent(username)}`, {
             method: "POST",
@@ -102,9 +111,11 @@ async function createSession(username: string): Promise<void> {
 }
 
 // Event Listeners
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", () =>
+{
     const createSessionButton = getElementByIdOrThrow<HTMLButtonElement>("create-session-button");
-    createSessionButton.addEventListener("click", async () => {
+    createSessionButton.addEventListener("click", async () =>
+    {
         const newUsernameInput = getElementByIdOrThrow<HTMLInputElement>("new-username");
         const newUsername = newUsernameInput.value.trim();
 
@@ -125,7 +136,8 @@ document.addEventListener("DOMContentLoaded", () => {
     refreshButton.addEventListener("click", () => fetchSessions());
 
     const playedWordsButton = getElementByIdOrThrow<HTMLButtonElement>("played-words-button");
-    playedWordsButton.addEventListener("click", () => {
+    playedWordsButton.addEventListener("click", () =>
+    {
         window.open("../played-words/index.html", "_blank");
     });
 

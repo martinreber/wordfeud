@@ -3,9 +3,10 @@ package model
 import "sync"
 
 type LetterPlaySet struct {
-	Letter string `json:"letter"`
-	Count  uint   `json:"count"`
-	Value  uint   `json:"value"`
+	Letter        string `json:"letter"`
+	OriginalCount uint   `json:"original_count"`
+	CurrentCount  uint   `json:"current_count"`
+	Value         uint   `json:"value"`
 }
 
 type LettersPlaySet []LetterPlaySet
@@ -39,8 +40,8 @@ type UserSession struct {
 }
 
 type WordCount struct {
-	Word  string `json:"word"`
-	Count int    `json:"count"`
+	Word         string `json:"word"`
+	CurrentCount int    `json:"current_count"`
 }
 
 var (

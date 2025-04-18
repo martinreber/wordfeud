@@ -1,202 +1,487 @@
 {
-  "sammy171717": {
+  "absalom": {
     "letters_play_set": [
       {
         "letter": "a",
-        "count": 2,
+        "original_count": 5,
+        "current_count": 5,
         "value": 1
       },
       {
         "letter": "b",
-        "count": 1,
+        "original_count": 2,
+        "current_count": 2,
         "value": 2
       },
       {
         "letter": "c",
-        "count": 2,
+        "original_count": 2,
+        "current_count": 2,
         "value": 4
       },
       {
         "letter": "d",
-        "count": 5,
+        "original_count": 5,
+        "current_count": 5,
         "value": 1
       },
       {
         "letter": "e",
-        "count": 12,
+        "original_count": 14,
+        "current_count": 14,
         "value": 1
       },
       {
         "letter": "f",
-        "count": 2,
+        "original_count": 2,
+        "current_count": 2,
         "value": 4
       },
       {
         "letter": "g",
-        "count": 3,
+        "original_count": 3,
+        "current_count": 3,
         "value": 2
       },
       {
         "letter": "h",
-        "count": 4,
+        "original_count": 4,
+        "current_count": 4,
         "value": 2
       },
       {
         "letter": "i",
-        "count": 6,
+        "original_count": 6,
+        "current_count": 5,
         "value": 1
       },
       {
         "letter": "j",
-        "count": 1,
+        "original_count": 1,
+        "current_count": 1,
         "value": 6
       },
       {
         "letter": "k",
-        "count": 2,
+        "original_count": 2,
+        "current_count": 2,
         "value": 4
       },
       {
         "letter": "l",
-        "count": 3,
+        "original_count": 3,
+        "current_count": 3,
         "value": 2
       },
       {
         "letter": "m",
-        "count": 4,
+        "original_count": 4,
+        "current_count": 3,
         "value": 3
       },
       {
         "letter": "n",
-        "count": 9,
+        "original_count": 9,
+        "current_count": 8,
         "value": 1
       },
       {
         "letter": "o",
-        "count": 3,
+        "original_count": 3,
+        "current_count": 3,
         "value": 2
       },
       {
         "letter": "p",
-        "count": 1,
+        "original_count": 1,
+        "current_count": 1,
         "value": 5
       },
       {
         "letter": "q",
-        "count": 1,
+        "original_count": 1,
+        "current_count": 1,
         "value": 10
       },
       {
         "letter": "r",
-        "count": 6,
+        "original_count": 6,
+        "current_count": 6,
         "value": 1
       },
       {
         "letter": "s",
-        "count": 6,
+        "original_count": 7,
+        "current_count": 5,
         "value": 1
       },
       {
         "letter": "t",
-        "count": 4,
+        "original_count": 6,
+        "current_count": 6,
         "value": 1
       },
       {
         "letter": "u",
-        "count": 6,
+        "original_count": 6,
+        "current_count": 6,
         "value": 1
       },
       {
         "letter": "v",
-        "count": 1,
+        "original_count": 1,
+        "current_count": 1,
         "value": 6
       },
       {
         "letter": "w",
-        "count": 1,
+        "original_count": 1,
+        "current_count": 1,
         "value": 3
       },
       {
         "letter": "x",
-        "count": 0,
+        "original_count": 1,
+        "current_count": 1,
         "value": 8
       },
       {
         "letter": "y",
-        "count": 0,
+        "original_count": 1,
+        "current_count": 0,
         "value": 10
       },
       {
         "letter": "z",
-        "count": 1,
+        "original_count": 1,
+        "current_count": 1,
         "value": 3
       },
       {
         "letter": "ä",
-        "count": 1,
+        "original_count": 1,
+        "current_count": 1,
         "value": 6
       },
       {
         "letter": "ö",
-        "count": 0,
+        "original_count": 1,
+        "current_count": 1,
         "value": 8
       },
       {
         "letter": "ü",
-        "count": 0,
+        "original_count": 1,
+        "current_count": 1,
         "value": 6
       },
       {
         "letter": "*",
-        "count": 2,
+        "original_count": 2,
+        "current_count": 2,
         "value": 0
       }
     ],
-    "last_move_timestamp": "2025-04-13 16:00:48",
-    "session_start_timestamp": "2025-04-12 13:47:47",
-    "letter_overall_value": 159,
+    "last_move_timestamp": "2025-04-18 11:49:46",
+    "session_start_timestamp": "2025-04-18 11:42:06",
+    "letter_overall_value": 184,
     "played_moves": [
       {
+        "letters": "my",
+        "word": "my",
+        "played_by_myself": false,
+        "timestamp": "2025-04-18 11:42:16"
+      },
+      {
+        "letters": "ns",
+        "word": "nys",
+        "played_by_myself": false,
+        "timestamp": "2025-04-18 11:42:31"
+      },
+      {
         "letters": "s",
-        "word": "sah",
+        "word": "mys",
         "played_by_myself": false,
-        "timestamp": "2025-04-12 13:47:58"
+        "timestamp": "2025-04-18 11:46:10"
       },
       {
-        "letters": "ö",
-        "word": "tö",
+        "letters": "i",
+        "word": "in",
         "played_by_myself": false,
-        "timestamp": "2025-04-12 13:50:55"
+        "timestamp": "2025-04-18 11:49:46"
+      }
+    ]
+  },
+  "test": {
+    "letters_play_set": [
+      {
+        "letter": "a",
+        "original_count": 5,
+        "current_count": 3,
+        "value": 1
       },
       {
-        "letters": "aa",
-        "word": "aba",
-        "played_by_myself": false,
-        "timestamp": "2025-04-13 13:16:33"
+        "letter": "b",
+        "original_count": 2,
+        "current_count": 2,
+        "value": 2
       },
       {
-        "letters": "tü",
-        "word": "türe",
-        "played_by_myself": false,
-        "timestamp": "2025-04-13 15:40:05"
+        "letter": "c",
+        "original_count": 2,
+        "current_count": 2,
+        "value": 4
       },
       {
-        "letters": "ab",
-        "word": "ab",
-        "played_by_myself": false,
-        "timestamp": "2025-04-13 15:55:41"
+        "letter": "d",
+        "original_count": 5,
+        "current_count": 5,
+        "value": 1
       },
       {
-        "letters": "tee",
-        "word": "tee",
-        "played_by_myself": false,
-        "timestamp": "2025-04-13 15:56:06"
+        "letter": "e",
+        "original_count": 14,
+        "current_count": 3,
+        "value": 1
       },
       {
-        "letters": "xy",
-        "word": "xy",
+        "letter": "f",
+        "original_count": 2,
+        "current_count": 0,
+        "value": 4
+      },
+      {
+        "letter": "g",
+        "original_count": 3,
+        "current_count": 0,
+        "value": 2
+      },
+      {
+        "letter": "h",
+        "original_count": 4,
+        "current_count": 4,
+        "value": 2
+      },
+      {
+        "letter": "i",
+        "original_count": 6,
+        "current_count": 6,
+        "value": 1
+      },
+      {
+        "letter": "j",
+        "original_count": 1,
+        "current_count": 1,
+        "value": 6
+      },
+      {
+        "letter": "k",
+        "original_count": 2,
+        "current_count": 2,
+        "value": 4
+      },
+      {
+        "letter": "l",
+        "original_count": 3,
+        "current_count": 3,
+        "value": 2
+      },
+      {
+        "letter": "m",
+        "original_count": 4,
+        "current_count": 4,
+        "value": 3
+      },
+      {
+        "letter": "n",
+        "original_count": 9,
+        "current_count": 9,
+        "value": 1
+      },
+      {
+        "letter": "o",
+        "original_count": 3,
+        "current_count": 3,
+        "value": 2
+      },
+      {
+        "letter": "p",
+        "original_count": 1,
+        "current_count": 1,
+        "value": 5
+      },
+      {
+        "letter": "q",
+        "original_count": 1,
+        "current_count": 1,
+        "value": 10
+      },
+      {
+        "letter": "r",
+        "original_count": 6,
+        "current_count": 6,
+        "value": 1
+      },
+      {
+        "letter": "s",
+        "original_count": 7,
+        "current_count": 6,
+        "value": 1
+      },
+      {
+        "letter": "t",
+        "original_count": 6,
+        "current_count": 6,
+        "value": 1
+      },
+      {
+        "letter": "u",
+        "original_count": 6,
+        "current_count": 3,
+        "value": 1
+      },
+      {
+        "letter": "v",
+        "original_count": 1,
+        "current_count": 1,
+        "value": 6
+      },
+      {
+        "letter": "w",
+        "original_count": 1,
+        "current_count": 1,
+        "value": 3
+      },
+      {
+        "letter": "x",
+        "original_count": 1,
+        "current_count": 1,
+        "value": 8
+      },
+      {
+        "letter": "y",
+        "original_count": 1,
+        "current_count": 1,
+        "value": 10
+      },
+      {
+        "letter": "z",
+        "original_count": 1,
+        "current_count": 1,
+        "value": 3
+      },
+      {
+        "letter": "ä",
+        "original_count": 1,
+        "current_count": 1,
+        "value": 6
+      },
+      {
+        "letter": "ö",
+        "original_count": 1,
+        "current_count": 1,
+        "value": 8
+      },
+      {
+        "letter": "ü",
+        "original_count": 1,
+        "current_count": 1,
+        "value": 6
+      },
+      {
+        "letter": "*",
+        "original_count": 2,
+        "current_count": 2,
+        "value": 0
+      }
+    ],
+    "last_move_timestamp": "2025-04-18 11:25:31",
+    "session_start_timestamp": "2025-04-18 11:20:49",
+    "letter_overall_value": 170,
+    "played_moves": [
+      {
+        "letters": "e",
+        "word": "e",
         "played_by_myself": false,
-        "timestamp": "2025-04-13 16:00:48"
+        "timestamp": "2025-04-18 11:20:53"
+      },
+      {
+        "letters": "e",
+        "word": "e",
+        "played_by_myself": false,
+        "timestamp": "2025-04-18 11:20:55"
+      },
+      {
+        "letters": "e",
+        "word": "e",
+        "played_by_myself": false,
+        "timestamp": "2025-04-18 11:20:56"
+      },
+      {
+        "letters": "e",
+        "word": "e",
+        "played_by_myself": false,
+        "timestamp": "2025-04-18 11:20:57"
+      },
+      {
+        "letters": "e",
+        "word": "e",
+        "played_by_myself": false,
+        "timestamp": "2025-04-18 11:21:02"
+      },
+      {
+        "letters": "e",
+        "word": "e",
+        "played_by_myself": false,
+        "timestamp": "2025-04-18 11:22:07"
+      },
+      {
+        "letters": "e",
+        "word": "e",
+        "played_by_myself": false,
+        "timestamp": "2025-04-18 11:22:08"
+      },
+      {
+        "letters": "e",
+        "word": "e",
+        "played_by_myself": false,
+        "timestamp": "2025-04-18 11:22:11"
+      },
+      {
+        "letters": "e",
+        "word": "e",
+        "played_by_myself": false,
+        "timestamp": "2025-04-18 11:22:12"
+      },
+      {
+        "letters": "e",
+        "word": "e",
+        "played_by_myself": false,
+        "timestamp": "2025-04-18 11:22:13"
+      },
+      {
+        "letters": "e",
+        "word": "e",
+        "played_by_myself": false,
+        "timestamp": "2025-04-18 11:22:14"
+      },
+      {
+        "letters": "gugus",
+        "word": "gugus",
+        "played_by_myself": false,
+        "timestamp": "2025-04-18 11:24:34"
+      },
+      {
+        "letters": "fa",
+        "word": "fa",
+        "played_by_myself": false,
+        "timestamp": "2025-04-18 11:25:24"
+      },
+      {
+        "letters": "fa",
+        "word": "fa",
+        "played_by_myself": false,
+        "timestamp": "2025-04-18 11:25:31"
       }
     ]
   }

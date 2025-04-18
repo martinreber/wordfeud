@@ -7,52 +7,52 @@ import (
 	"buchstaben.go/model"
 )
 
-func LoadLettersPlaySet() (model.LettersPlaySet) {
+func LoadLettersPlaySet() model.LettersPlaySet {
 	lettersPlaySet := model.LettersPlaySet{
-		{Letter: "a", Count: 5, Value: 1},
-		{Letter: "b", Count: 2, Value: 2},
-		{Letter: "c", Count: 2, Value: 4},
-		{Letter: "d", Count: 5, Value: 1},
-		{Letter: "e", Count: 14, Value: 1},
-		{Letter: "f", Count: 2, Value: 4},
-		{Letter: "g", Count: 3, Value: 2},
-		{Letter: "h", Count: 4, Value: 2},
-		{Letter: "i", Count: 6, Value: 1},
-		{Letter: "j", Count: 1, Value: 6},
-		{Letter: "k", Count: 2, Value: 4},
-		{Letter: "l", Count: 3, Value: 2},
-		{Letter: "m", Count: 4, Value: 3},
-		{Letter: "n", Count: 9, Value: 1},
-		{Letter: "o", Count: 3, Value: 2},
-		{Letter: "p", Count: 1, Value: 5},
-		{Letter: "q", Count: 1, Value: 10},
-		{Letter: "r", Count: 6, Value: 1},
-		{Letter: "s", Count: 7, Value: 1},
-		{Letter: "t", Count: 6, Value: 1},
-		{Letter: "u", Count: 6, Value: 1},
-		{Letter: "v", Count: 1, Value: 6},
-		{Letter: "w", Count: 1, Value: 3},
-		{Letter: "x", Count: 1, Value: 8},
-		{Letter: "y", Count: 1, Value: 10},
-		{Letter: "z", Count: 1, Value: 3},
-		{Letter: "ä", Count: 1, Value: 6},
-		{Letter: "ö", Count: 1, Value: 8},
-		{Letter: "ü", Count: 1, Value: 6},
-		{Letter: "*", Count: 2, Value: 0},
+		{Letter: "a", OriginalCount: 5, CurrentCount: 5, Value: 1},
+		{Letter: "b", OriginalCount: 2, CurrentCount: 2, Value: 2},
+		{Letter: "c", OriginalCount: 2, CurrentCount: 2, Value: 4},
+		{Letter: "d", OriginalCount: 5, CurrentCount: 5, Value: 1},
+		{Letter: "e", OriginalCount: 14, CurrentCount: 14, Value: 1},
+		{Letter: "f", OriginalCount: 2, CurrentCount: 2, Value: 4},
+		{Letter: "g", OriginalCount: 3, CurrentCount: 3, Value: 2},
+		{Letter: "h", OriginalCount: 4, CurrentCount: 4, Value: 2},
+		{Letter: "i", OriginalCount: 6, CurrentCount: 6, Value: 1},
+		{Letter: "j", OriginalCount: 1, CurrentCount: 1, Value: 6},
+		{Letter: "k", OriginalCount: 2, CurrentCount: 2, Value: 4},
+		{Letter: "l", OriginalCount: 3, CurrentCount: 3, Value: 2},
+		{Letter: "m", OriginalCount: 4, CurrentCount: 4, Value: 3},
+		{Letter: "n", OriginalCount: 9, CurrentCount: 9, Value: 1},
+		{Letter: "o", OriginalCount: 3, CurrentCount: 3, Value: 2},
+		{Letter: "p", OriginalCount: 1, CurrentCount: 1, Value: 5},
+		{Letter: "q", OriginalCount: 1, CurrentCount: 1, Value: 10},
+		{Letter: "r", OriginalCount: 6, CurrentCount: 6, Value: 1},
+		{Letter: "s", OriginalCount: 7, CurrentCount: 7, Value: 1},
+		{Letter: "t", OriginalCount: 6, CurrentCount: 6, Value: 1},
+		{Letter: "u", OriginalCount: 6, CurrentCount: 6, Value: 1},
+		{Letter: "v", OriginalCount: 1, CurrentCount: 1, Value: 6},
+		{Letter: "w", OriginalCount: 1, CurrentCount: 1, Value: 3},
+		{Letter: "x", OriginalCount: 1, CurrentCount: 1, Value: 8},
+		{Letter: "y", OriginalCount: 1, CurrentCount: 1, Value: 10},
+		{Letter: "z", OriginalCount: 1, CurrentCount: 1, Value: 3},
+		{Letter: "ä", OriginalCount: 1, CurrentCount: 1, Value: 6},
+		{Letter: "ö", OriginalCount: 1, CurrentCount: 1, Value: 8},
+		{Letter: "ü", OriginalCount: 1, CurrentCount: 1, Value: 6},
+		{Letter: "*", OriginalCount: 2, CurrentCount: 2, Value: 0},
 	}
 	return lettersPlaySet
 }
 
 func RemoveLetters(lettersPlaySet model.LettersPlaySet, inputString string) (model.LettersPlaySet, error) {
-    previousLettersPlaySet := lettersPlaySet
+	previousLettersPlaySet := lettersPlaySet
 	for _, letter := range inputString {
 		for i, l := range lettersPlaySet {
 			if l.Letter == string(letter) {
-				if lettersPlaySet[i].Count == 0 {
+				if lettersPlaySet[i].CurrentCount == 0 {
 					fmt.Println("Letter ", l.Letter, " is not available anymore.")
 					return previousLettersPlaySet, fmt.Errorf("letter %s is not available anymore, \"Play Move\" ignored", l.Letter)
 				}
-				lettersPlaySet[i].Count--
+				lettersPlaySet[i].CurrentCount--
 				break
 			}
 		}
@@ -63,7 +63,7 @@ func RemoveLetters(lettersPlaySet model.LettersPlaySet, inputString string) (mod
 func GetLetterValue(lettersPlaySet model.LettersPlaySet) uint {
 	value := uint(0)
 	for _, l := range lettersPlaySet {
-		value += l.Count * l.Value
+		value += l.CurrentCount * l.Value
 	}
 	return value
 }
@@ -71,11 +71,11 @@ func GetLetterValue(lettersPlaySet model.LettersPlaySet) uint {
 func GetRemindingsLetterCount(lettersPlaySet model.LettersPlaySet) uint {
 	remindingLetterCount := uint(0)
 	for _, l := range lettersPlaySet {
-		remindingLetterCount += l.Count
+		remindingLetterCount += l.CurrentCount
 	}
 	return remindingLetterCount
 }
 
 func GetUserNameFromResponse(r http.Request) model.User {
-    return model.User(r.URL.Query().Get("username"))
+	return model.User(r.URL.Query().Get("username"))
 }
