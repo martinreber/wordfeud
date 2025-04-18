@@ -99,6 +99,36 @@ document.addEventListener("DOMContentLoaded", () =>
         console.error("Error resetting letters:", error);
       });
   });
+
+  const endSessionButton = document.getElementById("end-session-button");
+  if (!endSessionButton) {
+    console.error("End Session button not found");
+    return;
+  }
+  endSessionButton.addEventListener("click", () => {
+    if (!confirm("Are you sure you want to end the session?")) {
+      return;
+    }
+
+    const username = getUsername();
+    fetch(`${API_BASE_URL}/end-session?username=${username}`, {
+      method: "POST",
+    })
+      .then(response => {
+        if (!response.ok) {
+          throw new Error("Failed to end session");
+        }
+        return response.text();
+      })
+      .then(message => {
+        showMessage(message);
+        window.location.href = "../list-sessions/index.html"; // Redirect to session list
+      })
+      .catch(error => {
+        console.error("Error ending session:", error);
+        showMessage(error.message);
+      });
+  });
 });
 
 function fetchLetters()

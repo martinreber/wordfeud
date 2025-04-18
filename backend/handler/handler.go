@@ -10,7 +10,7 @@ import (
 
 	"buchstaben.go/logic"
 	"buchstaben.go/model"
-	"buchstaben.go/persistance"
+	"buchstaben.go/persistence"
 )
 
 func ListSessionsHandler(w http.ResponseWriter, r *http.Request) {
@@ -20,11 +20,11 @@ func ListSessionsHandler(w http.ResponseWriter, r *http.Request) {
 	listSessions := model.ListSessions{}
 	listSession := model.ListSession{}
 
-	for user := range model.Sessions {
+	for user := range model.GlobalPersistence.Sessions {
 		listSession.User = user
-		listSession.LastMoveTimestamp = model.Sessions[user].LastMoveTimestamp
-		listSession.SessionStartTimestamp = model.Sessions[user].SessionStartTimestamp
-		listSession.RemindingLetters = logic.GetRemindingsLetterCount(model.Sessions[user].LettersPlaySet)
+		listSession.LastMoveTimestamp = model.GlobalPersistence.Sessions[user].LastMoveTimestamp
+		listSession.SessionStartTimestamp = model.GlobalPersistence.Sessions[user].SessionStartTimestamp
+		listSession.RemindingLetters = logic.GetRemindingsLetterCount(model.GlobalPersistence.Sessions[user].LettersPlaySet)
 		listSessions.Sessions = append(listSessions.Sessions, listSession)
 	}
 
@@ -45,18 +45,19 @@ func CreateSessionHandler(w http.ResponseWriter, r *http.Request) {
 	model.SessionsLock.Lock()
 	defer model.SessionsLock.Unlock()
 
-	if _, exists := model.Sessions[username]; exists {
+	if _, exists := model.GlobalPersistence.Sessions[username]; exists {
 		http.Error(w, "Session already exists for this username", http.StatusBadRequest)
 		return
 	}
-	model.Sessions[username] = model.UserSession{
+	model.GlobalPersistence.Sessions[username] = model.UserSession{
+		User:                  username,
 		LettersPlaySet:        logic.LoadLettersPlaySet(),
 		LastMoveTimestamp:     time.Now().Format("2006-01-02 15:04:05"),
 		SessionStartTimestamp: time.Now().Format("2006-01-02 15:04:05"),
 		LetterOverAllValue:    logic.GetLetterValue(logic.LoadLettersPlaySet()),
 		PlayedMoves:           []model.PlayedMove{},
 	}
-	if err := persistance.SaveSessionsToFile(); err != nil {
+	if err := persistence.SaveSessionsToFile(); err != nil {
 		http.Error(w, "Failed to save session data", http.StatusInternalServerError)
 		return
 	}
@@ -73,12 +74,12 @@ func DeleteSessionHandler(w http.ResponseWriter, r *http.Request) {
 	model.SessionsLock.Lock()
 	defer model.SessionsLock.Unlock()
 	w.Header().Set("Content-Type", "application/json")
-	if _, exists := model.Sessions[username]; !exists {
+	if _, exists := model.GlobalPersistence.Sessions[username]; !exists {
 		http.Error(w, "Session not found for username", http.StatusNotFound)
 		return
 	}
-	delete(model.Sessions, username)
-	if err := persistance.SaveSessionsToFile(); err != nil {
+	delete(model.GlobalPersistence.Sessions, username)
+	if err := persistence.SaveSessionsToFile(); err != nil {
 		http.Error(w, "Failed to save session data", http.StatusInternalServerError)
 		return
 	}
@@ -95,16 +96,17 @@ func GetLettersHandler(w http.ResponseWriter, r *http.Request) {
 	model.SessionsLock.Lock()
 	defer model.SessionsLock.Unlock()
 
-	userSession, exists := model.Sessions[username]
+	userSession, exists := model.GlobalPersistence.Sessions[username]
 	if !exists {
 		userSession = model.UserSession{
+			User:                  username,
 			LettersPlaySet:        logic.LoadLettersPlaySet(),
 			LastMoveTimestamp:     time.Now().Format("2006-01-02 15:04:05"),
 			SessionStartTimestamp: time.Now().Format("2006-01-02 15:04:05"),
 			LetterOverAllValue:    logic.GetLetterValue(logic.LoadLettersPlaySet()),
 			PlayedMoves:           []model.PlayedMove{},
 		}
-		model.Sessions[username] = userSession
+		model.GlobalPersistence.Sessions[username] = userSession
 	}
 
 	w.Header().Set("Content-Type", "application/json")
@@ -130,11 +132,11 @@ func PlayMoveInputHandler(w http.ResponseWriter, r *http.Request) {
 	model.SessionsLock.Lock()
 	defer model.SessionsLock.Unlock()
 
-	if _, exists := model.Sessions[username]; !exists {
+	if _, exists := model.GlobalPersistence.Sessions[username]; !exists {
 		http.Error(w, "Session not found for username", http.StatusNotFound)
 		return
 	}
-	lettersPlaySet := model.Sessions[username].LettersPlaySet
+	lettersPlaySet := model.GlobalPersistence.Sessions[username].LettersPlaySet
 	newLettersPlaySet, err := logic.RemoveLetters(lettersPlaySet, playedMoveInput.Letters)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusBadRequest)
@@ -142,15 +144,16 @@ func PlayMoveInputHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	updatedSession := model.UserSession{
+		User:                  username,
 		LettersPlaySet:        newLettersPlaySet,
 		LastMoveTimestamp:     time.Now().Format("2006-01-02 15:04:05"),
-		SessionStartTimestamp: model.Sessions[username].SessionStartTimestamp,
+		SessionStartTimestamp: model.GlobalPersistence.Sessions[username].SessionStartTimestamp,
 		LetterOverAllValue:    logic.GetLetterValue(newLettersPlaySet),
-		PlayedMoves:           append(model.Sessions[username].PlayedMoves, playedMoveInput),
+		PlayedMoves:           append(model.GlobalPersistence.Sessions[username].PlayedMoves, playedMoveInput),
 	}
-	model.Sessions[username] = updatedSession
+	model.GlobalPersistence.Sessions[username] = updatedSession
 
-	if err := persistance.SaveSessionsToFile(); err != nil {
+	if err := persistence.SaveSessionsToFile(); err != nil {
 		http.Error(w, "Failed to save session data", http.StatusInternalServerError)
 		return
 	}
@@ -170,15 +173,16 @@ func ResetLettersHandler(w http.ResponseWriter, r *http.Request) {
 	model.SessionsLock.Lock()
 	defer model.SessionsLock.Unlock()
 	newSession := model.UserSession{
+		User:                  username,
 		LettersPlaySet:        logic.LoadLettersPlaySet(),
 		LastMoveTimestamp:     time.Now().Format("2006-01-02 15:04:05"),
 		SessionStartTimestamp: time.Now().Format("2006-01-02 15:04:05"),
 		LetterOverAllValue:    logic.GetLetterValue(logic.LoadLettersPlaySet()),
 		PlayedMoves:           []model.PlayedMove{},
 	}
-	model.Sessions[username] = newSession
+	model.GlobalPersistence.Sessions[username] = newSession
 
-	if err := persistance.SaveSessionsToFile(); err != nil {
+	if err := persistence.SaveSessionsToFile(); err != nil {
 		http.Error(w, "Failed to save session data", http.StatusInternalServerError)
 		return
 	}
@@ -190,12 +194,46 @@ func ResetLettersHandler(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
+func EndSessionHandler(w http.ResponseWriter, r *http.Request) {
+	fmt.Println("Ending session...")
+	username := logic.GetUserNameFromResponse(*r)
+	if username == "" {
+		http.Error(w, "Username is required", http.StatusBadRequest)
+		return
+	}
+
+	model.SessionsLock.Lock()
+	defer model.SessionsLock.Unlock()
+
+	session, exists := model.GlobalPersistence.Sessions[username]
+	if !exists {
+		http.Error(w, "Session not found for username", http.StatusNotFound)
+		return
+	}
+
+	// Set the SessionEndTimestamp
+	session.SessionEndTimestamp = time.Now().Format("2006-01-02 15:04:05")
+
+	// Move the session to EndedSessions and remove it from active sessions
+	model.GlobalPersistence.EndedSessions = append(model.GlobalPersistence.EndedSessions, session)
+	delete(model.GlobalPersistence.Sessions, username)
+
+	// Save the updated sessions to file
+	if err := persistence.SaveSessionsToFile(); err != nil {
+		http.Error(w, "Failed to save session data", http.StatusInternalServerError)
+		return
+	}
+
+	w.WriteHeader(http.StatusOK)
+	fmt.Fprintf(w, "Session for user '%s' ended successfully.", username)
+}
+
 func PlayedWordsHandler(w http.ResponseWriter, r *http.Request) {
 	model.SessionsLock.Lock()
 	defer model.SessionsLock.Unlock()
 
 	wordCounts := make(map[string]int)
-	for _, session := range model.Sessions {
+	for _, session := range model.GlobalPersistence.Sessions {
 		for _, move := range session.PlayedMoves {
 			word := strings.ToLower(move.Word)
 			wordCounts[word]++

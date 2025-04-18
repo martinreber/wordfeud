@@ -6,15 +6,17 @@ import (
 
 	"buchstaben.go/handler"
 	"buchstaben.go/model"
-	"buchstaben.go/persistance"
+	"buchstaben.go/persistence"
 )
 
 func main() {
-	model.Sessions = make(map[model.User]model.UserSession)
+	model.GlobalPersistence = model.GlobalPersistenceStruct{
+		Sessions:      make(map[model.User]model.UserSession),
+		EndedSessions: []model.UserSession{},
+	}
 
-	if err := persistance.LoadSessionsFromFile(); err != nil {
+	if err := persistence.LoadSessionsFromFile(); err != nil {
 		fmt.Println("Error loading sessions:", err)
-		model.Sessions = make(map[model.User]model.UserSession)
 	}
 
 	http.Handle("/letters", handler.EnableCORS(http.HandlerFunc(handler.GetLettersHandler)))
@@ -22,6 +24,7 @@ func main() {
 	http.Handle("/reset", handler.EnableCORS(http.HandlerFunc(handler.ResetLettersHandler)))
 	http.Handle("/list", handler.EnableCORS(http.HandlerFunc(handler.ListSessionsHandler)))
 	http.Handle("/create", handler.EnableCORS(http.HandlerFunc(handler.CreateSessionHandler)))
+	http.Handle("/end-session", handler.EnableCORS(http.HandlerFunc(handler.EndSessionHandler)))
 	http.Handle("/delete", handler.EnableCORS(http.HandlerFunc(handler.DeleteSessionHandler)))
 	http.Handle("/played-words", handler.EnableCORS(http.HandlerFunc(handler.PlayedWordsHandler)))
 

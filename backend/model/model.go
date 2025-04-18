@@ -32,9 +32,11 @@ type PlayedMove struct {
 }
 
 type UserSession struct {
+	User                  User            `json:"user"`
 	LettersPlaySet        []LetterPlaySet `json:"letters_play_set"`
 	LastMoveTimestamp     string          `json:"last_move_timestamp"`
 	SessionStartTimestamp string          `json:"session_start_timestamp"`
+	SessionEndTimestamp   string          `json:"session_end_timestamp"`
 	LetterOverAllValue    uint            `json:"letter_overall_value"`
 	PlayedMoves           []PlayedMove    `json:"played_moves"`
 }
@@ -44,7 +46,12 @@ type WordCount struct {
 	CurrentCount int    `json:"current_count"`
 }
 
+type GlobalPersistenceStruct struct {
+	Sessions      map[User]UserSession `json:"sessions"`
+	EndedSessions []UserSession        `json:"ended_sessions"`
+}
+
 var (
-	Sessions     map[User]UserSession
-	SessionsLock sync.Mutex
+	GlobalPersistence GlobalPersistenceStruct
+	SessionsLock      sync.Mutex
 )
