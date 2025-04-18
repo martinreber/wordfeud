@@ -1,4 +1,4 @@
-package handler
+package controller
 
 import (
 	"encoding/json"
@@ -13,7 +13,7 @@ import (
 	"buchstaben.go/persistence"
 )
 
-func ListSessionsHandler(w http.ResponseWriter, r *http.Request) {
+func ListSessionsController(w http.ResponseWriter, r *http.Request) {
 	model.SessionsLock.Lock()
 	defer model.SessionsLock.Unlock()
 
@@ -35,7 +35,7 @@ func ListSessionsHandler(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-func CreateSessionHandler(w http.ResponseWriter, r *http.Request) {
+func CreateSessionController(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("Creating new session...")
 	username := logic.GetUserNameFromResponse(*r)
 	if username == "" {
@@ -64,7 +64,7 @@ func CreateSessionHandler(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusCreated)
 }
 
-func DeleteSessionHandler(w http.ResponseWriter, r *http.Request) {
+func DeleteSessionController(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("Delete session")
 	username := logic.GetUserNameFromResponse(*r)
 	if username == "" {
@@ -86,7 +86,7 @@ func DeleteSessionHandler(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusOK)
 }
 
-func GetLettersHandler(w http.ResponseWriter, r *http.Request) {
+func GetLettersController(w http.ResponseWriter, r *http.Request) {
 	username := logic.GetUserNameFromResponse(*r)
 	if username == "" {
 		http.Error(w, "Username is required", http.StatusBadRequest)
@@ -113,7 +113,7 @@ func GetLettersHandler(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(userSession)
 }
 
-func PlayMoveInputHandler(w http.ResponseWriter, r *http.Request) {
+func PlayMoveInputController(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("Processing input...")
 	username := logic.GetUserNameFromResponse(*r)
 	if username == "" {
@@ -164,7 +164,7 @@ func PlayMoveInputHandler(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-func ResetLettersHandler(w http.ResponseWriter, r *http.Request) {
+func ResetLettersController(w http.ResponseWriter, r *http.Request) {
 	username := logic.GetUserNameFromResponse(*r)
 	if username == "" {
 		http.Error(w, "Username is required", http.StatusBadRequest)
@@ -194,7 +194,7 @@ func ResetLettersHandler(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-func EndSessionHandler(w http.ResponseWriter, r *http.Request) {
+func EndSessionController(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("Ending session...")
 	username := logic.GetUserNameFromResponse(*r)
 	if username == "" {
@@ -228,12 +228,18 @@ func EndSessionHandler(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprintf(w, "Session for user '%s' ended successfully.", username)
 }
 
-func PlayedWordsHandler(w http.ResponseWriter, r *http.Request) {
+func PlayedWordsController(w http.ResponseWriter, r *http.Request) {
 	model.SessionsLock.Lock()
 	defer model.SessionsLock.Unlock()
 
 	wordCounts := make(map[string]int)
 	for _, session := range model.GlobalPersistence.Sessions {
+		for _, move := range session.PlayedMoves {
+			word := strings.ToLower(move.Word)
+			wordCounts[word]++
+		}
+	}
+	for _, session := range model.GlobalPersistence.EndedSessions {
 		for _, move := range session.PlayedMoves {
 			word := strings.ToLower(move.Word)
 			wordCounts[word]++
@@ -247,8 +253,6 @@ func PlayedWordsHandler(w http.ResponseWriter, r *http.Request) {
 	sort.Slice(wordsCount, func(i, j int) bool {
 		return wordsCount[i].Word < wordsCount[j].Word
 	})
-	fmt.Printf("wordCounts: %v\n", wordCounts)
-	fmt.Printf("Sorted word counts: %+v\n", wordsCount)
 	w.Header().Set("Content-Type", "application/json")
 	if err := json.NewEncoder(w).Encode(wordsCount); err != nil {
 		http.Error(w, "Failed to encode response", http.StatusInternalServerError)
