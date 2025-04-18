@@ -12,10 +12,6 @@ export interface Session {
     reminding_letters: number;
 }
 
-export interface SessionResponse {
-    sessions: Session[];
-}
-
 export interface PlayedMove {
     letters: string;
     word: string;

@@ -1,12 +1,12 @@
 import { showMessage, handleResponse, getElementByIdOrThrow, API_BASE_URL } from '../common/utils.js';
-import { Session, SessionResponse } from '../common/types.js';
+import { Session } from '../common/types.js';
 
 async function fetchSessions(): Promise<void>
 {
     try {
         const response = await fetch(`${API_BASE_URL}/list`);
 
-        const data = await handleResponse<SessionResponse>(response);
+        const data = await handleResponse<Session[]>(response);
 
         const tableBody = getElementByIdOrThrow<HTMLTableSectionElement>('sessions-table').querySelector('tbody');
         if (!tableBody) throw new Error('Table body not found');
@@ -14,9 +14,10 @@ async function fetchSessions(): Promise<void>
         tableBody.innerHTML = ""; // Clear existing rows
 
         // Sort sessions by username (alphabetically)
-        if (data.sessions) {
-            data.sessions.sort((a, b) => a.user.localeCompare(b.user));
-            data.sessions.forEach((session) =>
+        console.log(data)
+        if (data) {
+            data.sort((a, b) => a.user.localeCompare(b.user));
+            data.forEach((session) =>
             {
                 const row = createSessionRow(session);
                 tableBody.appendChild(row);

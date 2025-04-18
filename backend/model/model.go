@@ -11,10 +11,6 @@ type LetterPlaySet struct {
 
 type LettersPlaySet []LetterPlaySet
 
-type ListSessions struct {
-	Sessions []ListSession `json:"sessions"`
-}
-
 type ListSession struct {
 	User                  User   `json:"user"`
 	LastMoveTimestamp     string `json:"last_move_timestamp"`
