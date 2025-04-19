@@ -15,6 +15,10 @@
     border: none;
 }
 
+.letter-cell {
+    font-weight: bold;
+  }
+
 .count-cell {
     border-right: 1px solid #ddd;
 }
