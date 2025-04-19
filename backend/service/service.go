@@ -21,7 +21,7 @@ func ListSessions() []model.ListSession {
 			User:                  user,
 			LastMoveTimestamp:     session.LastMoveTimestamp,
 			SessionStartTimestamp: session.SessionStartTimestamp,
-			RemindingLetters:      uint(len(session.LettersPlaySet)),
+			RemindingLetters:      logic.GetRemindingsLetterCount(session.LettersPlaySet),
 		})
 	}
 	return listSessions
