@@ -155,6 +155,8 @@ function createUserSessionLayout(username: string, data: UserSession)
   updateTextContent("last-move-timestamp", `Last Move: ${data.last_move_timestamp}`);
   updateTextContent("overall-value", `Overall Letter Value: ${data.letter_overall_value}`);
 
+  const playerToggleElement = document.getElementById("player-toggle") as HTMLInputElement;
+  playerToggleElement.checked = !playerToggleElement.checked;
   const totalRemaining = data.letters_play_set.reduce(
     (sum, letter) => sum + letter.current_count, 0
   );
@@ -189,11 +191,6 @@ function createLettersTable(data: UserSession)
   let index = 0;
   data.letters_play_set.forEach((letter) =>
   {
-    // if (letter.count === 0) {
-    //   // Skip letters with a count of 0
-    //   return;
-    // }
-
     if (index % 5 === 0) {
       // Create a new row every 5 letters
       row = document.createElement("tr");

@@ -20,6 +20,7 @@ export interface PlayedMove {
 }
 
 export interface UserSession {
+    user: string;
     letters_play_set: LetterPlaySet[];
     last_move_timestamp: string;
     session_start_timestamp: string;

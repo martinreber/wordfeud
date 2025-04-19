@@ -37,7 +37,7 @@ function createSessionRow(session: Session): HTMLTableRowElement
     row.appendChild(createCell(session.session_start_timestamp));
     row.appendChild(createCell(session.last_move_timestamp));
     row.appendChild(createCell(session.reminding_letters.toString()));
-    row.appendChild(createDeleteCell(session.user));
+    row.appendChild(EndSessionCell(session.user));
 
     return row;
 }
@@ -60,37 +60,37 @@ function createCell(content: string): HTMLTableCellElement
     return cell;
 }
 
-function createDeleteCell(username: string): HTMLTableCellElement
+function EndSessionCell(username: string): HTMLTableCellElement
 {
     const cell = document.createElement("td");
     const button = document.createElement("button");
-    button.textContent = "Delete";
-    button.classList.add("button", "delete-button");
-    button.addEventListener("click", () => deleteSession(username));
+    button.textContent = "End Session";
+    button.classList.add("button", "end-session-button");
+    button.addEventListener("click", () => endSession(username));
     cell.appendChild(button);
     return cell;
 }
 
-async function deleteSession(username: string): Promise<void>
+async function endSession(username: string): Promise<void>
 {
-    if (!confirm(`Are you sure you want to delete the session for "${username}"?`)) {
+    if (!confirm(`Are you sure you want to terminate the session with "${username}"?`)) {
         return;
     }
 
     try {
-        const response = await fetch(`${API_BASE_URL}/delete?username=${encodeURIComponent(username)}`, {
-            method: "DELETE",
+        const response = await fetch(`${API_BASE_URL}/end-session?username=${encodeURIComponent(username)}`, {
+            method: "POST",
         });
 
         if (!response.ok) {
             const error = await response.text();
-            throw new Error(error || "Failed to delete session");
+            throw new Error(error || "Failed to end session");
         }
 
-        showMessage(`Session for "${username}" deleted successfully.`);
+        showMessage(`Session for "${username}" ended successfully.`);
         await fetchSessions();
     } catch (error) {
-        console.error("Error deleting session:", error);
+        console.error("Error ending session:", error);
         showMessage(error instanceof Error ? error.message : "An unexpected error occurred");
     }
 }
