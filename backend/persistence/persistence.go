@@ -8,30 +8,30 @@ import (
 	"buchstaben.go/model"
 )
 
-const sessionFilePath = "../data/sessions.json"
+const gameFilePath = "../data/games.json"
 
-func SaveSessionsToFile() error {
-	fmt.Println("Saving sessions to file...")
+func SaveGamesToFile() error {
+	fmt.Println("Saving games to file...")
 
 	file, err := json.MarshalIndent(model.GlobalPersistence, "", "  ")
 	if err != nil {
-		fmt.Println("Error marshalling sessions:", err)
+		fmt.Println("Error marshalling games:", err)
 		return err
 	}
-	return os.WriteFile(sessionFilePath, file, 0644)
+	return os.WriteFile(gameFilePath, file, 0644)
 }
 
-func LoadSessionsFromFile() error {
-	fmt.Println("Loading sessions from file...")
+func LoadGamesFromFile() error {
+	fmt.Println("Loading games from file...")
 
-	if _, err := os.Stat(sessionFilePath); os.IsNotExist(err) {
+	if _, err := os.Stat(gameFilePath); os.IsNotExist(err) {
 		model.GlobalPersistence = model.GlobalPersistenceStruct{
-			Sessions:      make(map[model.User]model.UserSession),
-			EndedSessions: []model.UserSession{},
+			Games:      make(map[model.User]model.UserGame),
+			EndedGames: []model.UserGame{},
 		}
 		return nil
 	}
-	file, err := os.ReadFile(sessionFilePath)
+	file, err := os.ReadFile(gameFilePath)
 	if err != nil {
 		return err
 	}

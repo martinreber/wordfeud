@@ -5,17 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Wordfeud Helper</title>
     <link rel="stylesheet" href="../common/style-common.css">
-    <link rel="stylesheet" href="session.css">
+    <link rel="stylesheet" href="game.css">
 </head>
 <body>
     <div class="container">
         <h1>Wordfeud Helper</h1>
-        <div id="session-info">
-            <h2>Session Information</h2>
+        <div id="game-info">
+            <h2>Game Information</h2>
             <table id="letter-stats" class="letter-table">
                 <tr>
                     <td id="username"></td>
-                    <td id="session-start-timestamp"></td>
+                    <td id="game-start-timestamp"></td>
                     <td id="last-move-timestamp"></td>
                 </tr>
             </table>
@@ -56,13 +56,13 @@
                 <button id="play-move-button" class="button">Play Move</button>
             </div>
             <div id="right-buttons">
-                <button id="end-session-button" class="button">End Session ...</button>
+                <button id="end-game-button" class="button">End Game ...</button>
                 <button id="reset-button" class="button">Reset Game</button>
-                <button id="list-sessions-button" class="button">Sessions List ...</button>
+                <button id="list-games-button" class="button">Games List ...</button>
             </div>
         </div>
         <div id="response-message" class="response-message"></div>
     </div>
-    <script type="module" src="./session.js"></script>
+    <script type="module" src="./game.js"></script>
 </body>
 </html>

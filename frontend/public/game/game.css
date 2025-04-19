@@ -89,35 +89,35 @@
     flex-direction: column;
 }
 
-#session-table {
+#game-table {
     display: inline-flex;
     gap: 1rem;
     margin-bottom: 1rem;
     border: none;
 }
 
-#session-table tbody tr {
+#game-table tbody tr {
     display: flex;
     gap: 1rem;
 }
 
-#session-table td {
+#game-table td {
     padding: 0.5rem;
     border: none;
     position: relative;
 }
 
-#session-table td::before {
+#game-table td::before {
     content: attr(data-label);
     font-weight: bold;
     margin-right: 0.5rem;
 }
 
-.session-table {
+.game-table {
     width: auto;
 }
 
-.session-table th, .session-table td {
+.game-table th, .game-table td {
     padding: 8px;
     text-align: left;
     border: none;

@@ -11,146 +11,146 @@ import (
 	"buchstaben.go/persistence"
 )
 
-func ListSessions() []model.ListSession {
-	model.SessionsLock.Lock()
-	defer model.SessionsLock.Unlock()
+func ListGames() []model.ListGame {
+	model.GamesLock.Lock()
+	defer model.GamesLock.Unlock()
 
-	listSessions := []model.ListSession{}
-	for user, session := range model.GlobalPersistence.Sessions {
-		listSessions = append(listSessions, model.ListSession{
-			User:                  user,
-			LastMoveTimestamp:     session.LastMoveTimestamp,
-			SessionStartTimestamp: session.SessionStartTimestamp,
-			RemindingLetters:      logic.GetRemindingsLetterCount(session.LettersPlaySet),
+	listGames := []model.ListGame{}
+	for user, game := range model.GlobalPersistence.Games {
+		listGames = append(listGames, model.ListGame{
+			User:               user,
+			LastMoveTimestamp:  game.LastMoveTimestamp,
+			GameStartTimestamp: game.GameStartTimestamp,
+			RemindingLetters:   logic.GetRemindingsLetterCount(game.LettersPlaySet),
 		})
 	}
-	return listSessions
+	return listGames
 }
 
-func CreateSession(username model.User) error {
-	model.SessionsLock.Lock()
-	defer model.SessionsLock.Unlock()
+func CreateGame(username model.User) error {
+	model.GamesLock.Lock()
+	defer model.GamesLock.Unlock()
 
-	if _, exists := model.GlobalPersistence.Sessions[username]; exists {
-		return fmt.Errorf("session already exists for this username")
+	if _, exists := model.GlobalPersistence.Games[username]; exists {
+		return fmt.Errorf("game already exists for this username")
 	}
 
-	model.GlobalPersistence.Sessions[username] = model.UserSession{
-		User:                  username,
-		LettersPlaySet:        logic.LoadLettersPlaySet(),
-		LastMoveTimestamp:     time.Now().Format("2006-01-02 15:04:05"),
-		SessionStartTimestamp: time.Now().Format("2006-01-02 15:04:05"),
-		LetterOverAllValue:    0, // Replace with logic.GetLetterValue() if needed
-		PlayedMoves:           []model.PlayedMove{},
+	model.GlobalPersistence.Games[username] = model.UserGame{
+		User:               username,
+		LettersPlaySet:     logic.LoadLettersPlaySet(),
+		LastMoveTimestamp:  time.Now().Format("2006-01-02 15:04:05"),
+		GameStartTimestamp: time.Now().Format("2006-01-02 15:04:05"),
+		LetterOverAllValue: 0, // Replace with logic.GetLetterValue() if needed
+		PlayedMoves:        []model.PlayedMove{},
 	}
 
-	return persistence.SaveSessionsToFile()
+	return persistence.SaveGamesToFile()
 }
 
-func DeleteSession(username model.User) error {
-	model.SessionsLock.Lock()
-	defer model.SessionsLock.Unlock()
+func DeleteGame(username model.User) error {
+	model.GamesLock.Lock()
+	defer model.GamesLock.Unlock()
 
-	if _, exists := model.GlobalPersistence.Sessions[username]; !exists {
-		return fmt.Errorf("session not found for username")
+	if _, exists := model.GlobalPersistence.Games[username]; !exists {
+		return fmt.Errorf("game not found for username")
 	}
 
-	delete(model.GlobalPersistence.Sessions, username)
-	return persistence.SaveSessionsToFile()
+	delete(model.GlobalPersistence.Games, username)
+	return persistence.SaveGamesToFile()
 }
 
-func EndSession(username model.User) error {
-	model.SessionsLock.Lock()
-	defer model.SessionsLock.Unlock()
+func EndGame(username model.User) error {
+	model.GamesLock.Lock()
+	defer model.GamesLock.Unlock()
 
-	session, exists := model.GlobalPersistence.Sessions[username]
+	game, exists := model.GlobalPersistence.Games[username]
 	if !exists {
-		return fmt.Errorf("session not found for username")
+		return fmt.Errorf("game not found for username")
 	}
 
-	// Set the SessionEndTimestamp
-	session.SessionEndTimestamp = time.Now().Format("2006-01-02 15:04:05")
+	// Set the GameEndTimestamp
+	game.GameEndTimestamp = time.Now().Format("2006-01-02 15:04:05")
 
-	// Move the session to EndedSessions and remove it from active sessions
-	model.GlobalPersistence.EndedSessions = append(model.GlobalPersistence.EndedSessions, session)
-	delete(model.GlobalPersistence.Sessions, username)
+	// Move the game to EndedGames and remove it from active games
+	model.GlobalPersistence.EndedGames = append(model.GlobalPersistence.EndedGames, game)
+	delete(model.GlobalPersistence.Games, username)
 
-	return persistence.SaveSessionsToFile()
+	return persistence.SaveGamesToFile()
 }
-func GetLetters(username model.User) (model.UserSession, error) {
-	model.SessionsLock.Lock()
-	defer model.SessionsLock.Unlock()
+func GetLetters(username model.User) (model.UserGame, error) {
+	model.GamesLock.Lock()
+	defer model.GamesLock.Unlock()
 
-	userSession, exists := model.GlobalPersistence.Sessions[username]
+	userGame, exists := model.GlobalPersistence.Games[username]
 	if !exists {
-		// Create a new session if it doesn't exist
-		userSession = model.UserSession{
-			User:                  username,
-			LettersPlaySet:        logic.LoadLettersPlaySet(),
-			LastMoveTimestamp:     time.Now().Format("2006-01-02 15:04:05"),
-			SessionStartTimestamp: time.Now().Format("2006-01-02 15:04:05"),
-			LetterOverAllValue:    logic.GetLetterValue(logic.LoadLettersPlaySet()),
-			PlayedMoves:           []model.PlayedMove{},
+		// Create a new game if it doesn't exist
+		userGame = model.UserGame{
+			User:               username,
+			LettersPlaySet:     logic.LoadLettersPlaySet(),
+			LastMoveTimestamp:  time.Now().Format("2006-01-02 15:04:05"),
+			GameStartTimestamp: time.Now().Format("2006-01-02 15:04:05"),
+			LetterOverAllValue: logic.GetLetterValue(logic.LoadLettersPlaySet()),
+			PlayedMoves:        []model.PlayedMove{},
 		}
-		model.GlobalPersistence.Sessions[username] = userSession
+		model.GlobalPersistence.Games[username] = userGame
 
-		// Save the new session to file
-		if err := persistence.SaveSessionsToFile(); err != nil {
-			return model.UserSession{}, fmt.Errorf("failed to save session data: %w", err)
+		// Save the new game to file
+		if err := persistence.SaveGamesToFile(); err != nil {
+			return model.UserGame{}, fmt.Errorf("failed to save game data: %w", err)
 		}
 	}
 
-	return userSession, nil
+	return userGame, nil
 }
 
-func PlayMoveInput(username model.User, playedMoveInput model.PlayedMove) (model.UserSession, error) {
-	model.SessionsLock.Lock()
-	defer model.SessionsLock.Unlock()
+func PlayMoveInput(username model.User, playedMoveInput model.PlayedMove) (model.UserGame, error) {
+	model.GamesLock.Lock()
+	defer model.GamesLock.Unlock()
 
-	session, exists := model.GlobalPersistence.Sessions[username]
+	game, exists := model.GlobalPersistence.Games[username]
 	if !exists {
-		return model.UserSession{}, fmt.Errorf("session not found for username")
+		return model.UserGame{}, fmt.Errorf("game not found for username")
 	}
 
 	playedMoveInput.Timestamp = time.Now().Format("2006-01-02 15:04:05")
-	newLettersPlaySet, err := logic.RemoveLetters(session.LettersPlaySet, playedMoveInput.Letters)
+	newLettersPlaySet, err := logic.RemoveLetters(game.LettersPlaySet, playedMoveInput.Letters)
 	if err != nil {
-		return model.UserSession{}, err
+		return model.UserGame{}, err
 	}
 
-	updatedSession := model.UserSession{
-		User:                  username,
-		LettersPlaySet:        newLettersPlaySet,
-		LastMoveTimestamp:     time.Now().Format("2006-01-02 15:04:05"),
-		SessionStartTimestamp: session.SessionStartTimestamp,
-		LetterOverAllValue:    logic.GetLetterValue(newLettersPlaySet),
-		PlayedMoves:           append(session.PlayedMoves, playedMoveInput),
+	updatedGame := model.UserGame{
+		User:               username,
+		LettersPlaySet:     newLettersPlaySet,
+		LastMoveTimestamp:  time.Now().Format("2006-01-02 15:04:05"),
+		GameStartTimestamp: game.GameStartTimestamp,
+		LetterOverAllValue: logic.GetLetterValue(newLettersPlaySet),
+		PlayedMoves:        append(game.PlayedMoves, playedMoveInput),
 	}
-	model.GlobalPersistence.Sessions[username] = updatedSession
+	model.GlobalPersistence.Games[username] = updatedGame
 
-	if err := persistence.SaveSessionsToFile(); err != nil {
-		return model.UserSession{}, fmt.Errorf("failed to save session data: %w", err)
+	if err := persistence.SaveGamesToFile(); err != nil {
+		return model.UserGame{}, fmt.Errorf("failed to save game data: %w", err)
 	}
-	return updatedSession, nil
+	return updatedGame, nil
 }
 
 func GetPlayedWords() []model.WordCount {
-	model.SessionsLock.Lock()
-	defer model.SessionsLock.Unlock()
+	model.GamesLock.Lock()
+	defer model.GamesLock.Unlock()
 
 	wordCounts := make(map[string]int)
 
-	// Count words in active sessions
-	for _, session := range model.GlobalPersistence.Sessions {
-		for _, move := range session.PlayedMoves {
+	// Count words in active games
+	for _, game := range model.GlobalPersistence.Games {
+		for _, move := range game.PlayedMoves {
 			word := strings.ToLower(move.Word)
 			wordCounts[word]++
 		}
 	}
 
-	// Count words in ended sessions
-	for _, session := range model.GlobalPersistence.EndedSessions {
-		for _, move := range session.PlayedMoves {
+	// Count words in ended games
+	for _, game := range model.GlobalPersistence.EndedGames {
+		for _, move := range game.PlayedMoves {
 			word := strings.ToLower(move.Word)
 			wordCounts[word]++
 		}

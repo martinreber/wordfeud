@@ -34,19 +34,19 @@ body {
     background-color: #023a02;
 }
 
-.session-table {
+.game-table {
     width: 100%;
     border-collapse: collapse;
     font-size: 1rem;
 }
 
-.session-table th, .session-table td {
+.game-table th, .game-table td {
     padding: 12px;
     text-align: left;
     border: 1px solid #ddd;
 }
 
-.session-table th {
+.game-table th {
     background-color: #f4f4f4;
     font-weight: bold;
 }

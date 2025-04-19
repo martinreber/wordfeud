@@ -5,10 +5,10 @@ export interface LetterPlaySet {
     value: number;
 }
 
-export interface Session {
+export interface Game {
     user: string;
     last_move_timestamp: string;
-    session_start_timestamp: string;
+    game_start_timestamp: string;
     reminding_letters: number;
 }
 
@@ -19,11 +19,11 @@ export interface PlayedMove {
     timestamp: string;
 }
 
-export interface UserSession {
+export interface UserGame {
     user: string;
     letters_play_set: LetterPlaySet[];
     last_move_timestamp: string;
-    session_start_timestamp: string;
+    game_start_timestamp: string;
     letter_overall_value: number;
     played_moves: PlayedMove[];
 }

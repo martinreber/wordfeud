@@ -2,7 +2,7 @@
   "name": "letter-visualizer",
   "version": "1.0.0",
   "description": "A web application to visualize letter data from a Go application.",
-  "main": "public/list-sessions/list-sessions.html",
+  "main": "public/list-games/list-games.html",
   "scripts": {
     "serve": "npx http-server public --port 8081",
     "build": "tsc",

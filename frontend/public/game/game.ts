@@ -6,7 +6,7 @@ import
   updateTextContent,
   API_BASE_URL
 } from '../common/utils.js';
-import { LetterPlaySet, UserSession } from '../common/types.js';
+import { LetterPlaySet, UserGame } from '../common/types.js';
 
 document.addEventListener("DOMContentLoaded", () =>
 {
@@ -19,12 +19,12 @@ document.addEventListener("DOMContentLoaded", () =>
     } else {
       console.error("An unknown error occurred:", error);
     }
-    // window.location.href = "../list-sessions/index.html";
+    // window.location.href = "../list-games/index.html";
   }
 
-  const listSessionButton = document.getElementById("list-sessions-button");
-  if (listSessionButton) {
-    listSessionButton.addEventListener("click", () => { window.open("../list-sessions/index.html", "_blank"); });
+  const listGameButton = document.getElementById("list-games-button");
+  if (listGameButton) {
+    listGameButton.addEventListener("click", () => { window.open("../list-games/index.html", "_blank"); });
   }
 
   const playMoveButton = document.getElementById("play-move-button");
@@ -63,10 +63,10 @@ document.addEventListener("DOMContentLoaded", () =>
         playedByMyself: isPlayedByMyself,
       }),
     })
-      .then(response => handleResponse<UserSession>(response))
-      .then((data: UserSession) =>
+      .then(response => handleResponse<UserGame>(response))
+      .then((data: UserGame) =>
       {
-        createUserSessionLayout(username, data);
+        createUserGameLayout(username, data);
       })
       .catch((error) =>
       {
@@ -89,9 +89,9 @@ document.addEventListener("DOMContentLoaded", () =>
       method: "POST",
     })
       .then((response) => response.json())
-      .then((data: UserSession) =>
+      .then((data: UserGame) =>
       {
-        createUserSessionLayout(username, data);
+        createUserGameLayout(username, data);
         showMessage("Game reset successfully.");
       })
       .catch((error) =>
@@ -100,32 +100,32 @@ document.addEventListener("DOMContentLoaded", () =>
       });
   });
 
-  const endSessionButton = document.getElementById("end-session-button");
-  if (!endSessionButton) {
-    console.error("End Session button not found");
+  const endGameButton = document.getElementById("end-game-button");
+  if (!endGameButton) {
+    console.error("End Game button not found");
     return;
   }
-  endSessionButton.addEventListener("click", () => {
-    if (!confirm("Are you sure you want to end the session?")) {
+  endGameButton.addEventListener("click", () => {
+    if (!confirm("Are you sure you want to end the game?")) {
       return;
     }
 
     const username = getUsername();
-    fetch(`${API_BASE_URL}/end-session?username=${username}`, {
+    fetch(`${API_BASE_URL}/end-game?username=${username}`, {
       method: "POST",
     })
       .then(response => {
         if (!response.ok) {
-          throw new Error("Failed to end session");
+          throw new Error("Failed to end game");
         }
         return response.text();
       })
       .then(message => {
         showMessage(message);
-        window.location.href = "../list-sessions/index.html"; // Redirect to session list
+        window.location.href = "../list-games/index.html"; // Redirect to game list
       })
       .catch(error => {
-        console.error("Error ending session:", error);
+        console.error("Error ending game:", error);
         showMessage(error.message);
       });
   });
@@ -135,10 +135,10 @@ function fetchLetters()
 {
   const username = getUsername();
   fetch(`${API_BASE_URL}/letters?username=${username}`)
-    .then(response => handleResponse<UserSession>(response))
-    .then((data: UserSession) =>
+    .then(response => handleResponse<UserGame>(response))
+    .then((data: UserGame) =>
     {
-      createUserSessionLayout(username, data);
+      createUserGameLayout(username, data);
     })
     .catch((error) =>
     {
@@ -147,11 +147,11 @@ function fetchLetters()
     });
 }
 
-function createUserSessionLayout(username: string, data: UserSession)
+function createUserGameLayout(username: string, data: UserGame)
 {
 
   updateTextContent("username", `Username: ${username}`);
-  updateTextContent("session-start-timestamp", `Session Start: ${data.session_start_timestamp}`);
+  updateTextContent("game-start-timestamp", `Game Start: ${data.game_start_timestamp}`);
   updateTextContent("last-move-timestamp", `Last Move: ${data.last_move_timestamp}`);
   updateTextContent("overall-value", `Overall Letter Value: ${data.letter_overall_value}`);
 
@@ -178,11 +178,11 @@ function getUsername()
     return usernameFromQuery;
   }
 
-  showMessage("No username provided. Please create a session first.");
+  showMessage("No username provided. Please create a game first.");
   throw new Error("Username is required");
 }
 
-function createLettersTable(data: UserSession)
+function createLettersTable(data: UserGame)
 {
   const table = document.createElement("table");
   table.classList.add("letter-table");

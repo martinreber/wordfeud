@@ -1,43 +1,43 @@
 import { showMessage, handleResponse, getElementByIdOrThrow, API_BASE_URL } from '../common/utils.js';
-import { Session } from '../common/types.js';
+import { Game } from '../common/types.js';
 
-async function fetchSessions(): Promise<void>
+async function fetchGames(): Promise<void>
 {
     try {
         const response = await fetch(`${API_BASE_URL}/list`);
 
-        const data = await handleResponse<Session[]>(response);
+        const data = await handleResponse<Game[]>(response);
 
-        const tableBody = getElementByIdOrThrow<HTMLTableSectionElement>('sessions-table').querySelector('tbody');
+        const tableBody = getElementByIdOrThrow<HTMLTableSectionElement>('games-table').querySelector('tbody');
         if (!tableBody) throw new Error('Table body not found');
 
         tableBody.innerHTML = ""; // Clear existing rows
 
-        // Sort sessions by username (alphabetically)
+        // Sort games by username (alphabetically)
         console.log(data)
         if (data) {
             data.sort((a, b) => a.user.localeCompare(b.user));
-            data.forEach((session) =>
+            data.forEach((game) =>
             {
-                const row = createSessionRow(session);
+                const row = createGameRow(game);
                 tableBody.appendChild(row);
             });
         }
     } catch (error) {
-        console.error("Error fetching sessions:", error);
+        console.error("Error fetching games:", error);
         showMessage(error instanceof Error ? error.message : "An unexpected error occurred");
     }
 }
 
-function createSessionRow(session: Session): HTMLTableRowElement
+function createGameRow(game: Game): HTMLTableRowElement
 {
     const row = document.createElement("tr");
 
-    row.appendChild(createUsernameCell(session.user));
-    row.appendChild(createCell(session.session_start_timestamp));
-    row.appendChild(createCell(session.last_move_timestamp));
-    row.appendChild(createCell(session.reminding_letters.toString()));
-    row.appendChild(EndSessionCell(session.user));
+    row.appendChild(createUsernameCell(game.user));
+    row.appendChild(createCell(game.game_start_timestamp));
+    row.appendChild(createCell(game.last_move_timestamp));
+    row.appendChild(createCell(game.reminding_letters.toString()));
+    row.appendChild(EndGameCell(game.user));
 
     return row;
 }
@@ -47,7 +47,7 @@ function createUsernameCell(username: string): HTMLTableCellElement
     const cell = document.createElement("td");
     const link = document.createElement("a");
     link.textContent = username;
-    link.href = `../session/index.html?username=${encodeURIComponent(username)}`;
+    link.href = `../game/index.html?username=${encodeURIComponent(username)}`;
     link.target = "_blank";
     cell.appendChild(link);
     return cell;
@@ -60,53 +60,53 @@ function createCell(content: string): HTMLTableCellElement
     return cell;
 }
 
-function EndSessionCell(username: string): HTMLTableCellElement
+function EndGameCell(username: string): HTMLTableCellElement
 {
     const cell = document.createElement("td");
     const button = document.createElement("button");
-    button.textContent = "End Session";
-    button.classList.add("button", "end-session-button");
-    button.addEventListener("click", () => endSession(username));
+    button.textContent = "End Game";
+    button.classList.add("button", "end-game-button");
+    button.addEventListener("click", () => endGame(username));
     cell.appendChild(button);
     return cell;
 }
 
-async function endSession(username: string): Promise<void>
+async function endGame(username: string): Promise<void>
 {
-    if (!confirm(`Are you sure you want to terminate the session with "${username}"?`)) {
+    if (!confirm(`Are you sure you want to terminate the game with "${username}"?`)) {
         return;
     }
 
     try {
-        const response = await fetch(`${API_BASE_URL}/end-session?username=${encodeURIComponent(username)}`, {
+        const response = await fetch(`${API_BASE_URL}/end-game?username=${encodeURIComponent(username)}`, {
             method: "POST",
         });
 
         if (!response.ok) {
             const error = await response.text();
-            throw new Error(error || "Failed to end session");
+            throw new Error(error || "Failed to end game");
         }
 
-        showMessage(`Session for "${username}" ended successfully.`);
-        await fetchSessions();
+        showMessage(`Game for "${username}" ended successfully.`);
+        await fetchGames();
     } catch (error) {
-        console.error("Error ending session:", error);
+        console.error("Error ending game:", error);
         showMessage(error instanceof Error ? error.message : "An unexpected error occurred");
     }
 }
 
-async function createSession(username: string): Promise<void>
+async function createGame(username: string): Promise<void>
 {
     try {
         const response = await fetch(`${API_BASE_URL}/create?username=${encodeURIComponent(username)}`, {
             method: "POST",
         });
         await handleResponse(response);
-        await fetchSessions();
-        window.open(`../session/index.html?username=${encodeURIComponent(username)}`, "_blank");
+        await fetchGames();
+        window.open(`../game/index.html?username=${encodeURIComponent(username)}`, "_blank");
         showMessage(""); // Clear any previous message
     } catch (error) {
-        console.error("Error creating session:", error);
+        console.error("Error creating game:", error);
         showMessage(error instanceof Error ? error.message : "An unexpected error occurred");
     }
 }
@@ -114,8 +114,8 @@ async function createSession(username: string): Promise<void>
 // Event Listeners
 document.addEventListener("DOMContentLoaded", () =>
 {
-    const createSessionButton = getElementByIdOrThrow<HTMLButtonElement>("create-session-button");
-    createSessionButton.addEventListener("click", async () =>
+    const createGameButton = getElementByIdOrThrow<HTMLButtonElement>("create-game-button");
+    createGameButton.addEventListener("click", async () =>
     {
         const newUsernameInput = getElementByIdOrThrow<HTMLInputElement>("new-username");
         const newUsername = newUsernameInput.value.trim();
@@ -130,11 +130,11 @@ document.addEventListener("DOMContentLoaded", () =>
             return;
         }
 
-        await createSession(newUsername);
+        await createGame(newUsername);
     });
 
     const refreshButton = getElementByIdOrThrow<HTMLButtonElement>("refresh-button");
-    refreshButton.addEventListener("click", () => fetchSessions());
+    refreshButton.addEventListener("click", () => fetchGames());
 
     const playedWordsButton = getElementByIdOrThrow<HTMLButtonElement>("played-words-button");
     playedWordsButton.addEventListener("click", () =>
@@ -143,5 +143,5 @@ document.addEventListener("DOMContentLoaded", () =>
     });
 
     // Initial fetch
-    fetchSessions();
+    fetchGames();
 });

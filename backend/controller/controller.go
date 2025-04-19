@@ -12,38 +12,38 @@ import (
 	"buchstaben.go/service"
 )
 
-func ListSessionsController(w http.ResponseWriter, r *http.Request) {
-	listSessions := service.ListSessions()
+func ListGamesController(w http.ResponseWriter, r *http.Request) {
+	listGames := service.ListGames()
 
 	w.Header().Set("Content-Type", "application/json")
-	if err := json.NewEncoder(w).Encode(listSessions); err != nil {
+	if err := json.NewEncoder(w).Encode(listGames); err != nil {
 		http.Error(w, "Failed to encode response", http.StatusInternalServerError)
 		return
 	}
 }
 
-func CreateSessionController(w http.ResponseWriter, r *http.Request) {
-	fmt.Println("Creating new session...")
+func CreateGameController(w http.ResponseWriter, r *http.Request) {
+	fmt.Println("Creating new game...")
 	username := logic.GetUserNameFromResponse(*r)
 	if username == "" {
 		http.Error(w, "Username is required", http.StatusBadRequest)
 		return
 	}
-	if err := service.CreateSession(username); err != nil {
+	if err := service.CreateGame(username); err != nil {
 		http.Error(w, err.Error(), http.StatusBadRequest)
 		return
 	}
 	w.WriteHeader(http.StatusCreated)
 }
 
-func DeleteSessionController(w http.ResponseWriter, r *http.Request) {
-	fmt.Println("Delete session")
+func DeleteGameController(w http.ResponseWriter, r *http.Request) {
+	fmt.Println("Delete game")
 	username := logic.GetUserNameFromResponse(*r)
 	if username == "" {
 		http.Error(w, "Username is required", http.StatusBadRequest)
 		return
 	}
-	if err := service.DeleteSession(username); err != nil {
+	if err := service.DeleteGame(username); err != nil {
 		http.Error(w, err.Error(), http.StatusNotFound)
 		return
 	}
@@ -56,13 +56,13 @@ func GetLettersController(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "Username is required", http.StatusBadRequest)
 		return
 	}
-	userSession, err := service.GetLetters(username)
+	userGame, err := service.GetLetters(username)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
 	w.Header().Set("Content-Type", "application/json")
-	if err := json.NewEncoder(w).Encode(userSession); err != nil {
+	if err := json.NewEncoder(w).Encode(userGame); err != nil {
 		http.Error(w, "Failed to encode response", http.StatusInternalServerError)
 		return
 	}
@@ -81,14 +81,14 @@ func PlayMoveInputController(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	updatedSession, err := service.PlayMoveInput(username, playedMoveInput)
+	updatedGame, err := service.PlayMoveInput(username, playedMoveInput)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusBadRequest)
 		return
 	}
 
 	w.Header().Set("Content-Type", "application/json")
-	if err := json.NewEncoder(w).Encode(updatedSession); err != nil {
+	if err := json.NewEncoder(w).Encode(updatedGame); err != nil {
 		http.Error(w, "Failed to encode response", http.StatusInternalServerError)
 		return
 	}
@@ -100,43 +100,43 @@ func ResetLettersController(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "Username is required", http.StatusBadRequest)
 		return
 	}
-	model.SessionsLock.Lock()
-	defer model.SessionsLock.Unlock()
-	newSession := model.UserSession{
-		User:                  username,
-		LettersPlaySet:        logic.LoadLettersPlaySet(),
-		LastMoveTimestamp:     time.Now().Format("2006-01-02 15:04:05"),
-		SessionStartTimestamp: time.Now().Format("2006-01-02 15:04:05"),
-		LetterOverAllValue:    logic.GetLetterValue(logic.LoadLettersPlaySet()),
-		PlayedMoves:           []model.PlayedMove{},
+	model.GamesLock.Lock()
+	defer model.GamesLock.Unlock()
+	newGame := model.UserGame{
+		User:               username,
+		LettersPlaySet:     logic.LoadLettersPlaySet(),
+		LastMoveTimestamp:  time.Now().Format("2006-01-02 15:04:05"),
+		GameStartTimestamp: time.Now().Format("2006-01-02 15:04:05"),
+		LetterOverAllValue: logic.GetLetterValue(logic.LoadLettersPlaySet()),
+		PlayedMoves:        []model.PlayedMove{},
 	}
-	model.GlobalPersistence.Sessions[username] = newSession
+	model.GlobalPersistence.Games[username] = newGame
 
-	if err := persistence.SaveSessionsToFile(); err != nil {
-		http.Error(w, "Failed to save session data", http.StatusInternalServerError)
+	if err := persistence.SaveGamesToFile(); err != nil {
+		http.Error(w, "Failed to save game data", http.StatusInternalServerError)
 		return
 	}
 
 	w.Header().Set("Content-Type", "application/json")
-	if err := json.NewEncoder(w).Encode(newSession); err != nil {
+	if err := json.NewEncoder(w).Encode(newGame); err != nil {
 		http.Error(w, "Failed to encode response", http.StatusInternalServerError)
 		return
 	}
 }
 
-func EndSessionController(w http.ResponseWriter, r *http.Request) {
-	fmt.Println("Ending session...")
+func EndGameController(w http.ResponseWriter, r *http.Request) {
+	fmt.Println("Ending game...")
 	username := logic.GetUserNameFromResponse(*r)
 	if username == "" {
 		http.Error(w, "Username is required", http.StatusBadRequest)
 		return
 	}
-	if err := service.EndSession(username); err != nil {
+	if err := service.EndGame(username); err != nil {
 		http.Error(w, err.Error(), http.StatusNotFound)
 		return
 	}
 	w.WriteHeader(http.StatusOK)
-	fmt.Fprintf(w, "Session for user '%s' ended successfully.", username)
+	fmt.Fprintf(w, "Game for user '%s' ended successfully.", username)
 }
 
 func PlayedWordsController(w http.ResponseWriter, r *http.Request) {

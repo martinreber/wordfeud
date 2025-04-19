@@ -13,7 +13,7 @@ export function getUsername(): string {
         return usernameFromQuery;
     }
 
-    showMessage("No username provided. Please create a session first.");
+    showMessage("No username provided. Please create a game first.");
     throw new Error("Username is required");
 }
 

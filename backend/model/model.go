@@ -11,11 +11,11 @@ type LetterPlaySet struct {
 
 type LettersPlaySet []LetterPlaySet
 
-type ListSession struct {
-	User                  User   `json:"user"`
-	LastMoveTimestamp     string `json:"last_move_timestamp"`
-	SessionStartTimestamp string `json:"session_start_timestamp"`
-	RemindingLetters      uint   `json:"reminding_letters"`
+type ListGame struct {
+	User               User   `json:"user"`
+	LastMoveTimestamp  string `json:"last_move_timestamp"`
+	GameStartTimestamp string `json:"game_start_timestamp"`
+	RemindingLetters   uint   `json:"reminding_letters"`
 }
 
 type User string
@@ -27,14 +27,14 @@ type PlayedMove struct {
 	Timestamp      string `json:"timestamp"`
 }
 
-type UserSession struct {
-	User                  User            `json:"user"`
-	LettersPlaySet        []LetterPlaySet `json:"letters_play_set"`
-	LastMoveTimestamp     string          `json:"last_move_timestamp"`
-	SessionStartTimestamp string          `json:"session_start_timestamp"`
-	SessionEndTimestamp   string          `json:"session_end_timestamp"`
-	LetterOverAllValue    uint            `json:"letter_overall_value"`
-	PlayedMoves           []PlayedMove    `json:"played_moves"`
+type UserGame struct {
+	User               User            `json:"user"`
+	LettersPlaySet     []LetterPlaySet `json:"letters_play_set"`
+	LastMoveTimestamp  string          `json:"last_move_timestamp"`
+	GameStartTimestamp string          `json:"game_start_timestamp"`
+	GameEndTimestamp   string          `json:"game_end_timestamp"`
+	LetterOverAllValue uint            `json:"letter_overall_value"`
+	PlayedMoves        []PlayedMove    `json:"played_moves"`
 }
 
 type WordCount struct {
@@ -43,11 +43,11 @@ type WordCount struct {
 }
 
 type GlobalPersistenceStruct struct {
-	Sessions      map[User]UserSession `json:"sessions"`
-	EndedSessions []UserSession        `json:"ended_sessions"`
+	Games      map[User]UserGame `json:"games"`
+	EndedGames []UserGame        `json:"ended_games"`
 }
 
 var (
 	GlobalPersistence GlobalPersistenceStruct
-	SessionsLock      sync.Mutex
+	GamesLock         sync.Mutex
 )

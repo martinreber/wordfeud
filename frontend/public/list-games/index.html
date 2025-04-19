@@ -4,44 +4,44 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>List of Sessions</title>
+  <title>List of Games</title>
   <link rel="stylesheet" href="../common/style-common.css">
-  <link rel="stylesheet" href="./list-sessions.css">
+  <link rel="stylesheet" href="./list-games.css">
 </head>
 
 <body>
   <div class="container">
-    <h1>List of Sessions</h1>
+    <h1>List of Games</h1>
     <div class="grid-container">
-      <!-- Sessions Table -->
-      <div id="sessions-container" class="grid-item">
-        <table id="sessions-table" class="session-table">
+      <!-- Games Table -->
+      <div id="games-container" class="grid-item">
+        <table id="games-table" class="game-table">
           <thead>
             <tr>
               <th>Username</th>
-              <th>Session Start</th>
+              <th>Game Start</th>
               <th>Last Move</th>
               <th>Remaining Letters</th>
               <th></th>
             </tr>
           </thead>
           <tbody>
-            <!-- Session rows will be dynamically added here -->
+            <!-- Game rows will be dynamically added here -->
           </tbody>
         </table>
       </div>
       <button id="refresh-button" class="button">Refresh</button>
     </div>
-    <!-- Create Session Section -->
-    <h2>Create New Session</h2>
-    <div id="create-session-section" class="grid-item">
+    <!-- Create Game Section -->
+    <h2>Create New Game</h2>
+    <div id="create-game-section" class="grid-item">
       <input type="text" id="new-username" placeholder="Enter a username" maxlength="20" size="15" />
       <div id="response-message" class="response-message"></div>
     </div>
-    <button id="create-session-button" class="button">Create Session</button>
+    <button id="create-game-button" class="button">Create Game</button>
     <button id="played-words-button" class="button">Played Words...</button>
   </div>
-  <script type="module" src="./list-sessions.js"></script>
+  <script type="module" src="./list-games.js"></script>
 </body>
 
 </html>
