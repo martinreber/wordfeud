@@ -37,7 +37,7 @@ func CreateSession(username model.User) error {
 
 	model.GlobalPersistence.Sessions[username] = model.UserSession{
 		User:                  username,
-		LettersPlaySet:        []model.LetterPlaySet{}, // Replace with logic.LoadLettersPlaySet() if needed
+		LettersPlaySet:        logic.LoadLettersPlaySet(),
 		LastMoveTimestamp:     time.Now().Format("2006-01-02 15:04:05"),
 		SessionStartTimestamp: time.Now().Format("2006-01-02 15:04:05"),
 		LetterOverAllValue:    0, // Replace with logic.GetLetterValue() if needed
