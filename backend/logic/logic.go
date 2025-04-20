@@ -2,7 +2,6 @@ package logic
 
 import (
 	"fmt"
-	"net/http"
 
 	"buchstaben.go/model"
 )
@@ -74,8 +73,4 @@ func GetRemindingsLetterCount(lettersPlaySet model.LettersPlaySet) uint {
 		remindingLetterCount += l.CurrentCount
 	}
 	return remindingLetterCount
-}
-
-func GetUserNameFromResponse(r http.Request) model.User {
-	return model.User(r.URL.Query().Get("username"))
 }

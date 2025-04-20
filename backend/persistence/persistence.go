@@ -26,7 +26,7 @@ func LoadGamesFromFile() error {
 
 	if _, err := os.Stat(gameFilePath); os.IsNotExist(err) {
 		model.GlobalPersistence = model.GlobalPersistenceStruct{
-			Games:      make(map[model.User]model.UserGame),
+			Games:      make(map[string]model.UserGame),
 			EndedGames: []model.UserGame{},
 		}
 		return nil

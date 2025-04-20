@@ -2,34 +2,41 @@ package main
 
 import (
 	"fmt"
-	"net/http"
 
 	"buchstaben.go/controller"
 	"buchstaben.go/model"
-	"buchstaben.go/persistence"
+	"github.com/gin-contrib/cors"
+	"github.com/gin-gonic/gin"
 )
 
 func main() {
 	model.GlobalPersistence = model.GlobalPersistenceStruct{
-		Games:      make(map[model.User]model.UserGame),
+		Games:      make(map[string]model.UserGame),
 		EndedGames: []model.UserGame{},
 	}
 
-	if err := persistence.LoadGamesFromFile(); err != nil {
-		fmt.Println("Error loading games:", err)
-	}
+	gin.SetMode(gin.ReleaseMode)
+	r := gin.Default()
 
-	http.Handle("/letters", controller.EnableCORS(http.HandlerFunc(controller.GetLettersController)))
-	http.Handle("/play-move", controller.EnableCORS(http.HandlerFunc(controller.PlayMoveInputController)))
-	http.Handle("/reset", controller.EnableCORS(http.HandlerFunc(controller.ResetLettersController)))
-	http.Handle("/list", controller.EnableCORS(http.HandlerFunc(controller.ListGamesController)))
-	http.Handle("/create", controller.EnableCORS(http.HandlerFunc(controller.CreateGameController)))
-	http.Handle("/end-game", controller.EnableCORS(http.HandlerFunc(controller.EndGameController)))
-	http.Handle("/delete", controller.EnableCORS(http.HandlerFunc(controller.DeleteGameController)))
-	http.Handle("/played-words", controller.EnableCORS(http.HandlerFunc(controller.PlayedWordsController)))
+	// Configure CORS
+	config := cors.DefaultConfig()
+	config.AllowAllOrigins = true
+	config.AllowMethods = []string{"GET", "POST", "DELETE", "OPTIONS"}
+	config.AllowHeaders = []string{"Content-Type"}
+	r.Use(cors.New(config))
 
-	fmt.Println("Starting server on :8080...")
-	if err := http.ListenAndServe(":8080", nil); err != nil {
+	// API routes
+	r.GET("/games", controller.ListGamesHandler)
+	r.GET("/games/:username", controller.GetGameHandler)
+	r.POST("/games/:username", controller.CreateGameHandler)
+	r.POST("/games/:username/play-move", controller.PlayMoveHandler)
+	r.POST("/games/:username/end-game", controller.EndGameHandler)
+	r.GET("/played-words", controller.PlayedWordsHandler)
+
+	fmt.Println("Starting server on :8080")
+	err := r.Run(":8080")
+	if err != nil {
 		fmt.Println("Error starting server:", err)
+		return
 	}
 }

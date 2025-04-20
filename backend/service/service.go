@@ -27,7 +27,7 @@ func ListGames() []model.ListGame {
 	return listGames
 }
 
-func CreateGame(username model.User) error {
+func CreateGame(username string) error {
 	model.GamesLock.Lock()
 	defer model.GamesLock.Unlock()
 
@@ -47,7 +47,7 @@ func CreateGame(username model.User) error {
 	return persistence.SaveGamesToFile()
 }
 
-func DeleteGame(username model.User) error {
+func DeleteGame(username string) error {
 	model.GamesLock.Lock()
 	defer model.GamesLock.Unlock()
 
@@ -59,7 +59,7 @@ func DeleteGame(username model.User) error {
 	return persistence.SaveGamesToFile()
 }
 
-func EndGame(username model.User) error {
+func EndGame(username string) error {
 	model.GamesLock.Lock()
 	defer model.GamesLock.Unlock()
 
@@ -77,7 +77,7 @@ func EndGame(username model.User) error {
 
 	return persistence.SaveGamesToFile()
 }
-func GetLetters(username model.User) (model.UserGame, error) {
+func GetLetters(username string) (model.UserGame, error) {
 	model.GamesLock.Lock()
 	defer model.GamesLock.Unlock()
 
@@ -103,7 +103,7 @@ func GetLetters(username model.User) (model.UserGame, error) {
 	return userGame, nil
 }
 
-func PlayMoveInput(username model.User, playedMoveInput model.PlayedMove) (model.UserGame, error) {
+func PlayMoveInput(username string, playedMoveInput model.PlayedMove) (model.UserGame, error) {
 	model.GamesLock.Lock()
 	defer model.GamesLock.Unlock()
 

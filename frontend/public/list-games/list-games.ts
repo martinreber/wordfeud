@@ -4,7 +4,7 @@ import { Game } from '../common/types.js';
 async function fetchGames(): Promise<void>
 {
     try {
-        const response = await fetch(`${API_BASE_URL}/list`);
+        const response = await fetch(`${API_BASE_URL}/games`);
 
         const data = await handleResponse<Game[]>(response);
 
@@ -78,7 +78,7 @@ async function endGame(username: string): Promise<void>
     }
 
     try {
-        const response = await fetch(`${API_BASE_URL}/end-game?username=${encodeURIComponent(username)}`, {
+        const response = await fetch(`${API_BASE_URL}/games/${encodeURIComponent(username)}/end-game`, {
             method: "POST",
         });
 
@@ -98,7 +98,7 @@ async function endGame(username: string): Promise<void>
 async function createGame(username: string): Promise<void>
 {
     try {
-        const response = await fetch(`${API_BASE_URL}/create?username=${encodeURIComponent(username)}`, {
+        const response = await fetch(`${API_BASE_URL}/games/${encodeURIComponent(username)}`, {
             method: "POST",
         });
         await handleResponse(response);

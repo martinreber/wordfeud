@@ -52,7 +52,7 @@ document.addEventListener("DOMContentLoaded", () =>
       return;
     }
 
-    fetch(`${API_BASE_URL}/play-move?username=${username}`, {
+    fetch(`${API_BASE_URL}/games/${username}/play-move`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -85,7 +85,7 @@ document.addEventListener("DOMContentLoaded", () =>
       return;
     }
     const username = getUsername();
-    fetch(`${API_BASE_URL}/reset?username=${username}`, {
+    fetch(`${API_BASE_URL}/games/${username}/reset`, {
       method: "POST",
     })
       .then((response) => response.json())
@@ -111,7 +111,7 @@ document.addEventListener("DOMContentLoaded", () =>
     }
 
     const username = getUsername();
-    fetch(`${API_BASE_URL}/end-game?username=${username}`, {
+    fetch(`${API_BASE_URL}/games/${username}/end`, {
       method: "POST",
     })
       .then(response => {
@@ -134,7 +134,7 @@ document.addEventListener("DOMContentLoaded", () =>
 function fetchLetters()
 {
   const username = getUsername();
-  fetch(`${API_BASE_URL}/letters?username=${username}`)
+  fetch(`${API_BASE_URL}/games/${username}`)
     .then(response => handleResponse<UserGame>(response))
     .then((data: UserGame) =>
     {

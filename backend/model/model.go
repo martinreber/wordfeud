@@ -12,13 +12,11 @@ type LetterPlaySet struct {
 type LettersPlaySet []LetterPlaySet
 
 type ListGame struct {
-	User               User   `json:"user"`
+	User               string `json:"user"`
 	LastMoveTimestamp  string `json:"last_move_timestamp"`
 	GameStartTimestamp string `json:"game_start_timestamp"`
 	RemindingLetters   uint   `json:"reminding_letters"`
 }
-
-type User string
 
 type PlayedMove struct {
 	Letters        string `json:"letters"`
@@ -28,7 +26,7 @@ type PlayedMove struct {
 }
 
 type UserGame struct {
-	User               User            `json:"user"`
+	User               string          `json:"user"`
 	LettersPlaySet     []LetterPlaySet `json:"letters_play_set"`
 	LastMoveTimestamp  string          `json:"last_move_timestamp"`
 	GameStartTimestamp string          `json:"game_start_timestamp"`
@@ -43,8 +41,8 @@ type WordCount struct {
 }
 
 type GlobalPersistenceStruct struct {
-	Games      map[User]UserGame `json:"games"`
-	EndedGames []UserGame        `json:"ended_games"`
+	Games      map[string]UserGame `json:"games"`
+	EndedGames []UserGame          `json:"ended_games"`
 }
 
 var (
