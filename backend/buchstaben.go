@@ -4,15 +4,15 @@ import (
 	"fmt"
 
 	"buchstaben.go/controller"
-	"buchstaben.go/model"
+	"buchstaben.go/persistence"
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 )
 
 func main() {
-	model.GlobalPersistence = model.GlobalPersistenceStruct{
-		Games:      make(map[string]model.UserGame),
-		EndedGames: []model.UserGame{},
+	if err := persistence.LoadGamesFromFile(); err != nil {
+		fmt.Println("Error loading games from file:", err)
+		return
 	}
 
 	gin.SetMode(gin.ReleaseMode)
