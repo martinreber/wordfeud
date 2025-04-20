@@ -29,6 +29,7 @@ type PlayedMove struct {
 	Word           string `json:"word"`
 	PlayedByMyself bool   `json:"played_by_myself"`
 	Timestamp      string `json:"timestamp"`
+	Points         uint   `json:"points"`
 }
 
 type UserGame struct {

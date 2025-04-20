@@ -39,6 +39,8 @@ document.addEventListener("DOMContentLoaded", () =>
     const inputString = inputStringElement ? inputStringElement.value : "";
     const inputWordElement = document.getElementById("input-word") as HTMLInputElement;
     const inputWord = inputWordElement ? inputWordElement.value : "";
+    const inputPointsElement = document.getElementById("input-points") as HTMLInputElement;
+    const inputPoints = inputPointsElement ? inputPointsElement.value : "";
     const playerToggleElement = document.getElementById("player-toggle") as HTMLInputElement;
     const isPlayedByMyself = playerToggleElement ? playerToggleElement.checked : false;
 
@@ -52,6 +54,11 @@ document.addEventListener("DOMContentLoaded", () =>
       return;
     }
 
+    if(!inputPoints) {
+      showMessage("Please enter the points you scored.");
+      return;
+    }
+
     fetch(`${API_BASE_URL}/games/${username}/play-move`, {
       method: "POST",
       headers: {
@@ -61,12 +68,18 @@ document.addEventListener("DOMContentLoaded", () =>
         letters: inputString,
         word: inputWord,
         playedByMyself: isPlayedByMyself,
+        points: parseInt(inputPoints),
       }),
     })
       .then(response => handleResponse<UserGame>(response))
       .then((data: UserGame) =>
       {
         createUserGameLayout(username, data);
+        const player = isPlayedByMyself ? "myself" : "opponent";
+        showMessage(`Word "${inputWord}" successfully played by ${player}.`);
+        inputStringElement.value = "";
+        inputWordElement.value = "";
+        inputPointsElement.value = "";
       })
       .catch((error) =>
       {
@@ -214,23 +227,21 @@ function createLettersTable(data: UserGame)
   return table;
 }
 
-function getBackgroundColor(letter: LetterPlaySet): string
-{
+function getBackgroundColor(letter: LetterPlaySet): string {
   const reminding_percentage = (letter.current_count / letter.original_count) * 100;
-  console.log(`Letter: ${letter.letter}, Current Count: ${letter.current_count}, Original Count: ${letter.original_count}, Percentage: ${reminding_percentage}`);
+
   if (reminding_percentage >= 100) {
-    return "lightgreen";
+    return "#98FB98";    // pale green - full count
   } else if (reminding_percentage > 75) {
-    return "lightblue";
+    return "#B5EAB5";    // lighter green - very good
   } else if (reminding_percentage > 50) {
-    return "lightpink";
+    return "#FFE4B5";    // moccasin - medium
   } else if (reminding_percentage > 25) {
-    return "lightyellow";
+    return "#FFB5B5";    // lighter salmon - low
   } else if (reminding_percentage > 0) {
-    return "lightaquamarine";
+    return "#ff4000";    // darker salmon - very low
   } else if (reminding_percentage <= 0) {
-    return "lightcoral";
-  } else {
+    return "#E39898";  } else {
     return "black";
   }
 }

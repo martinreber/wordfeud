@@ -49,13 +49,13 @@ func PlayMoveHandler(c *gin.Context) {
 		return
 	}
 
-	var playedMoveInput model.PlayedMove
-	if err := c.BindJSON(&playedMoveInput); err != nil {
+	var playedMove model.PlayedMove
+	if err := c.BindJSON(&playedMove); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid request body"})
 		return
 	}
 
-	updatedGame, err := service.PlayMoveInput(username, playedMoveInput)
+	updatedGame, err := service.PlayMove(username, playedMove)
 	if err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return

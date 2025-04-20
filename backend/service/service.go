@@ -103,7 +103,7 @@ func GetLetters(username string) (model.UserGame, error) {
 	return userGame, nil
 }
 
-func PlayMoveInput(username string, playedMoveInput model.PlayedMove) (model.UserGame, error) {
+func PlayMove(username string, playedMove model.PlayedMove) (model.UserGame, error) {
 	model.GamesLock.Lock()
 	defer model.GamesLock.Unlock()
 
@@ -112,8 +112,8 @@ func PlayMoveInput(username string, playedMoveInput model.PlayedMove) (model.Use
 		return model.UserGame{}, fmt.Errorf("game not found for username")
 	}
 
-	playedMoveInput.Timestamp = time.Now().Format("2006-01-02 15:04:05")
-	newLettersPlaySet, err := logic.RemoveLetters(game.LettersPlaySet, playedMoveInput.Letters)
+	playedMove.Timestamp = time.Now().Format("2006-01-02 15:04:05")
+	newLettersPlaySet, err := logic.RemoveLetters(game.LettersPlaySet, playedMove.Letters)
 	if err != nil {
 		return model.UserGame{}, err
 	}
@@ -124,7 +124,7 @@ func PlayMoveInput(username string, playedMoveInput model.PlayedMove) (model.Use
 		LastMoveTimestamp:  time.Now().Format("2006-01-02 15:04:05"),
 		GameStartTimestamp: game.GameStartTimestamp,
 		LetterOverAllValue: logic.GetLetterValue(newLettersPlaySet),
-		PlayedMoves:        append(game.PlayedMoves, playedMoveInput),
+		PlayedMoves:        append(game.PlayedMoves, playedMove),
 	}
 	model.GlobalPersistence.Games[username] = updatedGame
 

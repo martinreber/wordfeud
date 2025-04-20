@@ -6,7 +6,7 @@
         {
           "letter": "a",
           "original_count": 5,
-          "current_count": 5,
+          "current_count": 3,
           "value": 1
         },
         {
@@ -18,25 +18,25 @@
         {
           "letter": "c",
           "original_count": 2,
-          "current_count": 1,
+          "current_count": 0,
           "value": 4
         },
         {
           "letter": "d",
           "original_count": 5,
-          "current_count": 4,
+          "current_count": 3,
           "value": 1
         },
         {
           "letter": "e",
           "original_count": 14,
-          "current_count": 7,
+          "current_count": 5,
           "value": 1
         },
         {
           "letter": "f",
           "original_count": 2,
-          "current_count": 1,
+          "current_count": 0,
           "value": 4
         },
         {
@@ -48,13 +48,13 @@
         {
           "letter": "h",
           "original_count": 4,
-          "current_count": 4,
+          "current_count": 1,
           "value": 2
         },
         {
           "letter": "i",
           "original_count": 6,
-          "current_count": 2,
+          "current_count": 1,
           "value": 1
         },
         {
@@ -66,7 +66,7 @@
         {
           "letter": "k",
           "original_count": 2,
-          "current_count": 2,
+          "current_count": 1,
           "value": 4
         },
         {
@@ -78,19 +78,19 @@
         {
           "letter": "m",
           "original_count": 4,
-          "current_count": 4,
+          "current_count": 0,
           "value": 3
         },
         {
           "letter": "n",
           "original_count": 9,
-          "current_count": 6,
+          "current_count": 1,
           "value": 1
         },
         {
           "letter": "o",
           "original_count": 3,
-          "current_count": 1,
+          "current_count": 0,
           "value": 2
         },
         {
@@ -108,13 +108,351 @@
         {
           "letter": "r",
           "original_count": 6,
-          "current_count": 6,
+          "current_count": 4,
           "value": 1
         },
         {
           "letter": "s",
           "original_count": 7,
+          "current_count": 1,
+          "value": 1
+        },
+        {
+          "letter": "t",
+          "original_count": 6,
+          "current_count": 2,
+          "value": 1
+        },
+        {
+          "letter": "u",
+          "original_count": 6,
+          "current_count": 4,
+          "value": 1
+        },
+        {
+          "letter": "v",
+          "original_count": 1,
+          "current_count": 1,
+          "value": 6
+        },
+        {
+          "letter": "w",
+          "original_count": 1,
+          "current_count": 1,
+          "value": 3
+        },
+        {
+          "letter": "x",
+          "original_count": 1,
+          "current_count": 0,
+          "value": 8
+        },
+        {
+          "letter": "y",
+          "original_count": 1,
+          "current_count": 0,
+          "value": 10
+        },
+        {
+          "letter": "z",
+          "original_count": 1,
+          "current_count": 1,
+          "value": 3
+        },
+        {
+          "letter": "ä",
+          "original_count": 1,
+          "current_count": 0,
+          "value": 6
+        },
+        {
+          "letter": "ö",
+          "original_count": 1,
+          "current_count": 0,
+          "value": 8
+        },
+        {
+          "letter": "ü",
+          "original_count": 1,
+          "current_count": 1,
+          "value": 6
+        },
+        {
+          "letter": "*",
+          "original_count": 2,
+          "current_count": 2,
+          "value": 0
+        }
+      ],
+      "last_move_timestamp": "2025-04-20 14:58:16",
+      "game_start_timestamp": "2025-04-20 13:09:34",
+      "game_end_timestamp": "",
+      "letter_overall_value": 54,
+      "played_moves": [
+        {
+          "letters": "telexe",
+          "word": "telexe",
+          "played_by_myself": false,
+          "timestamp": "2025-04-20 13:10:44",
+          "points": 0
+        },
+        {
+          "letters": "nous",
+          "word": "nous",
+          "played_by_myself": false,
+          "timestamp": "2025-04-20 13:26:45",
+          "points": 0
+        },
+        {
+          "letters": "pfegt",
+          "word": "pflegt",
+          "played_by_myself": false,
+          "timestamp": "2025-04-20 13:26:59",
+          "points": 0
+        },
+        {
+          "letters": "beiss",
+          "word": "beiss",
+          "played_by_myself": false,
+          "timestamp": "2025-04-20 13:29:14",
+          "points": 0
+        },
+        {
+          "letters": "lice",
+          "word": "slice",
+          "played_by_myself": false,
+          "timestamp": "2025-04-20 13:32:06",
+          "points": 0
+        },
+        {
+          "letters": "jin",
+          "word": "jin",
+          "played_by_myself": false,
+          "timestamp": "2025-04-20 13:45:07",
+          "points": 0
+        },
+        {
+          "letters": "ndio",
+          "word": "indio",
+          "played_by_myself": false,
+          "timestamp": "2025-04-20 13:47:44",
+          "points": 0
+        },
+        {
+          "letters": "ge",
+          "word": "gepflegten",
+          "played_by_myself": false,
+          "timestamp": "2025-04-20 13:51:35",
+          "points": 0
+        },
+        {
+          "letters": "qs",
+          "word": "qis",
+          "played_by_myself": false,
+          "timestamp": "2025-04-20 13:52:19",
+          "points": 0
+        },
+        {
+          "letters": "häs",
+          "word": "häs",
+          "played_by_myself": false,
+          "timestamp": "2025-04-20 14:11:18",
+          "points": 0
+        },
+        {
+          "letters": "d",
+          "word": "telexend",
+          "played_by_myself": false,
+          "timestamp": "2025-04-20 14:14:15",
+          "points": 0
+        },
+        {
+          "letters": "fas",
+          "word": "fas",
+          "played_by_myself": false,
+          "timestamp": "2025-04-20 14:18:59",
+          "points": 0
+        },
+        {
+          "letters": "my",
+          "word": "mys",
+          "played_by_myself": false,
+          "timestamp": "2025-04-20 14:22:20",
+          "points": 0
+        },
+        {
+          "letters": "amt",
+          "word": "amt",
+          "played_by_myself": false,
+          "timestamp": "2025-04-20 14:27:30",
+          "points": 0
+        },
+        {
+          "letters": "huhn",
+          "word": "huhne",
+          "played_by_myself": false,
+          "timestamp": "2025-04-20 14:30:00",
+          "points": 0
+        },
+        {
+          "letters": "nör",
+          "word": "nöre",
+          "played_by_myself": false,
+          "timestamp": "2025-04-20 14:36:00",
+          "points": 0
+        },
+        {
+          "letters": "rn",
+          "word": "törn",
+          "played_by_myself": false,
+          "timestamp": "2025-04-20 14:37:49",
+          "points": 0
+        },
+        {
+          "letters": "omen",
+          "word": "omen",
+          "played_by_myself": false,
+          "timestamp": "2025-04-20 14:41:50",
+          "points": 0
+        },
+        {
+          "letters": "n",
+          "word": "telexenden",
+          "played_by_myself": false,
+          "timestamp": "2025-04-20 14:42:20",
+          "points": 0
+        },
+        {
+          "letters": "ki",
+          "word": "kin",
+          "played_by_myself": false,
+          "timestamp": "2025-04-20 14:55:28",
+          "points": 0
+        },
+        {
+          "letters": "mect",
+          "word": "mecht",
+          "played_by_myself": false,
+          "timestamp": "2025-04-20 14:58:16",
+          "points": 0
+        }
+      ]
+    },
+    "test": {
+      "user": "test",
+      "letters_play_set": [
+        {
+          "letter": "a",
+          "original_count": 5,
+          "current_count": 4,
+          "value": 1
+        },
+        {
+          "letter": "b",
+          "original_count": 2,
+          "current_count": 0,
+          "value": 2
+        },
+        {
+          "letter": "c",
+          "original_count": 2,
+          "current_count": 1,
+          "value": 4
+        },
+        {
+          "letter": "d",
+          "original_count": 5,
+          "current_count": 5,
+          "value": 1
+        },
+        {
+          "letter": "e",
+          "original_count": 14,
+          "current_count": 13,
+          "value": 1
+        },
+        {
+          "letter": "f",
+          "original_count": 2,
+          "current_count": 2,
+          "value": 4
+        },
+        {
+          "letter": "g",
+          "original_count": 3,
           "current_count": 3,
+          "value": 2
+        },
+        {
+          "letter": "h",
+          "original_count": 4,
+          "current_count": 4,
+          "value": 2
+        },
+        {
+          "letter": "i",
+          "original_count": 6,
+          "current_count": 6,
+          "value": 1
+        },
+        {
+          "letter": "j",
+          "original_count": 1,
+          "current_count": 1,
+          "value": 6
+        },
+        {
+          "letter": "k",
+          "original_count": 2,
+          "current_count": 2,
+          "value": 4
+        },
+        {
+          "letter": "l",
+          "original_count": 3,
+          "current_count": 3,
+          "value": 2
+        },
+        {
+          "letter": "m",
+          "original_count": 4,
+          "current_count": 4,
+          "value": 3
+        },
+        {
+          "letter": "n",
+          "original_count": 9,
+          "current_count": 9,
+          "value": 1
+        },
+        {
+          "letter": "o",
+          "original_count": 3,
+          "current_count": 3,
+          "value": 2
+        },
+        {
+          "letter": "p",
+          "original_count": 1,
+          "current_count": 1,
+          "value": 5
+        },
+        {
+          "letter": "q",
+          "original_count": 1,
+          "current_count": 1,
+          "value": 10
+        },
+        {
+          "letter": "r",
+          "original_count": 6,
+          "current_count": 5,
+          "value": 1
+        },
+        {
+          "letter": "s",
+          "original_count": 7,
+          "current_count": 6,
           "value": 1
         },
         {
@@ -144,7 +482,7 @@
         {
           "letter": "x",
           "original_count": 1,
-          "current_count": 0,
+          "current_count": 1,
           "value": 8
         },
         {
@@ -156,7 +494,7 @@
         {
           "letter": "z",
           "original_count": 1,
-          "current_count": 1,
+          "current_count": 0,
           "value": 3
         },
         {
@@ -174,7 +512,7 @@
         {
           "letter": "ü",
           "original_count": 1,
-          "current_count": 1,
+          "current_count": 0,
           "value": 6
         },
         {
@@ -184,64 +522,38 @@
           "value": 0
         }
       ],
-      "last_move_timestamp": "2025-04-20 13:52:19",
-      "game_start_timestamp": "2025-04-20 13:09:34",
+      "last_move_timestamp": "2025-04-20 15:12:37",
+      "game_start_timestamp": "2025-04-20 15:04:48",
       "game_end_timestamp": "",
-      "letter_overall_value": 128,
+      "letter_overall_value": 177,
       "played_moves": [
         {
-          "letters": "telexe",
-          "word": "telexe",
+          "letters": "test",
+          "word": "test",
           "played_by_myself": false,
-          "timestamp": "2025-04-20 13:10:44"
+          "timestamp": "2025-04-20 15:05:00",
+          "points": 0
         },
         {
-          "letters": "nous",
-          "word": "nous",
+          "letters": "zur",
+          "word": "zur",
           "played_by_myself": false,
-          "timestamp": "2025-04-20 13:26:45"
+          "timestamp": "2025-04-20 15:06:31",
+          "points": 0
         },
         {
-          "letters": "pfegt",
-          "word": "pflegt",
+          "letters": "abc",
+          "word": "abc",
           "played_by_myself": false,
-          "timestamp": "2025-04-20 13:26:59"
+          "timestamp": "2025-04-20 15:08:55",
+          "points": 13
         },
         {
-          "letters": "beiss",
-          "word": "beiss",
+          "letters": "üb",
+          "word": "üben",
           "played_by_myself": false,
-          "timestamp": "2025-04-20 13:29:14"
-        },
-        {
-          "letters": "lice",
-          "word": "slice",
-          "played_by_myself": false,
-          "timestamp": "2025-04-20 13:32:06"
-        },
-        {
-          "letters": "jin",
-          "word": "jin",
-          "played_by_myself": false,
-          "timestamp": "2025-04-20 13:45:07"
-        },
-        {
-          "letters": "ndio",
-          "word": "indio",
-          "played_by_myself": false,
-          "timestamp": "2025-04-20 13:47:44"
-        },
-        {
-          "letters": "ge",
-          "word": "gepflegten",
-          "played_by_myself": false,
-          "timestamp": "2025-04-20 13:51:35"
-        },
-        {
-          "letters": "qs",
-          "word": "qis",
-          "played_by_myself": false,
-          "timestamp": "2025-04-20 13:52:19"
+          "timestamp": "2025-04-20 15:12:37",
+          "points": 5
         }
       ]
     }
@@ -440,7 +752,8 @@
           "letters": "abcd",
           "word": "abcd",
           "played_by_myself": false,
-          "timestamp": "2025-04-20 13:32:39"
+          "timestamp": "2025-04-20 13:32:39",
+          "points": 0
         }
       ]
     }
