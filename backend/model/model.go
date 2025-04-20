@@ -18,6 +18,12 @@ type ListGame struct {
 	RemindingLetters   uint   `json:"reminding_letters"`
 }
 
+type ListEndedGame struct {
+	User               string `json:"user"`
+	LastMoveTimestamp  string `json:"last_move_timestamp"`
+	GameStartTimestamp string `json:"game_start_timestamp"`
+}
+
 type PlayedMove struct {
 	Letters        string `json:"letters"`
 	Word           string `json:"word"`

@@ -77,6 +77,11 @@ func EndGameHandler(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"message": fmt.Sprintf("Game for user '%s' ended successfully.", username)})
 }
 
+func ListEndedGamesHandler(c *gin.Context) {
+	listEndedGames := service.ListEndedGames()
+	c.JSON(http.StatusOK, listEndedGames)
+}
+
 func PlayedWordsHandler(c *gin.Context) {
 	wordsCount := service.GetPlayedWords()
 	c.JSON(http.StatusOK, wordsCount)

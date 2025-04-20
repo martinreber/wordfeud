@@ -134,6 +134,21 @@ func PlayMoveInput(username string, playedMoveInput model.PlayedMove) (model.Use
 	return updatedGame, nil
 }
 
+func ListEndedGames() []model.ListEndedGame {
+	model.GamesLock.Lock()
+	defer model.GamesLock.Unlock()
+
+	listEndedGames := []model.ListEndedGame{}
+	for _, endedGame := range model.GlobalPersistence.EndedGames {
+		listEndedGames = append(listEndedGames, model.ListEndedGame{
+			User:               endedGame.User,
+			LastMoveTimestamp:  endedGame.LastMoveTimestamp,
+			GameStartTimestamp: endedGame.GameStartTimestamp,
+		})
+	}
+	return listEndedGames
+}
+
 func GetPlayedWords() []model.WordCount {
 	model.GamesLock.Lock()
 	defer model.GamesLock.Unlock()

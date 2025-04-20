@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>List of EndedGames</title>
+  <link rel="stylesheet" href="../common/style-common.css">
+  <link rel="stylesheet" href="./ended-games.css">
+</head>
+
+<body>
+  <div class="container">
+    <h1>List of Endes Games</h1>
+    <div class="grid-container">
+      <!-- Games Table -->
+      <div id="games-container" class="grid-item">
+        <table id="games-table" class="game-table">
+          <thead>
+            <tr>
+              <th>Username</th>
+              <th>Game Start</th>
+              <th>Last Move</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- Game rows will be dynamically added here -->
+          </tbody>
+        </table>
+      </div>
+      <button id="refresh-button" class="button">Refresh</button>
+    </div>
+  </div>
+  <script type="module" src="./ended-games.js"></script>
+</body>
+
+</html>

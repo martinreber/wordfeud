@@ -133,6 +133,12 @@ document.addEventListener("DOMContentLoaded", () =>
         await createGame(newUsername);
     });
 
+    const endedGamesButton = getElementByIdOrThrow<HTMLButtonElement>("ended-games-button");
+    endedGamesButton.addEventListener("click", () =>
+    {
+        window.open("../ended-games/index.html", "_blank");
+    });
+
     const refreshButton = getElementByIdOrThrow<HTMLButtonElement>("refresh-button");
     refreshButton.addEventListener("click", () => fetchGames());
 

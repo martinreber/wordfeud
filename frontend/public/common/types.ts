@@ -12,6 +12,12 @@ export interface Game {
     reminding_letters: number;
 }
 
+export interface EndedGame {
+    user: string;
+    last_move_timestamp: string;
+    game_start_timestamp: string;
+}
+
 export interface PlayedMove {
     letters: string;
     word: string;

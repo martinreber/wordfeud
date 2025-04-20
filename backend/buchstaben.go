@@ -30,6 +30,7 @@ func main() {
 	r.GET("/games/:username", controller.GetGameHandler)
 	r.POST("/games/:username", controller.CreateGameHandler)
 	r.POST("/games/:username/play-move", controller.PlayMoveHandler)
+	r.GET("/games/end-game", controller.ListEndedGamesHandler)
 	r.POST("/games/:username/end-game", controller.EndGameHandler)
 	r.GET("/played-words", controller.PlayedWordsHandler)
 

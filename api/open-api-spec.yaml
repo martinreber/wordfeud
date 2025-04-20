@@ -80,6 +80,19 @@ paths:
           description: Invalid move
         '404':
           description: Game not found
+  /games/end-game:
+    get:
+      summary: List all ended games
+      operationId: listEndedGames
+      responses:
+        '200':
+          description: List of ended games retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ListEndedGame'
 
   /games/{username}/end-game:
     post:
@@ -175,6 +188,18 @@ components:
         value:
           type: integer
           format: uint
+
+    ListEndedGame:
+      type: object
+      properties:
+        user:
+          type: string
+        last_move_timestamp:
+          type: string
+        game_start_timestamp:
+          type: string
+        game_end_timestamp:
+          type: string
 
     WordCount:
       type: object

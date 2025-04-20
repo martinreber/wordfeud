@@ -1,0 +1,58 @@
+.grid-container {
+    margin-bottom: 20px;
+}
+
+.grid-item {
+    background: #f9f9f9;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+#new-username {
+    width: auto;
+    max-width: 200px;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1rem;
+    box-sizing: border-box;
+}
+
+#button-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+}
+
+#left-buttons {
+    flex: 1;
+    text-align: left;
+}
+
+#right-buttons {
+    flex: 1;
+    text-align: right;
+}
+
+@media (prefers-color-scheme: dark) {
+    .grid-item {
+        background: var(--container-bg);
+    }
+
+    #new-username {
+        background-color: var(--container-bg);
+        color: var(--text-color);
+        border-color: var(--input-border);
+    }
+
+    .delete-button {
+        background-color: var(--error-color);
+    }
+
+    .delete-button:hover {
+        background-color: #d32f2f;
+    }
+}
