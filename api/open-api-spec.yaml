@@ -1,0 +1,185 @@
+openapi: 3.0.0
+info:
+  title: Wordfeud API
+  version: 0.2.0
+  description: API for managing Wordfeud games
+
+servers:
+  - url: http://localhost:8080
+    description: Local development server
+
+paths:
+  /games:
+    get:
+      summary: List all games
+      operationId: listGames
+      responses:
+        '200':
+          description: List of games retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ListGame'
+
+  /games/{username}:
+    parameters:
+      - name: username
+        in: path
+        required: true
+        schema:
+          type: string
+    get:
+      summary: Get game details for a user
+      operationId: getGame
+      responses:
+        '200':
+          description: Game details retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserGame'
+        '404':
+          description: Game not found
+    post:
+      summary: Create a new game for a user
+      operationId: createGame
+      responses:
+        '201':
+          description: Game created successfully
+        '400':
+          description: Invalid request
+        '409':
+          description: Game already exists for user
+
+  /games/{username}/play-move:
+    post:
+      summary: Play a move in the game
+      operationId: playMove
+      parameters:
+        - name: username
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PlayedMove'
+      responses:
+        '200':
+          description: Move played successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserGame'
+        '400':
+          description: Invalid move
+        '404':
+          description: Game not found
+
+  /games/{username}/end-game:
+    post:
+      summary: End a game
+      operationId: endGame
+      parameters:
+        - name: username
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Game ended successfully
+        '404':
+          description: Game not found
+
+  /played-words:
+    get:
+      summary: Get statistics of played words
+      operationId: getPlayedWords
+      responses:
+        '200':
+          description: Word statistics retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/WordCount'
+
+components:
+  schemas:
+    ListGame:
+      type: object
+      properties:
+        user:
+          type: string
+        last_move_timestamp:
+          type: string
+        game_start_timestamp:
+          type: string
+        reminding_letters:
+          type: integer
+          format: uint
+
+    PlayedMove:
+      type: object
+      properties:
+        letters:
+          type: string
+        word:
+          type: string
+        played_by_myself:
+          type: boolean
+        timestamp:
+          type: string
+
+    UserGame:
+      type: object
+      properties:
+        user:
+          type: string
+        letters_play_set:
+          type: array
+          items:
+            $ref: '#/components/schemas/LetterPlaySet'
+        last_move_timestamp:
+          type: string
+        game_start_timestamp:
+          type: string
+        game_end_timestamp:
+          type: string
+        letter_overall_value:
+          type: integer
+          format: uint
+        played_moves:
+          type: array
+          items:
+            $ref: '#/components/schemas/PlayedMove'
+
+    LetterPlaySet:
+      type: object
+      properties:
+        letter:
+          type: string
+        original_count:
+          type: integer
+          format: uint
+        current_count:
+          type: integer
+          format: uint
+        value:
+          type: integer
+          format: uint
+
+    WordCount:
+      type: object
+      properties:
+        word:
+          type: string
+        current_count:
+          type: integer
