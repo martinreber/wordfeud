@@ -206,6 +206,7 @@ function createLettersTable(data: UserGame)
     countCell.textContent = `${letter.current_count.toString()} / ${letter.original_count.toString()}`;
     countCell.classList.add("count-cell");
     countCell.style.backgroundColor = getBackgroundColor(letter);
+    countCell.style.color = "#333";
 
     row.appendChild(letterCell);
     row.appendChild(countCell);

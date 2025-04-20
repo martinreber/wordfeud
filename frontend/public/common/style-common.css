@@ -1,9 +1,45 @@
+
+:root {
+    --bg-color: #f9f9f9;
+    --container-bg: #ffffff;
+    --text-color: #333;
+    --text-color-count-cell: #333;
+    --border-color: #ddd;
+    --shadow-color: rgba(0, 0, 0, 0.1);
+    --table-header-bg: #f4f4f4;
+    --button-bg: #45a049;
+    --button-hover: #023a02;
+    --error-color: #d9534f;
+    --input-border: #ccc;
+    --link-color: #0066cc;
+    --link-hover-color: #0052a3;
+}
+
+/* Dark mode */
+@media (prefers-color-scheme: dark) {
+    :root {
+        --bg-color: #1a1a1a;
+        --container-bg: #2d2d2d;
+        --text-color: #e0e0e0;
+        --text-color-count-cell: #333;
+        --border-color: #404040;
+        --shadow-color: rgba(0, 0, 0, 0.3);
+        --table-header-bg: #363636;
+        --button-bg: #2e7d32;
+        --button-hover: #1b5e20;
+        --error-color: #f44336;
+        --input-border: #404040;
+        --link-color: #66b3ff;
+        --link-hover-color: #99ccff;
+    }
+}
+
 body {
     font-family: 'Roboto', Arial, sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #f9f9f9;
-    color: #333;
+    background-color: var(--bg-color);
+    color: var(--text-color);
     line-height: 1.6;
 }
 
@@ -12,18 +48,18 @@ body {
     max-width: 1200px;
     margin: 20px auto;
     padding: 20px;
-    background: #ffffff;
+    background: var(--container-bg);
     border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 8px var(--shadow-color);
 }
 
 .button {
     display: inline-block;
-    background-color: #45a049;
+    background-color: var(--button-bg);
     color: white;
     padding: 10px 20px;
     margin: 10px 0;
-    border: 1px solid #ccc;
+    border: 1px solid var(--border-color);
     border-radius: 8px;
     cursor: pointer;
     font-size: 1rem;
@@ -31,7 +67,7 @@ body {
 }
 
 .button:hover {
-    background-color: #023a02;
+    background-color: var(--button-hover);
 }
 
 .game-table {
@@ -43,11 +79,11 @@ body {
 .game-table th, .game-table td {
     padding: 12px;
     text-align: left;
-    border: 1px solid #ddd;
+    border: 1px solid var(--border-color);
 }
 
 .game-table th {
-    background-color: #f4f4f4;
+    background-color: var(--table-header-bg);
     font-weight: bold;
 }
 
@@ -63,14 +99,28 @@ body {
 
 .input-field input {
     padding: 0.5rem;
-    border: 1px solid #ccc;
+    border: 1px solid var(--input-border);
     border-radius: 4px;
     font-size: 1rem;
+    background-color: var(--container-bg);
+    color: var(--text-color);
 }
 
 .response-message {
     margin-top: 10px;
     font-size: 1rem;
-    color: #d9534f;
+    color: var(--error-color);
     font-weight: bold;
+}
+
+/* Add a hover effect to links */
+a {
+    color: var(--link-color);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+a:hover {
+    color: var(--link-hover-color);
+    text-decoration: underline;
 }

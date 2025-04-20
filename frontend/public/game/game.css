@@ -122,3 +122,23 @@
     text-align: left;
     border: none;
 }
+
+@media (prefers-color-scheme: dark) {
+    .letter-table td {
+        color: var(--text-color);
+    }
+
+    .count-cell {
+        border-right: 1px solid var(--border-color);
+    }
+
+    #player-toggle {
+        accent-color: var(--button-bg);
+    }
+
+    .input-field input {
+        background-color: var(--container-bg);
+        color: var(--text-color);
+        border-color: var(--input-border);
+    }
+}
