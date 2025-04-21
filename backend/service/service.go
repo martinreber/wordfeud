@@ -40,11 +40,11 @@ func CreateGame(username string) error {
 		LettersPlaySet:     logic.LoadLettersPlaySet(),
 		LastMoveTimestamp:  time.Now().Format("2006-01-02 15:04:05"),
 		GameStartTimestamp: time.Now().Format("2006-01-02 15:04:05"),
-		LetterOverAllValue: 0, // Replace with logic.GetLetterValue() if needed
+		LetterOverAllValue: 0,
 		PlayedMoves:        []model.PlayedMove{},
 	}
 
-	return persistence.SaveGamesToFile()
+	return model.PersistenceImpl.SaveGamesToFile()
 }
 
 func DeleteGame(username string) error {
@@ -178,10 +178,6 @@ func GetPlayedWords() []model.WordCount {
 
 func countWords(playedMoves []model.PlayedMove, wordCounts map[string]int) {
 	for _, move := range playedMoves {
-		if move.Word != "" {
-			word := strings.ToLower(move.Word)
-			wordCounts[word]++
-		}
 		if move.Words != nil {
 			for _, word := range move.Words {
 				word = strings.ToLower(word)
@@ -189,5 +185,4 @@ func countWords(playedMoves []model.PlayedMove, wordCounts map[string]int) {
 			}
 		}
 	}
-	return
 }

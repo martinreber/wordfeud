@@ -37,8 +37,8 @@ document.addEventListener("DOMContentLoaded", () =>
     const username = getUsername();
     const inputStringElement = document.getElementById("input-string") as HTMLInputElement;
     const inputString = inputStringElement ? inputStringElement.value : "";
-    const inputWordElement = document.getElementById("input-word") as HTMLInputElement;
-    const inputWord = inputWordElement ? inputWordElement.value : "";
+    const inputWordElement = document.getElementById("input-words") as HTMLInputElement;
+    const inputWords = inputWordElement ? inputWordElement.value : "";
     const inputPointsElement = document.getElementById("input-points") as HTMLInputElement;
     const inputPoints = inputPointsElement ? inputPointsElement.value : "";
     const playerToggleElement = document.getElementById("player-toggle") as HTMLInputElement;
@@ -49,7 +49,7 @@ document.addEventListener("DOMContentLoaded", () =>
       return;
     }
 
-    if (!inputWord) {
+    if (!inputWords) {
       showMessage("Please enter the word you formed.");
       return;
     }
@@ -60,11 +60,11 @@ document.addEventListener("DOMContentLoaded", () =>
     }
 
     // check if inputWord have only letters and , characters
-    if (!/^[a-z\,]+$/.test(inputWord)) {
+    if (!/^[a-zäöü\,]+$/.test(inputWords)) {
       showMessage("Word can only contain letters and , to split multiple words.");
       return;
     }
-
+    const words = inputWords.split(",");
     fetch(`${API_BASE_URL}/games/${username}/play-move`, {
       method: "POST",
       headers: {
@@ -72,8 +72,7 @@ document.addEventListener("DOMContentLoaded", () =>
       },
       body: JSON.stringify({
         letters: inputString,
-        word: "", // deprecated
-        words: inputWord.split(","),
+        words: words,
         playedByMyself: isPlayedByMyself,
         points: parseInt(inputPoints),
       }),
@@ -90,7 +89,7 @@ document.addEventListener("DOMContentLoaded", () =>
       {
         createUserGameLayout(username, data);
         const player = isPlayedByMyself ? "myself" : "opponent";
-        showMessage(`Word "${inputWord}" successfully played by ${player} with ${inputPoints} points.`);
+        showMessage(`Word(s) "${words}" successfully played by ${player} with ${inputPoints} points.`);
         inputStringElement.value = "";
         inputWordElement.value = "";
         inputPointsElement.value = "";

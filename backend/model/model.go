@@ -26,7 +26,6 @@ type ListEndedGame struct {
 
 type PlayedMove struct {
 	Letters        string   `json:"letters"`
-	Word           string   `json:"word"`
 	Words          []string `json:"words"`
 	PlayedByMyself bool     `json:"played_by_myself"`
 	Timestamp      string   `json:"timestamp"`
@@ -53,7 +52,12 @@ type GlobalPersistenceStruct struct {
 	EndedGames []UserGame          `json:"ended_games"`
 }
 
+type PersistenceLayer interface {
+	SaveGamesToFile() error
+}
+
 var (
 	GlobalPersistence GlobalPersistenceStruct
 	GamesLock         sync.Mutex
+	PersistenceImpl   PersistenceLayer
 )
