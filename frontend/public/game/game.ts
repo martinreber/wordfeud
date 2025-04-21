@@ -71,18 +71,22 @@ document.addEventListener("DOMContentLoaded", () =>
         points: parseInt(inputPoints),
       }),
     })
-      .then(response => handleResponse<UserGame>(response))
-      .then((data: UserGame) =>
-      {
+      .then(async response => {
+        if (!response.ok) {
+          const errorData = await response.json();
+          throw new Error(errorData.error || 'Failed to play move');
+        }
+        return handleResponse<UserGame>(response);
+      })
+      .then((data: UserGame) => {
         createUserGameLayout(username, data);
         const player = isPlayedByMyself ? "myself" : "opponent";
-        showMessage(`Word "${inputWord}" successfully played by ${player}.`);
+        showMessage(`Word "${inputWord}" successfully played by ${player} with ${inputPoints} points.`);
         inputStringElement.value = "";
         inputWordElement.value = "";
         inputPointsElement.value = "";
       })
-      .catch((error) =>
-      {
+      .catch((error) => {
         showMessage(error.message);
       });
   });
