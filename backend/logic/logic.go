@@ -45,15 +45,21 @@ func LoadLettersPlaySet() model.LettersPlaySet {
 func RemoveLetters(lettersPlaySet model.LettersPlaySet, inputString string) (model.LettersPlaySet, error) {
 	previousLettersPlaySet := lettersPlaySet
 	for _, letter := range inputString {
+		isValidLetter := false
 		for i, l := range lettersPlaySet {
 			if l.Letter == string(letter) {
 				if lettersPlaySet[i].CurrentCount == 0 {
 					fmt.Println("Letter ", l.Letter, " is not available anymore.")
-					return previousLettersPlaySet, fmt.Errorf("letter %s is not available anymore, \"Play Move\" ignored", l.Letter)
+					return previousLettersPlaySet, fmt.Errorf("letter %q is not available anymore, \"Play Move\" ignored", l.Letter)
 				}
 				lettersPlaySet[i].CurrentCount--
+				isValidLetter = true
 				break
 			}
+		}
+		if !isValidLetter {
+			fmt.Println("Letter ", string(letter), " is not valid.")
+			return previousLettersPlaySet, fmt.Errorf("letter %q is not valid, \"Play Move\" ignored", string(letter))
 		}
 	}
 	return lettersPlaySet, nil
