@@ -10,31 +10,35 @@ import (
 	"buchstaben.go/service"
 )
 
-func ListGamesHandler(c *gin.Context) {
-	listGames := service.ListGames()
+type DataController struct {
+	Service *service.DataService
+}
+
+func (dc *DataController) ListGamesHandler(c *gin.Context) {
+	listGames := dc.Service.ListGames()
 	c.JSON(http.StatusOK, listGames)
 }
 
-func CreateGameHandler(c *gin.Context) {
+func (dc *DataController) CreateGameHandler(c *gin.Context) {
 	username := c.Param("username")
 	if username == "" {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "Username is required"})
 		return
 	}
-	if err := service.CreateGame(username); err != nil {
+	if err := dc.Service.CreateGame(username); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
 	c.Status(http.StatusCreated)
 }
 
-func GetGameHandler(c *gin.Context) {
+func (dc *DataController) GetGameHandler(c *gin.Context) {
 	username := c.Param("username")
 	if username == "" {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "Username is required"})
 		return
 	}
-	userGame, err := service.GetLetters(username)
+	userGame, err := dc.Service.GetLetters(username)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return
@@ -42,7 +46,7 @@ func GetGameHandler(c *gin.Context) {
 	c.JSON(http.StatusOK, userGame)
 }
 
-func PlayMoveHandler(c *gin.Context) {
+func (dc *DataController) PlayMoveHandler(c *gin.Context) {
 	username := c.Param("username")
 	if username == "" {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "Username is required"})
@@ -55,7 +59,7 @@ func PlayMoveHandler(c *gin.Context) {
 		return
 	}
 
-	updatedGame, err := service.PlayMove(username, playedMove)
+	updatedGame, err := dc.Service.PlayMove(username, playedMove)
 	if err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
@@ -64,25 +68,25 @@ func PlayMoveHandler(c *gin.Context) {
 	c.JSON(http.StatusOK, updatedGame)
 }
 
-func EndGameHandler(c *gin.Context) {
+func (dc *DataController) EndGameHandler(c *gin.Context) {
 	username := c.Param("username")
 	if username == "" {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "Username is required"})
 		return
 	}
-	if err := service.EndGame(username); err != nil {
+	if err := dc.Service.EndGame(username); err != nil {
 		c.JSON(http.StatusNotFound, gin.H{"error": err.Error()})
 		return
 	}
 	c.JSON(http.StatusOK, gin.H{"message": fmt.Sprintf("Game for user '%s' ended successfully.", username)})
 }
 
-func ListEndedGamesHandler(c *gin.Context) {
-	listEndedGames := service.ListEndedGames()
+func (dc *DataController) ListEndedGamesHandler(c *gin.Context) {
+	listEndedGames := dc.Service.ListEndedGames()
 	c.JSON(http.StatusOK, listEndedGames)
 }
 
-func PlayedWordsHandler(c *gin.Context) {
-	wordsCount := service.GetPlayedWords()
+func (dc *DataController) PlayedWordsHandler(c *gin.Context) {
+	wordsCount := dc.Service.GetPlayedWords()
 	c.JSON(http.StatusOK, wordsCount)
 }

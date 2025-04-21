@@ -8,9 +8,16 @@ import (
 	"buchstaben.go/model"
 )
 
-const gameFilePath = "../data/games.json"
+// DataSaver is the interface that wraps the SaveData method.
+type DataSaver interface {
+	SaveGamesToFile() error
+	LoadGamesFromFile() error
+}
+type FileDataSaver struct {
+	FilePath string
+}
 
-func SaveGamesToFile() error {
+func (fds *FileDataSaver) SaveGamesToFile() error {
 	fmt.Println("Saving games to file...")
 
 	file, err := json.MarshalIndent(model.GlobalPersistence, "", "  ")
@@ -18,20 +25,20 @@ func SaveGamesToFile() error {
 		fmt.Println("Error marshalling games:", err)
 		return err
 	}
-	return os.WriteFile(gameFilePath, file, 0644)
+	return os.WriteFile(fds.FilePath, file, 0644)
 }
 
-func LoadGamesFromFile() error {
+func (fds *FileDataSaver) LoadGamesFromFile() error {
 	fmt.Println("Loading games from file...")
 
-	if _, err := os.Stat(gameFilePath); os.IsNotExist(err) {
+	if _, err := os.Stat(fds.FilePath); os.IsNotExist(err) {
 		model.GlobalPersistence = model.GlobalPersistenceStruct{
 			Games:      make(map[string]model.UserGame),
 			EndedGames: []model.UserGame{},
 		}
 		return nil
 	}
-	file, err := os.ReadFile(gameFilePath)
+	file, err := os.ReadFile(fds.FilePath)
 	if err != nil {
 		return err
 	}

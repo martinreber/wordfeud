@@ -11,7 +11,11 @@ import (
 	"buchstaben.go/persistence"
 )
 
-func ListGames() []model.ListGame {
+type DataService struct {
+	Saver persistence.DataSaver
+}
+
+func (ds *DataService) ListGames() []model.ListGame {
 	model.GamesLock.Lock()
 	defer model.GamesLock.Unlock()
 
@@ -27,7 +31,7 @@ func ListGames() []model.ListGame {
 	return listGames
 }
 
-func CreateGame(username string) error {
+func (ds *DataService) CreateGame(username string) error {
 	model.GamesLock.Lock()
 	defer model.GamesLock.Unlock()
 
@@ -43,11 +47,10 @@ func CreateGame(username string) error {
 		LetterOverAllValue: 0,
 		PlayedMoves:        []model.PlayedMove{},
 	}
-
-	return model.PersistenceImpl.SaveGamesToFile()
+	return ds.Saver.SaveGamesToFile()
 }
 
-func DeleteGame(username string) error {
+func (ds *DataService) DeleteGame(username string) error {
 	model.GamesLock.Lock()
 	defer model.GamesLock.Unlock()
 
@@ -56,10 +59,10 @@ func DeleteGame(username string) error {
 	}
 
 	delete(model.GlobalPersistence.Games, username)
-	return persistence.SaveGamesToFile()
+	return ds.Saver.SaveGamesToFile()
 }
 
-func EndGame(username string) error {
+func (ds *DataService) EndGame(username string) error {
 	model.GamesLock.Lock()
 	defer model.GamesLock.Unlock()
 
@@ -75,9 +78,9 @@ func EndGame(username string) error {
 	model.GlobalPersistence.EndedGames = append(model.GlobalPersistence.EndedGames, game)
 	delete(model.GlobalPersistence.Games, username)
 
-	return persistence.SaveGamesToFile()
+	return ds.Saver.SaveGamesToFile()
 }
-func GetLetters(username string) (model.UserGame, error) {
+func (ds *DataService) GetLetters(username string) (model.UserGame, error) {
 	model.GamesLock.Lock()
 	defer model.GamesLock.Unlock()
 
@@ -95,7 +98,7 @@ func GetLetters(username string) (model.UserGame, error) {
 		model.GlobalPersistence.Games[username] = userGame
 
 		// Save the new game to file
-		if err := persistence.SaveGamesToFile(); err != nil {
+		if err := ds.Saver.SaveGamesToFile(); err != nil {
 			return model.UserGame{}, fmt.Errorf("failed to save game data: %w", err)
 		}
 	}
@@ -103,7 +106,7 @@ func GetLetters(username string) (model.UserGame, error) {
 	return userGame, nil
 }
 
-func PlayMove(username string, playedMove model.PlayedMove) (model.UserGame, error) {
+func (ds *DataService) PlayMove(username string, playedMove model.PlayedMove) (model.UserGame, error) {
 	model.GamesLock.Lock()
 	defer model.GamesLock.Unlock()
 
@@ -128,13 +131,13 @@ func PlayMove(username string, playedMove model.PlayedMove) (model.UserGame, err
 	}
 	model.GlobalPersistence.Games[username] = updatedGame
 
-	if err := persistence.SaveGamesToFile(); err != nil {
+	if err := ds.Saver.SaveGamesToFile(); err != nil {
 		return model.UserGame{}, fmt.Errorf("failed to save game data: %w", err)
 	}
 	return updatedGame, nil
 }
 
-func ListEndedGames() []model.ListEndedGame {
+func (ds *DataService) ListEndedGames() []model.ListEndedGame {
 	model.GamesLock.Lock()
 	defer model.GamesLock.Unlock()
 
@@ -149,7 +152,7 @@ func ListEndedGames() []model.ListEndedGame {
 	return listEndedGames
 }
 
-func GetPlayedWords() []model.WordCount {
+func (ds *DataService) GetPlayedWords() []model.WordCount {
 	model.GamesLock.Lock()
 	defer model.GamesLock.Unlock()
 

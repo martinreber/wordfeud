@@ -6,19 +6,19 @@
         {
           "letter": "a",
           "original_count": 5,
-          "current_count": 4,
+          "current_count": 1,
           "value": 1
         },
         {
           "letter": "b",
           "original_count": 2,
-          "current_count": 1,
+          "current_count": 0,
           "value": 2
         },
         {
           "letter": "c",
           "original_count": 2,
-          "current_count": 2,
+          "current_count": 0,
           "value": 4
         },
         {
@@ -30,7 +30,7 @@
         {
           "letter": "e",
           "original_count": 14,
-          "current_count": 10,
+          "current_count": 9,
           "value": 1
         },
         {
@@ -42,13 +42,13 @@
         {
           "letter": "g",
           "original_count": 3,
-          "current_count": 3,
+          "current_count": 2,
           "value": 2
         },
         {
           "letter": "h",
           "original_count": 4,
-          "current_count": 3,
+          "current_count": 1,
           "value": 2
         },
         {
@@ -72,19 +72,19 @@
         {
           "letter": "l",
           "original_count": 3,
-          "current_count": 3,
+          "current_count": 2,
           "value": 2
         },
         {
           "letter": "m",
           "original_count": 4,
-          "current_count": 2,
+          "current_count": 1,
           "value": 3
         },
         {
           "letter": "n",
           "original_count": 9,
-          "current_count": 6,
+          "current_count": 5,
           "value": 1
         },
         {
@@ -114,13 +114,13 @@
         {
           "letter": "s",
           "original_count": 7,
-          "current_count": 6,
+          "current_count": 5,
           "value": 1
         },
         {
           "letter": "t",
           "original_count": 6,
-          "current_count": 5,
+          "current_count": 3,
           "value": 1
         },
         {
@@ -168,7 +168,7 @@
         {
           "letter": "ö",
           "original_count": 1,
-          "current_count": 1,
+          "current_count": 0,
           "value": 8
         },
         {
@@ -180,14 +180,14 @@
         {
           "letter": "*",
           "original_count": 2,
-          "current_count": 2,
+          "current_count": 1,
           "value": 0
         }
       ],
-      "last_move_timestamp": "2025-04-21 14:39:07",
+      "last_move_timestamp": "2025-04-21 16:22:51",
       "game_start_timestamp": "2025-04-21 12:35:25",
       "game_end_timestamp": "",
-      "letter_overall_value": 155,
+      "letter_overall_value": 118,
       "played_moves": [
         {
           "letters": "umtue",
@@ -233,6 +233,51 @@
           "played_by_myself": false,
           "timestamp": "2025-04-21 14:39:07",
           "points": 32
+        },
+        {
+          "letters": "blangs",
+          "words": [
+            "belangs"
+          ],
+          "played_by_myself": false,
+          "timestamp": "2025-04-21 15:35:51",
+          "points": 32
+        },
+        {
+          "letters": "*e",
+          "words": [
+            "bewohnen"
+          ],
+          "played_by_myself": false,
+          "timestamp": "2025-04-21 15:37:48",
+          "points": 33
+        },
+        {
+          "letters": "chat",
+          "words": [
+            "chat"
+          ],
+          "played_by_myself": false,
+          "timestamp": "2025-04-21 16:16:34",
+          "points": 31
+        },
+        {
+          "letters": "chat",
+          "words": [
+            "chat"
+          ],
+          "played_by_myself": false,
+          "timestamp": "2025-04-21 16:17:25",
+          "points": 31
+        },
+        {
+          "letters": "öm",
+          "words": [
+            "öhm"
+          ],
+          "played_by_myself": false,
+          "timestamp": "2025-04-21 16:22:51",
+          "points": 21
         }
       ]
     },

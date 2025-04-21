@@ -5,12 +5,19 @@ import (
 
 	"buchstaben.go/controller"
 	"buchstaben.go/persistence"
+	"buchstaben.go/service"
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 )
 
+const gameFilePath = "../data/games.json"
+
 func main() {
-	if err := persistence.LoadGamesFromFile(); err != nil {
+	fileSaver := &persistence.FileDataSaver{FilePath: gameFilePath}
+	dataService := service.DataService{Saver: fileSaver}
+	dataController := controller.DataController{Service: &dataService}
+
+	if err := fileSaver.LoadGamesFromFile(); err != nil {
 		fmt.Println("Error loading games from file:", err)
 		return
 	}
@@ -26,13 +33,13 @@ func main() {
 	r.Use(cors.New(config))
 
 	// API routes
-	r.GET("/games", controller.ListGamesHandler)
-	r.GET("/games/:username", controller.GetGameHandler)
-	r.POST("/games/:username", controller.CreateGameHandler)
-	r.POST("/games/:username/play-move", controller.PlayMoveHandler)
-	r.GET("/games/end-game", controller.ListEndedGamesHandler)
-	r.POST("/games/:username/end-game", controller.EndGameHandler)
-	r.GET("/played-words", controller.PlayedWordsHandler)
+	r.GET("/games", dataController.ListGamesHandler)
+	r.GET("/games/:username", dataController.GetGameHandler)
+	r.POST("/games/:username", dataController.CreateGameHandler)
+	r.POST("/games/:username/play-move", dataController.PlayMoveHandler)
+	r.GET("/games/end-game", dataController.ListEndedGamesHandler)
+	r.POST("/games/:username/end-game", dataController.EndGameHandler)
+	r.GET("/played-words", dataController.PlayedWordsHandler)
 
 	fmt.Println("Starting server on :8080")
 	err := r.Run(":8080")

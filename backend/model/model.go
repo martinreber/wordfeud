@@ -52,12 +52,7 @@ type GlobalPersistenceStruct struct {
 	EndedGames []UserGame          `json:"ended_games"`
 }
 
-type PersistenceLayer interface {
-	SaveGamesToFile() error
-}
-
 var (
 	GlobalPersistence GlobalPersistenceStruct
 	GamesLock         sync.Mutex
-	PersistenceImpl   PersistenceLayer
 )
