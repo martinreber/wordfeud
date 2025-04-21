@@ -6,13 +6,13 @@
         {
           "letter": "a",
           "original_count": 5,
-          "current_count": 3,
+          "current_count": 1,
           "value": 1
         },
         {
           "letter": "b",
           "original_count": 2,
-          "current_count": 1,
+          "current_count": 0,
           "value": 2
         },
         {
@@ -30,7 +30,7 @@
         {
           "letter": "e",
           "original_count": 14,
-          "current_count": 5,
+          "current_count": 2,
           "value": 1
         },
         {
@@ -54,7 +54,7 @@
         {
           "letter": "i",
           "original_count": 6,
-          "current_count": 1,
+          "current_count": 0,
           "value": 1
         },
         {
@@ -66,13 +66,13 @@
         {
           "letter": "k",
           "original_count": 2,
-          "current_count": 1,
+          "current_count": 0,
           "value": 4
         },
         {
           "letter": "l",
           "original_count": 3,
-          "current_count": 1,
+          "current_count": 0,
           "value": 2
         },
         {
@@ -84,7 +84,7 @@
         {
           "letter": "n",
           "original_count": 9,
-          "current_count": 1,
+          "current_count": 0,
           "value": 1
         },
         {
@@ -108,31 +108,31 @@
         {
           "letter": "r",
           "original_count": 6,
-          "current_count": 4,
+          "current_count": 2,
           "value": 1
         },
         {
           "letter": "s",
           "original_count": 7,
-          "current_count": 1,
+          "current_count": 0,
           "value": 1
         },
         {
           "letter": "t",
           "original_count": 6,
-          "current_count": 2,
+          "current_count": 0,
           "value": 1
         },
         {
           "letter": "u",
           "original_count": 6,
-          "current_count": 4,
+          "current_count": 0,
           "value": 1
         },
         {
           "letter": "v",
           "original_count": 1,
-          "current_count": 1,
+          "current_count": 0,
           "value": 6
         },
         {
@@ -174,24 +174,25 @@
         {
           "letter": "ü",
           "original_count": 1,
-          "current_count": 1,
+          "current_count": 0,
           "value": 6
         },
         {
           "letter": "*",
           "original_count": 2,
-          "current_count": 2,
+          "current_count": 1,
           "value": 0
         }
       ],
-      "last_move_timestamp": "2025-04-20 14:58:16",
+      "last_move_timestamp": "2025-04-21 12:24:34",
       "game_start_timestamp": "2025-04-20 13:09:34",
       "game_end_timestamp": "",
-      "letter_overall_value": 54,
+      "letter_overall_value": 18,
       "played_moves": [
         {
           "letters": "telexe",
           "word": "telexe",
+          "words": null,
           "played_by_myself": false,
           "timestamp": "2025-04-20 13:10:44",
           "points": 0
@@ -199,6 +200,7 @@
         {
           "letters": "nous",
           "word": "nous",
+          "words": null,
           "played_by_myself": false,
           "timestamp": "2025-04-20 13:26:45",
           "points": 0
@@ -206,6 +208,7 @@
         {
           "letters": "pfegt",
           "word": "pflegt",
+          "words": null,
           "played_by_myself": false,
           "timestamp": "2025-04-20 13:26:59",
           "points": 0
@@ -213,6 +216,7 @@
         {
           "letters": "beiss",
           "word": "beiss",
+          "words": null,
           "played_by_myself": false,
           "timestamp": "2025-04-20 13:29:14",
           "points": 0
@@ -220,6 +224,7 @@
         {
           "letters": "lice",
           "word": "slice",
+          "words": null,
           "played_by_myself": false,
           "timestamp": "2025-04-20 13:32:06",
           "points": 0
@@ -227,6 +232,7 @@
         {
           "letters": "jin",
           "word": "jin",
+          "words": null,
           "played_by_myself": false,
           "timestamp": "2025-04-20 13:45:07",
           "points": 0
@@ -234,6 +240,7 @@
         {
           "letters": "ndio",
           "word": "indio",
+          "words": null,
           "played_by_myself": false,
           "timestamp": "2025-04-20 13:47:44",
           "points": 0
@@ -241,6 +248,7 @@
         {
           "letters": "ge",
           "word": "gepflegten",
+          "words": null,
           "played_by_myself": false,
           "timestamp": "2025-04-20 13:51:35",
           "points": 0
@@ -248,6 +256,7 @@
         {
           "letters": "qs",
           "word": "qis",
+          "words": null,
           "played_by_myself": false,
           "timestamp": "2025-04-20 13:52:19",
           "points": 0
@@ -255,6 +264,7 @@
         {
           "letters": "häs",
           "word": "häs",
+          "words": null,
           "played_by_myself": false,
           "timestamp": "2025-04-20 14:11:18",
           "points": 0
@@ -262,6 +272,7 @@
         {
           "letters": "d",
           "word": "telexend",
+          "words": null,
           "played_by_myself": false,
           "timestamp": "2025-04-20 14:14:15",
           "points": 0
@@ -269,6 +280,7 @@
         {
           "letters": "fas",
           "word": "fas",
+          "words": null,
           "played_by_myself": false,
           "timestamp": "2025-04-20 14:18:59",
           "points": 0
@@ -276,6 +288,7 @@
         {
           "letters": "my",
           "word": "mys",
+          "words": null,
           "played_by_myself": false,
           "timestamp": "2025-04-20 14:22:20",
           "points": 0
@@ -283,6 +296,7 @@
         {
           "letters": "amt",
           "word": "amt",
+          "words": null,
           "played_by_myself": false,
           "timestamp": "2025-04-20 14:27:30",
           "points": 0
@@ -290,6 +304,7 @@
         {
           "letters": "huhn",
           "word": "huhne",
+          "words": null,
           "played_by_myself": false,
           "timestamp": "2025-04-20 14:30:00",
           "points": 0
@@ -297,6 +312,7 @@
         {
           "letters": "nör",
           "word": "nöre",
+          "words": null,
           "played_by_myself": false,
           "timestamp": "2025-04-20 14:36:00",
           "points": 0
@@ -304,6 +320,7 @@
         {
           "letters": "rn",
           "word": "törn",
+          "words": null,
           "played_by_myself": false,
           "timestamp": "2025-04-20 14:37:49",
           "points": 0
@@ -311,6 +328,7 @@
         {
           "letters": "omen",
           "word": "omen",
+          "words": null,
           "played_by_myself": false,
           "timestamp": "2025-04-20 14:41:50",
           "points": 0
@@ -318,6 +336,7 @@
         {
           "letters": "n",
           "word": "telexenden",
+          "words": null,
           "played_by_myself": false,
           "timestamp": "2025-04-20 14:42:20",
           "points": 0
@@ -325,6 +344,7 @@
         {
           "letters": "ki",
           "word": "kin",
+          "words": null,
           "played_by_myself": false,
           "timestamp": "2025-04-20 14:55:28",
           "points": 0
@@ -332,9 +352,72 @@
         {
           "letters": "mect",
           "word": "mecht",
+          "words": null,
           "played_by_myself": false,
           "timestamp": "2025-04-20 14:58:16",
           "points": 0
+        },
+        {
+          "letters": "bük",
+          "word": "büke",
+          "words": null,
+          "played_by_myself": false,
+          "timestamp": "2025-04-21 11:21:30",
+          "points": 0
+        },
+        {
+          "letters": "an",
+          "word": "anbüke",
+          "words": null,
+          "played_by_myself": false,
+          "timestamp": "2025-04-21 11:21:58",
+          "points": 0
+        },
+        {
+          "letters": "vti",
+          "word": "vati",
+          "words": null,
+          "played_by_myself": false,
+          "timestamp": "2025-04-21 11:23:08",
+          "points": 0
+        },
+        {
+          "letters": "el",
+          "word": "el",
+          "words": null,
+          "played_by_myself": false,
+          "timestamp": "2025-04-21 11:39:56",
+          "points": 16
+        },
+        {
+          "letters": "utue",
+          "word": "umtue",
+          "words": null,
+          "played_by_myself": false,
+          "timestamp": "2025-04-21 11:54:41",
+          "points": 10
+        },
+        {
+          "letters": "ur",
+          "word": "",
+          "words": [
+            "ur",
+            "rumtue"
+          ],
+          "played_by_myself": false,
+          "timestamp": "2025-04-21 12:20:12",
+          "points": 12
+        },
+        {
+          "letters": "*ase",
+          "word": "",
+          "words": [
+            "nase",
+            "nomen"
+          ],
+          "played_by_myself": false,
+          "timestamp": "2025-04-21 12:24:34",
+          "points": 24
         }
       ]
     },
@@ -350,13 +433,13 @@
         {
           "letter": "b",
           "original_count": 2,
-          "current_count": 0,
+          "current_count": 1,
           "value": 2
         },
         {
           "letter": "c",
           "original_count": 2,
-          "current_count": 1,
+          "current_count": 2,
           "value": 4
         },
         {
@@ -374,7 +457,7 @@
         {
           "letter": "f",
           "original_count": 2,
-          "current_count": 2,
+          "current_count": 1,
           "value": 4
         },
         {
@@ -446,25 +529,25 @@
         {
           "letter": "r",
           "original_count": 6,
-          "current_count": 5,
+          "current_count": 6,
           "value": 1
         },
         {
           "letter": "s",
           "original_count": 7,
-          "current_count": 6,
+          "current_count": 7,
           "value": 1
         },
         {
           "letter": "t",
           "original_count": 6,
-          "current_count": 4,
+          "current_count": 6,
           "value": 1
         },
         {
           "letter": "u",
           "original_count": 6,
-          "current_count": 5,
+          "current_count": 6,
           "value": 1
         },
         {
@@ -494,7 +577,7 @@
         {
           "letter": "z",
           "original_count": 1,
-          "current_count": 0,
+          "current_count": 1,
           "value": 3
         },
         {
@@ -512,7 +595,7 @@
         {
           "letter": "ü",
           "original_count": 1,
-          "current_count": 0,
+          "current_count": 1,
           "value": 6
         },
         {
@@ -522,38 +605,32 @@
           "value": 0
         }
       ],
-      "last_move_timestamp": "2025-04-20 15:12:37",
-      "game_start_timestamp": "2025-04-20 15:04:48",
+      "last_move_timestamp": "2025-04-21 12:32:04",
+      "game_start_timestamp": "2025-04-21 12:27:27",
       "game_end_timestamp": "",
-      "letter_overall_value": 177,
+      "letter_overall_value": 193,
       "played_moves": [
         {
-          "letters": "test",
-          "word": "test",
+          "letters": "ab",
+          "word": "",
+          "words": [
+            "ac",
+            "de",
+            "ef"
+          ],
           "played_by_myself": false,
-          "timestamp": "2025-04-20 15:05:00",
-          "points": 0
-        },
-        {
-          "letters": "zur",
-          "word": "zur",
-          "played_by_myself": false,
-          "timestamp": "2025-04-20 15:06:31",
-          "points": 0
-        },
-        {
-          "letters": "abc",
-          "word": "abc",
-          "played_by_myself": false,
-          "timestamp": "2025-04-20 15:08:55",
+          "timestamp": "2025-04-21 12:31:50",
           "points": 13
         },
         {
-          "letters": "üb",
-          "word": "üben",
+          "letters": "ef",
+          "word": "",
+          "words": [
+            "eff"
+          ],
           "played_by_myself": false,
-          "timestamp": "2025-04-20 15:12:37",
-          "points": 5
+          "timestamp": "2025-04-21 12:32:04",
+          "points": 3
         }
       ]
     }
@@ -751,6 +828,7 @@
         {
           "letters": "abcd",
           "word": "abcd",
+          "words": null,
           "played_by_myself": false,
           "timestamp": "2025-04-20 13:32:39",
           "points": 0

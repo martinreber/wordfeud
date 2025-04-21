@@ -54,8 +54,14 @@ document.addEventListener("DOMContentLoaded", () =>
       return;
     }
 
-    if(!inputPoints) {
+    if (!inputPoints) {
       showMessage("Please enter the points you scored.");
+      return;
+    }
+
+    // check if inputWord have only letters and , characters
+    if (!/^[a-z\,]+$/.test(inputWord)) {
+      showMessage("Word can only contain letters and , to split multiple words.");
       return;
     }
 
@@ -66,19 +72,22 @@ document.addEventListener("DOMContentLoaded", () =>
       },
       body: JSON.stringify({
         letters: inputString,
-        word: inputWord,
+        word: "", // deprecated
+        words: inputWord.split(","),
         playedByMyself: isPlayedByMyself,
         points: parseInt(inputPoints),
       }),
     })
-      .then(async response => {
+      .then(async response =>
+      {
         if (!response.ok) {
           const errorData = await response.json();
           throw new Error(errorData.error || 'Failed to play move');
         }
         return handleResponse<UserGame>(response);
       })
-      .then((data: UserGame) => {
+      .then((data: UserGame) =>
+      {
         createUserGameLayout(username, data);
         const player = isPlayedByMyself ? "myself" : "opponent";
         showMessage(`Word "${inputWord}" successfully played by ${player} with ${inputPoints} points.`);
@@ -86,7 +95,8 @@ document.addEventListener("DOMContentLoaded", () =>
         inputWordElement.value = "";
         inputPointsElement.value = "";
       })
-      .catch((error) => {
+      .catch((error) =>
+      {
         showMessage(error.message);
       });
   });
@@ -122,7 +132,8 @@ document.addEventListener("DOMContentLoaded", () =>
     console.error("End Game button not found");
     return;
   }
-  endGameButton.addEventListener("click", () => {
+  endGameButton.addEventListener("click", () =>
+  {
     if (!confirm("Are you sure you want to end the game?")) {
       return;
     }
@@ -131,17 +142,20 @@ document.addEventListener("DOMContentLoaded", () =>
     fetch(`${API_BASE_URL}/games/${username}/end`, {
       method: "POST",
     })
-      .then(response => {
+      .then(response =>
+      {
         if (!response.ok) {
           throw new Error("Failed to end game");
         }
         return response.text();
       })
-      .then(message => {
+      .then(message =>
+      {
         showMessage(message);
         window.location.href = "../list-games/index.html"; // Redirect to game list
       })
-      .catch(error => {
+      .catch(error =>
+      {
         console.error("Error ending game:", error);
         showMessage(error.message);
       });
@@ -231,21 +245,22 @@ function createLettersTable(data: UserGame)
   return table;
 }
 
-function getBackgroundColor(letter: LetterPlaySet): string {
-  const reminding_percentage = (letter.current_count / letter.original_count) * 100;
-
-  if (reminding_percentage >= 100) {
-    return "#98FB98";    // pale green - full count
-  } else if (reminding_percentage > 75) {
-    return "#B5EAB5";    // lighter green - very good
-  } else if (reminding_percentage > 50) {
-    return "#FFE4B5";    // moccasin - medium
-  } else if (reminding_percentage > 25) {
-    return "#FFB5B5";    // lighter salmon - low
-  } else if (reminding_percentage > 0) {
-    return "#ff4000";    // darker salmon - very low
-  } else if (reminding_percentage <= 0) {
-    return "#E39898";  } else {
+function getBackgroundColor(letter: LetterPlaySet): string
+{
+  if (letter.current_count >= 5) {
+    return "#00ff00";
+  } else if (letter.current_count == 4) {
+    return "#bfff00";
+  } else if (letter.current_count == 3) {
+    return "#ffff00";
+  } else if (letter.current_count == 2) {
+    return "#ff8000";
+  } else if (letter.current_count == 1) {
+    return "#ff4000";
+  } else if (letter.current_count <= 0) {
+    return "#ff0000";
+  }
+  else {
     return "black";
   }
 }

@@ -157,18 +157,12 @@ func GetPlayedWords() []model.WordCount {
 
 	// Count words in active games
 	for _, game := range model.GlobalPersistence.Games {
-		for _, move := range game.PlayedMoves {
-			word := strings.ToLower(move.Word)
-			wordCounts[word]++
-		}
+		countWords(game.PlayedMoves, wordCounts)
 	}
 
 	// Count words in ended games
-	for _, game := range model.GlobalPersistence.EndedGames {
-		for _, move := range game.PlayedMoves {
-			word := strings.ToLower(move.Word)
-			wordCounts[word]++
-		}
+	for _, endedGame := range model.GlobalPersistence.EndedGames {
+		countWords(endedGame.PlayedMoves, wordCounts)
 	}
 
 	wordsCount := make([]model.WordCount, 0, len(wordCounts))
@@ -180,4 +174,20 @@ func GetPlayedWords() []model.WordCount {
 	})
 
 	return wordsCount
+}
+
+func countWords(playedMoves []model.PlayedMove, wordCounts map[string]int) {
+	for _, move := range playedMoves {
+		if move.Word != "" {
+			word := strings.ToLower(move.Word)
+			wordCounts[word]++
+		}
+		if move.Words != nil {
+			for _, word := range move.Words {
+				word = strings.ToLower(word)
+				wordCounts[word]++
+			}
+		}
+	}
+	return
 }
