@@ -148,6 +148,12 @@ document.addEventListener("DOMContentLoaded", () =>
         window.open("../played-words/index.html", "_blank");
     });
 
+    const customWordsButton = getElementByIdOrThrow<HTMLButtonElement>("custom-words-button");
+    customWordsButton.addEventListener("click", () =>
+    {
+        window.open("../custom-words/index.html", "_blank");
+    });
+
     // Initial fetch
     fetchGames();
 });

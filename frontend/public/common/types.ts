@@ -40,3 +40,11 @@ export interface WordCount {
 }
 
 export type WordCounts = WordCount[];
+
+export interface CustomWord {
+    word: string;
+    category: string;
+    timestamp: string;
+}
+
+export type CustomWords = CustomWord[];

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>List of Games</title>
+  <link rel="stylesheet" href="../common/style-common.css">
+  <link rel="stylesheet" href="./custom-words.css">
+</head>
+
+<body>
+  <div class="container">
+    <h1>Custom Words</h1>
+    <h2>Custom Word List</h2>
+    <div id="custom-words-section" class="grid-item">
+      <div class="input-group">
+        <input type="text" id="new-word" placeholder="Enter word" maxlength="30" />
+        <input type="text" id="word-category" placeholder="Category (optional)" maxlength="20" />
+        <button id="add-word-button" class="button">Add Word</button>
+      </div>
+
+      <div class="custom-words-container">
+        <table id="custom-words-table" class="game-table">
+          <thead>
+            <tr>
+              <th>Word</th>
+              <th>Category</th>
+              <th>Added Date</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- Custom words will be dynamically added here -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div id="response-message" class="response-message"></div>
+  </div>
+  <script type="module" src="./custom-words.js"></script>
+</body>
+
+</html>

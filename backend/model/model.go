@@ -47,9 +47,16 @@ type WordCount struct {
 	CurrentCount int    `json:"current_count"`
 }
 
+type CustomWord struct {
+	Word      string `json:"word"`
+	Category  string `json:"category"`
+	Timestamp string `json:"timestamp"`
+}
+
 type GlobalPersistenceStruct struct {
-	Games      map[string]UserGame `json:"games"`
-	EndedGames []UserGame          `json:"ended_games"`
+	Games       map[string]UserGame `json:"games"`
+	EndedGames  []UserGame          `json:"ended_games"`
+	CustomWords []CustomWord        `json:"custom_words"`
 }
 
 var (

@@ -33,8 +33,9 @@ func (fds *FileDataSaver) LoadGamesFromFile() error {
 
 	if _, err := os.Stat(fds.FilePath); os.IsNotExist(err) {
 		model.GlobalPersistence = model.GlobalPersistenceStruct{
-			Games:      make(map[string]model.UserGame),
-			EndedGames: []model.UserGame{},
+			Games:       make(map[string]model.UserGame),
+			EndedGames:  []model.UserGame{},
+			CustomWords: []model.CustomWord{},
 		}
 		return nil
 	}

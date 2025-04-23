@@ -41,6 +41,10 @@ func main() {
 	r.POST("/games/:username/end-game", dataController.EndGameHandler)
 	r.GET("/played-words", dataController.PlayedWordsHandler)
 
+	r.GET("/custom-words", dataController.GetCustomWordsHandler)
+	r.POST("/custom-words", dataController.AddCustomWordHandler)
+	r.DELETE("/custom-words/:word", dataController.DeleteCustomWordHandler)
+
 	fmt.Println("Starting server on :8080")
 	err := r.Run(":8080")
 	if err != nil {
