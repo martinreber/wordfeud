@@ -26,21 +26,14 @@
     text-align: right;
 }
 
-#new-word, #word-category {
+#new-words{
     padding: 10px;
     margin: 10px 10px 10px 0;
     border: 1px solid #ccc;
     border-radius: 4px;
     font-size: 1rem;
     box-sizing: border-box;
-}
-
-#new-word {
-    width: 200px;
-}
-
-#word-category {
-    width: 150px;
+    width: 400px;
 }
 
 .input-group {
@@ -74,12 +67,6 @@
         background: var(--container-bg);
     }
 
-    #new-username {
-        background-color: var(--container-bg);
-        color: var(--text-color);
-        border-color: var(--input-border);
-    }
-
     .delete-button {
         background-color: var(--error-color);
     }
@@ -88,7 +75,7 @@
         background-color: #d32f2f;
     }
 
-    #new-word, #word-category {
+    #new-words, #word-category {
         background-color: var(--container-bg);
         color: var(--text-color);
         border-color: var(--input-border);

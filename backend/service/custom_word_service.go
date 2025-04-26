@@ -9,23 +9,28 @@ import (
 
 // Add these functions to your DataService struct
 
-func (ds *DataService) AddCustomWord(newWord model.CustomWord) error {
+func (ds *DataService) AddCustomWords(newWords model.CustomWords) error {
 	model.GamesLock.Lock()
 	defer model.GamesLock.Unlock()
 
 	// Check if word already exists
 	for _, word := range model.GlobalPersistence.CustomWords {
-		if word.Word == newWord.Word {
-			return fmt.Errorf("word '%s' already exists", newWord.Word)
+		for _, newWord := range newWords.Words {
+			if word.Word == newWord {
+				return fmt.Errorf("word '%s' already exists", newWord)
+			}
 		}
 	}
 
-	// Add timestamp if not provided
-	if newWord.Timestamp == "" {
-		newWord.Timestamp = time.Now().Format("2006-01-02 15:04:05")
+	for _, newWord := range newWords.Words {
+		addWord := model.CustomWord{
+			Word:      newWord,
+			Category:  newWords.Category,
+			Timestamp: time.Now().Format("2006-01-02 15:04:05"),
+		}
+		fmt.Printf("addWord: %+v\n", addWord)
+		model.GlobalPersistence.CustomWords = append(model.GlobalPersistence.CustomWords, addWord)
 	}
-
-	model.GlobalPersistence.CustomWords = append(model.GlobalPersistence.CustomWords, newWord)
 	return ds.Saver.SaveGamesToFile()
 }
 

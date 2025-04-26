@@ -14,18 +14,13 @@ func (dc *DataController) GetCustomWordsHandler(c *gin.Context) {
 }
 
 func (dc *DataController) AddCustomWordHandler(c *gin.Context) {
-	var newWord model.CustomWord
-	if err := c.BindJSON(&newWord); err != nil {
+	var newWords model.CustomWords
+	if err := c.BindJSON(&newWords); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid request body"})
 		return
 	}
 
-	if newWord.Word == "" {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "Word cannot be empty"})
-		return
-	}
-
-	if err := dc.Service.AddCustomWord(newWord); err != nil {
+	if err := dc.Service.AddCustomWords(newWords); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}

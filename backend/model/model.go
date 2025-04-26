@@ -52,6 +52,10 @@ type CustomWord struct {
 	Category  string `json:"category"`
 	Timestamp string `json:"timestamp"`
 }
+type CustomWords struct {
+	Words    []string `json:"words"`
+	Category string   `json:"category"`
+}
 
 type GlobalPersistenceStruct struct {
 	Games       map[string]UserGame `json:"games"`
