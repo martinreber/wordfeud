@@ -8,7 +8,16 @@
   <link rel="stylesheet" href="../common/style-common.css">
   <link rel="stylesheet" href="./list-games.css">
 </head>
-
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+      fetch("../common/menu.html")
+          .then(response => response.text())
+          .then(html => {
+              document.body.insertAdjacentHTML("afterbegin", html);
+          })
+          .catch(error => console.error("Error loading menu:", error));
+  });
+</script>
 <body>
   <div class="container">
     <h1>List of Games</h1>
@@ -41,11 +50,6 @@
       <div id="button-section">
         <div id="left-buttons">
           <button id="create-game-button" class="button">Create Game</button>
-        </div>
-        <div id="right-buttons">
-          <button id="ended-games-button" class="button">Ended Games...</button>
-          <button id="played-words-button" class="button">Played Words...</button>
-          <button id="custom-words-button" class="button">Custom Words...</button>
         </div>
       </div>
     </div>

@@ -87,6 +87,22 @@ func (dc *DataController) ListEndedGamesHandler(c *gin.Context) {
 }
 
 func (dc *DataController) PlayedWordsHandler(c *gin.Context) {
-	wordsCount := dc.Service.GetPlayedWords()
+	filter := c.Query("filter")
+	if filter == "" {
+		empty := []model.WordCount{}
+		c.JSON(http.StatusOK, empty)
+		return
+	}
+	wordsCount := dc.Service.GetPlayedWords(filter)
+	c.JSON(http.StatusOK, wordsCount)
+}
+
+func (dc *DataController) FindWordsHandler(c *gin.Context) {
+	letters := c.Query("letters")
+	if letters == "" {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "letters is required"})
+		return
+	}
+	wordsCount := dc.Service.FindWords(letters)
 	c.JSON(http.StatusOK, wordsCount)
 }

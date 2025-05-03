@@ -44,7 +44,7 @@ func setupTestEnvironment(t *testing.T) (*DataController, *gin.Engine, string) {
 	model.GlobalPersistence = testData
 
 	// Create controller with actual service
-	fileSaver := &persistence.FileDataSaver{FilePath: tempFilePath}
+	fileSaver := &persistence.FileDataSaver{GameFilePath: tempFilePath}
 	dataService := &service.DataService{Saver: fileSaver}
 	controller := &DataController{Service: dataService}
 

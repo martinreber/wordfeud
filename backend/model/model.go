@@ -57,6 +57,8 @@ type CustomWords struct {
 	Category string   `json:"category"`
 }
 
+type WordMap map[string]string
+
 type GlobalPersistenceStruct struct {
 	Games       map[string]UserGame `json:"games"`
 	EndedGames  []UserGame          `json:"ended_games"`
@@ -66,4 +68,5 @@ type GlobalPersistenceStruct struct {
 var (
 	GlobalPersistence GlobalPersistenceStruct
 	GamesLock         sync.Mutex
+	GlobalWordMap     WordMap
 )

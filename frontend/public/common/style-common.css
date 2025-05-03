@@ -124,3 +124,38 @@ a:hover {
     color: var(--link-hover-color);
     text-decoration: underline;
 }
+
+/* Navigation Menu */
+.top-menu {
+    background-color: #333;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    padding: 10px 0;
+}
+
+.top-menu ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    gap: 20px;
+}
+
+.top-menu ul li {
+    display: inline;
+}
+
+.top-menu ul li a {
+    color: white;
+    text-decoration: none;
+    padding: 10px 20px;
+    display: inline-block;
+    font-size: 1rem;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+}
+
+.top-menu ul li a:hover {
+    background-color: #575757;
+}

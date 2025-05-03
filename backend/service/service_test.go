@@ -7,24 +7,32 @@ import (
 
 	"buchstaben.go/logic"
 	"buchstaben.go/model"
+	"github.com/stretchr/testify/assert"
 )
 
 // MockDataSaver implements the DataSaver interface for testing
 type MockDataSaver struct {
-	SaveCalled bool
-	SaveError  error
-	LoadCalled bool
-	LoadError  error
+	GameSaveCalled    bool
+	GameSaveError     error
+	GameLoadCalled    bool
+	GameLoadError     error
+	WordMapLoadCalled bool
+	WordMapLoadError  error
 }
 
 func (m *MockDataSaver) SaveGamesToFile() error {
-	m.SaveCalled = true
-	return m.SaveError
+	m.GameSaveCalled = true
+	return m.GameSaveError
 }
 
 func (m *MockDataSaver) LoadGamesFromFile() error {
-	m.LoadCalled = true
-	return m.LoadError
+	m.GameLoadCalled = true
+	return m.GameLoadError
+}
+
+func (m *MockDataSaver) LoadWordListFromFile() error {
+	m.WordMapLoadCalled = true
+	return m.WordMapLoadError
 }
 
 func setupTestEnvironment() (*DataService, *MockDataSaver) {
@@ -81,7 +89,7 @@ func TestCreateGame(t *testing.T) {
 	if err != nil {
 		t.Errorf("Expected no error, got %v", err)
 	}
-	if !mock.SaveCalled {
+	if !mock.GameSaveCalled {
 		t.Error("Expected SaveGamesToFile to be called")
 	}
 
@@ -96,18 +104,18 @@ func TestCreateGame(t *testing.T) {
 	}
 
 	// Test duplicate user creation
-	mock.SaveCalled = false // Reset flag
+	mock.GameSaveCalled = false // Reset flag
 	err = service.CreateGame("testuser")
 
 	if err == nil {
 		t.Error("Expected error for duplicate user, got nil")
 	}
-	if mock.SaveCalled {
+	if mock.GameSaveCalled {
 		t.Error("SaveGamesToFile should not be called for duplicate user")
 	}
 
 	// Test error during save
-	mock.SaveError = fmt.Errorf("save error")
+	mock.GameSaveError = fmt.Errorf("save error")
 	err = service.CreateGame("newuser")
 
 	if err == nil || err.Error() != "save error" {
@@ -129,7 +137,7 @@ func TestDeleteGame(t *testing.T) {
 	if err != nil {
 		t.Errorf("Expected no error, got %v", err)
 	}
-	if !mock.SaveCalled {
+	if !mock.GameSaveCalled {
 		t.Error("Expected SaveGamesToFile to be called")
 	}
 
@@ -138,13 +146,13 @@ func TestDeleteGame(t *testing.T) {
 	}
 
 	// Test non-existent user
-	mock.SaveCalled = false
+	mock.GameSaveCalled = false
 	err = service.DeleteGame("nonexistent")
 
 	if err == nil {
 		t.Error("Expected error for non-existent user, got nil")
 	}
-	if mock.SaveCalled {
+	if mock.GameSaveCalled {
 		t.Error("SaveGamesToFile should not be called for non-existent user")
 	}
 }
@@ -173,7 +181,7 @@ func TestEndGame(t *testing.T) {
 	if err != nil {
 		t.Errorf("Expected no error, got %v", err)
 	}
-	if !mock.SaveCalled {
+	if !mock.GameSaveCalled {
 		t.Error("Expected SaveGamesToFile to be called")
 	}
 
@@ -204,7 +212,7 @@ func TestGetLetters(t *testing.T) {
 	if err != nil {
 		t.Errorf("Expected no error, got %v", err)
 	}
-	if !mock.SaveCalled {
+	if !mock.GameSaveCalled {
 		t.Error("Expected SaveGamesToFile to be called")
 	}
 
@@ -218,18 +226,18 @@ func TestGetLetters(t *testing.T) {
 	}
 
 	// Test with existing user
-	mock.SaveCalled = false
+	mock.GameSaveCalled = false
 	_, err = service.GetLetters("newuser")
 
 	if err != nil {
 		t.Errorf("Expected no error, got %v", err)
 	}
-	if mock.SaveCalled {
+	if mock.GameSaveCalled {
 		t.Error("SaveGamesToFile should not be called for existing user")
 	}
 
 	// Test with save error
-	mock.SaveError = fmt.Errorf("save error")
+	mock.GameSaveError = fmt.Errorf("save error")
 	_, err = service.GetLetters("anotheruser")
 
 	if err == nil || err.Error() != "failed to save game data: save error" {
@@ -266,7 +274,7 @@ func TestPlayMove(t *testing.T) {
 	if err != nil {
 		t.Errorf("Expected no error, got %v", err)
 	}
-	if !mock.SaveCalled {
+	if !mock.GameSaveCalled {
 		t.Error("Expected SaveGamesToFile to be called")
 	}
 
@@ -283,7 +291,7 @@ func TestPlayMove(t *testing.T) {
 	}
 
 	// Test with save error
-	mock.SaveError = fmt.Errorf("save error")
+	mock.GameSaveError = fmt.Errorf("save error")
 	move.Letters = "a"
 	_, err = service.PlayMove("testuser", move)
 
@@ -331,8 +339,11 @@ func TestListEndedGames(t *testing.T) {
 func TestGetPlayedWords(t *testing.T) {
 	service, _ := setupTestEnvironment()
 
+	letters := "el"
+
 	// Test with no words
-	words := service.GetPlayedWords()
+	model.GlobalPersistence.Games["user1"] = model.UserGame{}
+	words := service.GetPlayedWords(letters)
 
 	if len(words) != 0 {
 		t.Errorf("Expected 0 words, got %d", len(words))
@@ -350,16 +361,17 @@ func TestGetPlayedWords(t *testing.T) {
 	model.GlobalPersistence.EndedGames = []model.UserGame{
 		{
 			PlayedMoves: []model.PlayedMove{
-				{Words: []string{"test", "Case"}},
+				{Words: []string{"test", "HELL"}},
 			},
 		},
 	}
 
 	// Test with words
-	words = service.GetPlayedWords()
+	words = service.GetPlayedWords(letters)
+	fmt.Printf("words: %v\n", words)
 
-	if len(words) != 4 {
-		t.Errorf("Expected 4 unique words, got %d", len(words))
+	if len(words) != 2 {
+		t.Errorf("Expected 2 unique words, got %d", len(words))
 	}
 
 	// Create expected map to verify counts
@@ -452,6 +464,32 @@ func TestCountWords(t *testing.T) {
 			if !reflect.DeepEqual(gotCounts, tt.wantCounts) {
 				t.Errorf("countWords() = %v, want %v", gotCounts, tt.wantCounts)
 			}
+		})
+	}
+}
+
+func TestBuildWordOutOfLetters(t *testing.T) {
+	tests := []struct {
+		word     string
+		letters  string
+		expected bool
+	}{
+		{"hello", "hleol", true},    // All letters exist in the correct count
+		{"hello", "helo", false},    // Missing one 'l'
+		{"hello", "hheelloo", true}, // Extra letters available
+		{"hello", "hheell", false},  // Missing 'o'
+		{"", "abc", true},           // Empty word can always be built
+		{"abc", "", false},          // Non-empty word cannot be built from empty letters
+		{"", "", true},              // Both word and letters are empty
+		{"abc", "cba", true},        // Letters exist in any order
+		{"abc", "abcd", true},       // Extra letters available
+		{"abc", "ab", false},        // Missing one letter
+	}
+
+	for _, test := range tests {
+		t.Run(test.word+"_"+test.letters, func(t *testing.T) {
+			result := buildWordOutOfLetters(test.word, test.letters)
+			assert.Equal(t, test.expected, result, "Expected %v but got %v for word=%q and letters=%q", test.expected, result, test.word, test.letters)
 		})
 	}
 }

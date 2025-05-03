@@ -19,13 +19,9 @@ document.addEventListener("DOMContentLoaded", () =>
     } else {
       console.error("An unknown error occurred:", error);
     }
-    // window.location.href = "../list-games/index.html";
+    window.location.href = "../list-games/index.html";
   }
 
-  const listGameButton = document.getElementById("list-games-button");
-  if (listGameButton) {
-    listGameButton.addEventListener("click", () => { window.open("../list-games/index.html", "_blank"); });
-  }
 
   const playMoveButton = document.getElementById("play-move-button");
   if (!playMoveButton) {
@@ -97,32 +93,6 @@ document.addEventListener("DOMContentLoaded", () =>
       .catch((error) =>
       {
         showMessage(error.message);
-      });
-  });
-
-  const resetButton = document.getElementById("reset-button");
-  if (!resetButton) {
-    console.error("Reset button not found");
-    return;
-  }
-  resetButton.addEventListener("click", () =>
-  {
-    if (!confirm('Are you sure you want to reset the game?')) {
-      return;
-    }
-    const username = getUsername();
-    fetch(`${API_BASE_URL}/games/${username}/reset`, {
-      method: "POST",
-    })
-      .then((response) => response.json())
-      .then((data: UserGame) =>
-      {
-        createUserGameLayout(username, data);
-        showMessage("Game reset successfully.");
-      })
-      .catch((error) =>
-      {
-        console.error("Error resetting letters:", error);
       });
   });
 

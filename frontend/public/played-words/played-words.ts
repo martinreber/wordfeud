@@ -3,40 +3,21 @@ import { showMessage, handleResponse, getElementByIdOrThrow, API_BASE_URL } from
 
 let allWords: WordCounts = [];
 
-async function fetchPlayedWords(): Promise<void> {
+async function fetchPlayedWords(filterText: string): Promise<void> {
     try {
-        const response = await fetch(`${API_BASE_URL}/played-words`);
-        allWords = await handleResponse<WordCounts>(response);
-        filterAndDisplayWords('');
+        const response = await fetch(`${API_BASE_URL}/played-words?filter=${encodeURIComponent(filterText)}`);
+        const filteredWords = await handleResponse<WordCounts>(response);
+
+        const tableBody = getElementByIdOrThrow<HTMLTableSectionElement>("words-table").querySelector('tbody');
+        if (!tableBody) throw new Error('Table body not found');
+
+        updateWordCount(filteredWords.length);
+        displayWords(filteredWords, tableBody);
     } catch (error) {
         console.error("Error fetching played words:", error);
         showMessage(error instanceof Error ? error.message : "An unexpected error occurred");
-        allWords = [];
     }
 }
-
-function filterAndDisplayWords(filterText: string): void {
-    const tableBody = getElementByIdOrThrow<HTMLTableSectionElement>("words-table").querySelector('tbody');
-    if (!tableBody) throw new Error('Table body not found');
-
-    const filteredWords = filterText.trim() === ''
-        ? allWords
-        : allWords.filter(entry => containsAllLetters(entry.word, filterText));
-
-    updateWordCount(filteredWords.length);
-    displayWords(filteredWords, tableBody);
-}
-
-function containsAllLetters(word: string, letters: string): boolean {
-    const wordChars = word.toLowerCase().split('');
-    const searchChars = letters.toLowerCase().split('');
-
-    return searchChars.every(char => {
-        const included = wordChars.includes(char);
-        return included;
-    });
-}
-
 
 function updateWordCount(count: number): void {
     const wordCount = getElementByIdOrThrow<HTMLElement>("word-count");
@@ -64,18 +45,18 @@ function setupEventListeners(): void {
     const filterInput = getElementByIdOrThrow<HTMLInputElement>("word-filter");
     filterInput.addEventListener("input", (e) => {
         if (e.target instanceof HTMLInputElement) {
-            filterAndDisplayWords(e.target.value);
+            fetchPlayedWords(e.target.value); // Pass the filter text to the backend
         }
     });
 
     const refreshButton = getElementByIdOrThrow<HTMLButtonElement>("refresh-button");
     refreshButton.addEventListener("click", () => {
-        fetchPlayedWords();
+        fetchPlayedWords(''); // Clear the filter and fetch all words
         filterInput.value = '';
     });
 }
 
 document.addEventListener("DOMContentLoaded", () => {
     setupEventListeners();
-    fetchPlayedWords();
+    fetchPlayedWords(''); // Initial fetch with no filter
 });

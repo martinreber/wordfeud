@@ -2,6 +2,7 @@ package service
 
 import (
 	"fmt"
+	"regexp"
 	"sort"
 	"strings"
 	"time"
@@ -152,31 +153,126 @@ func (ds *DataService) ListEndedGames() []model.ListEndedGame {
 	return listEndedGames
 }
 
-func (ds *DataService) GetPlayedWords() []model.WordCount {
+func (ds *DataService) GetPlayedWords(letters string) []model.WordCount {
 	model.GamesLock.Lock()
 	defer model.GamesLock.Unlock()
 
-	wordCounts := make(map[string]int)
+	unfilteredWordCounts := make(map[string]int)
 
 	// Count words in active games
 	for _, game := range model.GlobalPersistence.Games {
-		countWords(game.PlayedMoves, wordCounts)
+		countWords(game.PlayedMoves, unfilteredWordCounts)
 	}
 
 	// Count words in ended games
 	for _, endedGame := range model.GlobalPersistence.EndedGames {
-		countWords(endedGame.PlayedMoves, wordCounts)
+		countWords(endedGame.PlayedMoves, unfilteredWordCounts)
 	}
 
-	wordsCount := make([]model.WordCount, 0, len(wordCounts))
-	for word, count := range wordCounts {
-		wordsCount = append(wordsCount, model.WordCount{Word: word, CurrentCount: count})
+	// add words from DWDS Word list
+	for word := range model.GlobalWordMap {
+		if len(word) > 15 || len(word) < 2 {
+			continue
+		}
+		// if word contains alpha characters and hyphen, keep it, otherwise skip
+		if !regexp.MustCompile(`^[a-zA-Z-]+$`).MatchString(word) {
+			continue
+		}
+		if _, exists := unfilteredWordCounts[word]; !exists {
+			unfilteredWordCounts[word] = 0
+		}
 	}
+
+	// convert map to slice of WordCount
+	wordsCount := make([]model.WordCount, 0, len(unfilteredWordCounts))
+	for word := range unfilteredWordCounts {
+		if !buildWordOutOfLetters(word, letters) {
+			continue
+		}
+		wordsCount = append(wordsCount, model.WordCount{
+			Word:         word,
+			CurrentCount: 0,
+		})
+	}
+	// Sort the wordsCount slice by the length of the words in descending order,
+	// and for words with the same length, sort them alphabetically in ascending order.
 	sort.Slice(wordsCount, func(i, j int) bool {
-		return wordsCount[i].Word < wordsCount[j].Word
+		if len(wordsCount[i].Word) == len(wordsCount[j].Word) {
+			return wordsCount[i].Word < wordsCount[j].Word // Sort alphabetically if lengths are equal
+		}
+		return len(wordsCount[i].Word) > len(wordsCount[j].Word) // Sort by length in descending order
 	})
+	if len(wordsCount) > 100 {
+		wordsCount = wordsCount[:100]
+	}
 
 	return wordsCount
+}
+
+func (ds *DataService) FindWords(letters string) []model.WordCount {
+	model.GamesLock.Lock()
+	defer model.GamesLock.Unlock()
+
+	unfilteredWordCounts := make(map[string]int)
+
+	// add words from DWDS Word list
+	for word := range model.GlobalWordMap {
+		if len(word) > 15 || len(word) < 2 {
+			continue
+		}
+		// if word contains alpha characters and hyphen, keep it, otherwise skip
+		if !regexp.MustCompile(`^[a-zA-Z-]+$`).MatchString(word) {
+			continue
+		}
+		if _, exists := unfilteredWordCounts[word]; !exists {
+			unfilteredWordCounts[word] = 0
+		}
+	}
+
+	// convert map to slice of WordCount
+	wordsCount := make([]model.WordCount, 0, len(unfilteredWordCounts))
+	for word := range unfilteredWordCounts {
+		if !buildWordOutOfLetters(word, letters) {
+			continue
+		}
+		wordsCount = append(wordsCount, model.WordCount{
+			Word:         word,
+			CurrentCount: 0,
+		})
+	}
+	// Sort the wordsCount slice by the length of the words in descending order,
+	// and for words with the same length, sort them alphabetically in ascending order.
+	sort.Slice(wordsCount, func(i, j int) bool {
+		if len(wordsCount[i].Word) == len(wordsCount[j].Word) {
+			return wordsCount[i].Word < wordsCount[j].Word // Sort alphabetically if lengths are equal
+		}
+		return len(wordsCount[i].Word) > len(wordsCount[j].Word) // Sort by length in descending order
+	})
+	if len(wordsCount) > 100 {
+		wordsCount = wordsCount[:100]
+	}
+
+	return wordsCount
+}
+
+// check if the word can be built out of the letters
+func buildWordOutOfLetters(word, letters string) bool {
+	// Create a map to count occurrences of each character in the letters string
+	letterCounts := make(map[rune]int)
+	for _, char := range letters {
+		letterCounts[char]++
+	}
+
+	// Check if each character in the word can be formed using the letters
+	for _, char := range word {
+		if letterCounts[char] > 0 {
+			letterCounts[char]-- // Decrement the count for the character
+		} else {
+			return false // Character not found or insufficient occurrences
+		}
+	}
+
+	return true
 }
 
 func countWords(playedMoves []model.PlayedMove, wordCounts map[string]int) {

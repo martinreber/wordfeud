@@ -8,7 +8,16 @@
   <link rel="stylesheet" href="../common/style-common.css">
   <link rel="stylesheet" href="./ended-games.css">
 </head>
-
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+      fetch("../common/menu.html")
+          .then(response => response.text())
+          .then(html => {
+              document.body.insertAdjacentHTML("afterbegin", html);
+          })
+          .catch(error => console.error("Error loading menu:", error));
+  });
+</script>
 <body>
   <div class="container">
     <h1>List of Endes Games</h1>

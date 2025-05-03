@@ -45,7 +45,7 @@ func TestSaveGamesToFile(t *testing.T) {
 	}
 
 	saver := &FileDataSaver{
-		FilePath: testFilePath,
+		GameFilePath: testFilePath,
 	}
 
 	// Test save
@@ -61,7 +61,7 @@ func TestSaveGamesToFile(t *testing.T) {
 
 	// Test error case with invalid path
 	invalidSaver := &FileDataSaver{
-		FilePath: "/nonexistent/directory/games.json",
+		GameFilePath: "/nonexistent/directory/games.json",
 	}
 
 	err = invalidSaver.SaveGamesToFile()
@@ -76,7 +76,7 @@ func TestLoadGamesFromFile_NonExistent(t *testing.T) {
 	model.GlobalPersistence = model.GlobalPersistenceStruct{}
 
 	saver := &FileDataSaver{
-		FilePath: nonExistentPath,
+		GameFilePath: nonExistentPath,
 	}
 
 	// Test load from non-existent file
@@ -112,7 +112,7 @@ func TestLoadGamesFromFile_ExistingFile(t *testing.T) {
 	model.GlobalPersistence = model.GlobalPersistenceStruct{}
 
 	saver := &FileDataSaver{
-		FilePath: testFilePath,
+		GameFilePath: testFilePath,
 	}
 
 	// Test load from existing file
@@ -145,7 +145,7 @@ func TestLoadGamesFromFile_InvalidJSON(t *testing.T) {
 	testFilePath := createTempFile(t, invalidJSON)
 
 	saver := &FileDataSaver{
-		FilePath: testFilePath,
+		GameFilePath: testFilePath,
 	}
 
 	// Test load from file with invalid JSON
@@ -163,7 +163,7 @@ func TestLoadGamesFromFile_ReadError(t *testing.T) {
 	assert.NoError(t, err, "Should be able to create test directory")
 
 	saver := &FileDataSaver{
-		FilePath: dirPath, // Use directory path, which will cause a read error
+		GameFilePath: dirPath, // Use directory path, which will cause a read error
 	}
 
 	// Test load from unreadable path

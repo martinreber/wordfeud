@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,6 +8,16 @@
     <link rel="stylesheet" href="../common/style-common.css">
     <link rel="stylesheet" href="game.css">
 </head>
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        fetch("../common/menu.html")
+            .then(response => response.text())
+            .then(html => {
+                document.body.insertAdjacentHTML("afterbegin", html);
+            })
+            .catch(error => console.error("Error loading menu:", error));
+    });
+</script>
 <body>
     <div class="container">
         <h1>Wordfeud Helper</h1>
@@ -41,7 +52,8 @@
                     </div>
                     <div class="input-field">
                         <label for="input-words">Word played:</label>
-                        <input type="text" id="input-words" placeholder="Enter the word(s) you formed, spearated by commas">
+                        <input type="text" id="input-words"
+                            placeholder="Enter the word(s) you formed, spearated by commas">
                     </div>
                     <div class="input-field">
                         <label for="input-point">Points:</label>
@@ -61,8 +73,6 @@
             </div>
             <div id="right-buttons">
                 <button id="end-game-button" class="button">End Game ...</button>
-                <button id="reset-button" class="button">Reset Game</button>
-                <button id="list-games-button" class="button">Games List ...</button>
             </div>
         </div>
         <div id="response-message" class="response-message"></div>

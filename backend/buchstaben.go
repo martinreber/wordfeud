@@ -11,9 +11,13 @@ import (
 )
 
 const gameFilePath = "../data/games.json"
+const wordListFilePath = "../data/dwds_word_list.json"
 
 func main() {
-	fileSaver := &persistence.FileDataSaver{FilePath: gameFilePath}
+	fileSaver := &persistence.FileDataSaver{
+		GameFilePath:     gameFilePath,
+		WordListFilePath: wordListFilePath,
+	}
 	dataService := service.DataService{Saver: fileSaver}
 	dataController := controller.DataController{Service: &dataService}
 
@@ -22,6 +26,10 @@ func main() {
 		return
 	}
 
+	if err := fileSaver.LoadWordListFromFile(); err != nil {
+		fmt.Println("Error loading word list from file:", err)
+		return
+	}
 	gin.SetMode(gin.ReleaseMode)
 	r := gin.Default()
 
@@ -38,8 +46,10 @@ func main() {
 	r.POST("/games/:username", dataController.CreateGameHandler)
 	r.POST("/games/:username/play-move", dataController.PlayMoveHandler)
 	r.GET("/games/end-game", dataController.ListEndedGamesHandler)
-	r.POST("/games/:username/end-game", dataController.EndGameHandler)
+	r.POST("/games/:username/end", dataController.EndGameHandler)
+
 	r.GET("/played-words", dataController.PlayedWordsHandler)
+	r.GET("/find-words", dataController.FindWordsHandler)
 
 	r.GET("/custom-words", dataController.GetCustomWordsHandler)
 	r.POST("/custom-words", dataController.AddCustomWordHandler)

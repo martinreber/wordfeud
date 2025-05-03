@@ -48,7 +48,6 @@ function createUsernameCell(username: string): HTMLTableCellElement
     const link = document.createElement("a");
     link.textContent = username;
     link.href = `../game/index.html?username=${encodeURIComponent(username)}`;
-    link.target = "_blank";
     cell.appendChild(link);
     return cell;
 }
@@ -78,7 +77,7 @@ async function endGame(username: string): Promise<void>
     }
 
     try {
-        const response = await fetch(`${API_BASE_URL}/games/${encodeURIComponent(username)}/end-game`, {
+        const response = await fetch(`${API_BASE_URL}/games/${encodeURIComponent(username)}/end`, {
             method: "POST",
         });
 
@@ -103,7 +102,7 @@ async function createGame(username: string): Promise<void>
         });
         await handleResponse(response);
         await fetchGames();
-        window.open(`../game/index.html?username=${encodeURIComponent(username)}`, "_blank");
+        window.location.href = `../game/index.html?username=${encodeURIComponent(username)}`;
         showMessage(""); // Clear any previous message
     } catch (error) {
         console.error("Error creating game:", error);
@@ -133,26 +132,8 @@ document.addEventListener("DOMContentLoaded", () =>
         await createGame(newUsername);
     });
 
-    const endedGamesButton = getElementByIdOrThrow<HTMLButtonElement>("ended-games-button");
-    endedGamesButton.addEventListener("click", () =>
-    {
-        window.open("../ended-games/index.html", "_blank");
-    });
-
     const refreshButton = getElementByIdOrThrow<HTMLButtonElement>("refresh-button");
     refreshButton.addEventListener("click", () => fetchGames());
-
-    const playedWordsButton = getElementByIdOrThrow<HTMLButtonElement>("played-words-button");
-    playedWordsButton.addEventListener("click", () =>
-    {
-        window.open("../played-words/index.html", "_blank");
-    });
-
-    const customWordsButton = getElementByIdOrThrow<HTMLButtonElement>("custom-words-button");
-    customWordsButton.addEventListener("click", () =>
-    {
-        window.open("../custom-words/index.html", "_blank");
-    });
 
     // Initial fetch
     fetchGames();
